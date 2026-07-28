@@ -1,0 +1,10 @@
+{
+  "name": "Estugadigital Original",
+  "description": "Aplikasi Sistem Manajemen Sekolah Modern untuk Walikelas, Guru, Kepala Sekolah, dan Walimurid dengan CBT, Absensi Barcode, dan Jurnal Harian.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

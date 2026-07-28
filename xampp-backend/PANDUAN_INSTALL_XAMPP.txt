@@ -1,0 +1,31 @@
+===================================================
+PANDUAN INSTALASI ADMINGURUKU DI XAMPP / CPANEL
+===================================================
+
+Aplikasi ini siap digunakan dengan XAMPP (Localhost) maupun hosting CPanel.
+
+LANGKAH 1: SIAPKAN DATABASE
+1. Buka XAMPP, pastikan Apache dan MySQL sudah "Start".
+2. Buka browser, masuk ke http://localhost/phpmyadmin
+3. Buat database baru dengan nama: adminguruku_db
+4. Pilih tab "Import", lalu masukkan file database/adminguruku_db.sql yang ada di folder ini.
+5. Klik tombol "Go" / "Kirim" untuk memasukkan semua tabel.
+
+LANGKAH 2: SIAPKAN FILE BACKEND (PHP API)
+1. Copy seluruh isi folder "api" ke dalam folder htdocs XAMPP Anda. 
+   Contoh: C:\xampp\htdocs\adminguruku_api\
+2. Buka file db.php, pastikan DB_USER adalah 'root' dan DB_PASS adalah kosong (default XAMPP).
+   Jika menggunakan CPanel, ubah sesuai dengan username/password database hosting Anda.
+
+LANGKAH 3: SIAPKAN FILE FRONTEND (REACT.JS / UI)
+1. Ekspor aplikasi ini ke file ZIP dari Google AI Studio. 
+   Atau jika menggunakan Terminal, jalankan "npm run build".
+2. Ambil seluruh isi file di dalam folder "dist" (jika build sendiri) atau deploy folder aplikasi.
+3. Copy ke dalam folder public HTML / htdocs di server Anda.
+
+LANGKAH 4: SETTING WHATSAPP GATEWAY (OPSIONAL)
+1. Buka file wa_notif.php.
+2. Daftar akun di fonnte.com untuk mendapatkan API Token gratis.
+3. Masukkan token tersebut di variabel $token pada file wa_notif.php.
+
+Selamat! Aplikasi AdminGuruku Anda sudah siap dijalankan sepenuhnya secara mandiri.

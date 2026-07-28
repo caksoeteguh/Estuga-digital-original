@@ -1,0 +1,273 @@
+{
+  "entities": {
+    "student": {
+      "title": "Student",
+      "description": "Student data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "pob": { "type": "string" },
+        "dob": { "type": "string" },
+        "className": { "type": "string" },
+        "parentName": { "type": "string" },
+        "parentPhone": { "type": "string" },
+        "usernameCbt": { "type": "string" },
+        "passwordCbt": { "type": "string" },
+        "usernameParent": { "type": "string" },
+        "passwordParent": { "type": "string" },
+        "religion": { "type": "string" },
+        "gender": { "type": "string" }
+      }
+    },
+    "teacher": {
+      "title": "Teacher",
+      "description": "Teacher data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "subject": { "type": "string" },
+        "username": { "type": "string" },
+        "password": { "type": "string" },
+        "classesTaught": { "type": "string" },
+        "isHomeroom": { "type": "boolean" },
+        "homeroomClass": { "type": "string" }
+      }
+    },
+    "attendance": {
+      "title": "Attendance",
+      "description": "Attendance record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "className": { "type": "string" },
+        "date": { "type": "string" },
+        "timeIn": { "type": "string" },
+        "timeOut": { "type": "string" },
+        "status": { "type": "string" },
+        "notes": { "type": "string" },
+        "notifiedIn": { "type": "boolean" },
+        "notifiedOut": { "type": "boolean" }
+      }
+    },
+    "class_journal": {
+      "title": "Class Journal",
+      "description": "Class journal record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "className": { "type": "string" },
+        "subject": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "topic": { "type": "string" },
+        "method": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "cbt_exam": {
+      "title": "CBT Exam",
+      "description": "CBT Exam",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "className": { "type": "string" },
+        "date": { "type": "string" },
+        "durationMinutes": { "type": "number" },
+        "totalQuestions": { "type": "number" },
+        "isPublished": { "type": "boolean" },
+        "isRandomized": { "type": "boolean" }
+      }
+    },
+    "student_cbt_result": {
+      "title": "CBT Result",
+      "description": "Student CBT result",
+      "type": "object",
+      "properties": {
+        "examId": { "type": "string" },
+        "examTitle": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "subject": { "type": "string" },
+        "score": { "type": "number" },
+        "submittedAt": { "type": "string" },
+        "isGraded": { "type": "boolean" }
+      }
+    },
+    "academic_event": {
+      "title": "Academic Event",
+      "description": "Academic event",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string" },
+        "className": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "prayer_attendance": {
+      "title": "Prayer Attendance",
+      "description": "Prayer attendance",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "className": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "type": { "type": "string" },
+        "status": { "type": "string" },
+        "reason": { "type": "string" }
+      }
+    },
+    "teacher_feedback": {
+      "title": "Teacher Feedback",
+      "description": "Teacher feedback",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "principalNote": { "type": "string" },
+        "date": { "type": "string" }
+      }
+    },
+    "e_learning_material": {
+      "title": "E-Learning Material",
+      "description": "E-Learning material",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "className": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "type": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "wa_notif": {
+      "title": "WA Notification",
+      "description": "WA Notification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "recipient": { "type": "string" },
+        "phone": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" }
+      }
+    },
+    "assignment_task": {
+      "title": "Assignment Task",
+      "description": "Assignment task",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "className": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "deadline": { "type": "string" },
+        "description": { "type": "string" },
+        "allowImageUpload": { "type": "boolean" },
+        "taskType": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "assignment_submission": {
+      "title": "Assignment Submission",
+      "description": "Assignment submission",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "assignmentId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "submittedAt": { "type": "string" },
+        "isGraded": { "type": "boolean" },
+        "score": { "type": "number" }
+      }
+    },
+    "student_grade": {
+      "title": "Student Grade",
+      "description": "Student grade record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "className": { "type": "string" },
+        "subject": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "students/{studentId}": {
+      "schema": { "$ref": "#/entities/student" },
+      "description": "Students collection"
+    },
+    "teachers/{teacherId}": {
+      "schema": { "$ref": "#/entities/teacher" },
+      "description": "Teachers collection"
+    },
+    "attendance/{attendanceId}": {
+      "schema": { "$ref": "#/entities/attendance" },
+      "description": "Attendance collection"
+    },
+    "class_journals/{journalId}": {
+      "schema": { "$ref": "#/entities/class_journal" },
+      "description": "Class journals"
+    },
+    "cbt_exams/{examId}": {
+      "schema": { "$ref": "#/entities/cbt_exam" },
+      "description": "CBT Exams"
+    },
+    "cbt_results/{resultId}": {
+      "schema": { "$ref": "#/entities/student_cbt_result" },
+      "description": "CBT Results"
+    },
+    "academic_events/{eventId}": {
+      "schema": { "$ref": "#/entities/academic_event" },
+      "description": "Academic Events"
+    },
+    "prayer_attendance/{prayerId}": {
+      "schema": { "$ref": "#/entities/prayer_attendance" },
+      "description": "Prayer Attendance"
+    },
+    "teacher_feedbacks/{feedbackId}": {
+      "schema": { "$ref": "#/entities/teacher_feedback" },
+      "description": "Teacher Feedbacks"
+    },
+    "e_learning_materials/{materialId}": {
+      "schema": { "$ref": "#/entities/e_learning_material" },
+      "description": "E-Learning Materials"
+    },
+    "wa_notifs/{notifId}": {
+      "schema": { "$ref": "#/entities/wa_notif" },
+      "description": "WA Notifications"
+    },
+    "assignment_tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/assignment_task" },
+      "description": "Assignment Tasks"
+    },
+    "assignment_submissions/{submissionId}": {
+      "schema": { "$ref": "#/entities/assignment_submission" },
+      "description": "Assignment Submissions"
+    },
+    "student_grades/{gradeId}": {
+      "schema": { "$ref": "#/entities/student_grade" },
+      "description": "Student Grades"
+    }
+  }
+}
