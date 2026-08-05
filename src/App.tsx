@@ -95,7 +95,7 @@ export const ALLOWED_TABS: Record<UserRole, string[]> = {
   guru: ['dashboard', 'barcode-scan', 'jurnal-harian', 'cbt-exam', 'e-learning', 'calendar', 'daftar-nilai', 'rekap-sholat', 'rekap-presensi'],
   kepsek: ['dashboard', 'jurnal-harian', 'kepsek-overview', 'calendar', 'rekap-sholat', 'rekap-presensi'],
   walimurid: ['parent-realtime'],
-  siswa: ['dashboard', 'cbt-exam', 'e-learning', 'calendar']
+  siswa: ['dashboard', 'cbt-exam', 'e-learning', 'calendar', 'parent-realtime']
 };
 
 export default function App() {
@@ -2485,7 +2485,7 @@ export default function App() {
               <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-3.5">Akses Pintas Cepat (Quick Actions)</h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
                 
-                {activeRole !== 'walimurid' && (
+                {(activeRole !== 'walimurid' && activeRole !== 'siswa') && (
                   <button 
                     onClick={() => setCurrentTab('barcode-scan')}
                     className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-indigo-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
@@ -2495,7 +2495,7 @@ export default function App() {
                   </button>
                 )}
 
-                {activeRole === 'walimurid' && (
+                {(activeRole === 'walimurid' || activeRole === 'siswa') && (
                   <button 
                     onClick={() => setCurrentTab('parent-realtime')}
                     className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-indigo-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
@@ -2683,10 +2683,18 @@ export default function App() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-2xl font-black tracking-tight font-sans text-gray-800 dark:text-white flex items-center gap-2">
-              <span>👪</span> Portal Pemantauan Orang Tua
+              {activeRole === 'siswa' ? (
+                <><span>🎓</span> Portal Rekap Akademik Siswa</>
+              ) : (
+                <><span>👪</span> Portal Pemantauan Orang Tua</>
+              )}
             </h1>
             <p className="text-sm text-gray-500 dark:text-[#a3a4cc]">
-              Akses khusus Bapak/Ibu <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">{student.parentName}</strong> untuk memantau kehadiran, nilai murni, dan tugas e-learning <strong className="text-gray-700 dark:text-slate-300">{student.name}</strong>.
+              {activeRole === 'siswa' ? (
+                <>Akses khusus <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">{student.name}</strong> untuk memantau rekap kehadiran, nilai murni, dan tugas e-learning.</>
+              ) : (
+                <>Akses khusus Bapak/Ibu <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">{student.parentName}</strong> untuk memantau kehadiran, nilai murni, dan tugas e-learning <strong className="text-gray-700 dark:text-slate-300">{student.name}</strong>.</>
+              )}
             </p>
           </div>
         </div>
@@ -2703,9 +2711,15 @@ export default function App() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                   </span>
-                  Virtual Meet Anak Anda Segera Dimulai!
+                  {activeRole === 'siswa' ? 'Virtual Meet Anda Segera Dimulai!' : 'Virtual Meet Anak Anda Segera Dimulai!'}
                 </h3>
-                <p className="text-[10px] text-emerald-100 mt-0.5 max-w-lg">Ada <b>{pendingMeets.length}</b> jadwal pertemuan online untuk kelas anak Anda. Ingatkan anak Anda untuk gabung!</p>
+                <p className="text-[10px] text-emerald-100 mt-0.5 max-w-lg">
+                  {activeRole === 'siswa' ? (
+                    <>Ada <b>{pendingMeets.length}</b> jadwal pertemuan online untuk kelas Anda. Segera bersiap untuk bergabung!</>
+                  ) : (
+                    <>Ada <b>{pendingMeets.length}</b> jadwal pertemuan online untuk kelas anak Anda. Ingatkan anak Anda untuk gabung!</>
+                  )}
+                </p>
               </div>
             </div>
             <div className="flex flex-col gap-2 w-full md:w-auto">
@@ -2715,7 +2729,7 @@ export default function App() {
                     <span className="text-[9px] font-black uppercase tracking-wider opacity-70">{meet.subject}</span>
                     <span className="flex items-center gap-1"><Clock size={10}/> {new Date(meet.scheduledAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
                   </div>
-                  <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[9px]">INGATKAN ANAK</span>
+                  <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[9px]">{activeRole === 'siswa' ? 'BERSIAPLAH' : 'INGATKAN ANAK'}</span>
                 </div>
               ))}
             </div>
@@ -2755,7 +2769,7 @@ export default function App() {
             {/* Attendance Percentage Indicator */}
             <div className="bg-slate-50/50 dark:bg-[#232333]/40 p-4 rounded-xl border border-gray-100 dark:border-slate-800/50 space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-xs font-bold text-slate-400">Tingkat Kehadiran Anak:</span>
+                <span className="text-xs font-bold text-slate-400">{activeRole === 'siswa' ? 'Tingkat Kehadiran:' : 'Tingkat Kehadiran Anak:'}</span>
                 <span className={`text-lg font-black font-mono ${attendancePercentage >= 90 ? 'text-emerald-500' : attendancePercentage >= 75 ? 'text-amber-500' : 'text-rose-500'}`}>
                   {attendancePercentage}%
                 </span>
@@ -2860,8 +2874,12 @@ export default function App() {
               </h2>
               <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">
                 {pendingTasks.length > 0 
-                  ? `Silakan hubungi atau tegur ${student.name} agar segera menyelesaikannya sebelum melewati batas waktu.` 
-                  : `${student.name} sangat disiplin dan rajin dalam menyelesaikan seluruh penugasan guru.`}
+                  ? (activeRole === 'siswa' 
+                      ? `Silakan segera kerjakan tugas Anda sebelum melewati batas waktu.` 
+                      : `Silakan hubungi atau tegur ${student.name} agar segera menyelesaikannya sebelum melewati batas waktu.` )
+                  : (activeRole === 'siswa' 
+                      ? `Kamu sangat disiplin dan rajin dalam menyelesaikan seluruh penugasan guru.` 
+                      : `${student.name} sangat disiplin dan rajin dalam menyelesaikan seluruh penugasan guru.`)}
               </p>
             </div>
           </div>
@@ -2870,9 +2888,13 @@ export default function App() {
             {pendingTasks.length === 0 ? (
               <div className="text-center py-6 space-y-2">
                 <span className="text-4xl block">✨👨‍🎓👩‍🎓✨</span>
-                <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">Putra/Putri Anda Bersih dari Tunggakan Tugas!</p>
+                <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                  {activeRole === 'siswa' ? 'Kamu Bersih dari Tunggakan Tugas!' : 'Putra/Putri Anda Bersih dari Tunggakan Tugas!'}
+                </p>
                 <p className="text-xs text-slate-400 max-w-md mx-auto">
-                  Semua lembar kegiatan, materi interaktif, dan kuis telah disubmit tepat waktu. Terus berikan dukungan moral agar anak terus berprestasi.
+                  {activeRole === 'siswa' 
+                    ? 'Semua lembar kegiatan, materi interaktif, dan kuis telah disubmit tepat waktu. Terus pertahankan prestasimu!' 
+                    : 'Semua lembar kegiatan, materi interaktif, dan kuis telah disubmit tepat waktu. Terus berikan dukungan moral agar anak terus berprestasi.'}
                 </p>
               </div>
             ) : (

@@ -101,9 +101,9 @@ export default function SneatSidebar({
     },
     {
       id: 'parent-realtime',
-      label: 'Presensi & Nilai Anak',
+      label: 'Rekap Presensi & Nilai',
       icon: BookmarkCheck,
-      roles: ['walimurid']
+      roles: ['walimurid', 'siswa']
     },
     {
       id: 'calendar',
