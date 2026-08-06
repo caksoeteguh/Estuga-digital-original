@@ -168,7 +168,7 @@ export default function JournalManager({
           <button
             id="add-journal-btn"
             onClick={() => setShowAddForm(true)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-colors shadow-sm"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-colors shadow-sm"
           >
             <Plus size={16} />
             <span>Isi Jurnal Baru</span>
@@ -185,10 +185,10 @@ export default function JournalManager({
 
       {/* NEW JOURNAL ENTRY FORM */}
       {showAddForm && (
-        <div id="add-journal-form" className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-indigo-100 dark:border-indigo-900/50 shadow-md animate-fade-in">
+        <div id="add-journal-form" className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 shadow-md animate-fade-in">
           <div className="flex justify-between items-center mb-4 pb-2 border-b dark:border-[#3e405b]">
             <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
-              <BookOpen size={18} className="text-indigo-600 dark:text-indigo-400" />
+              <BookOpen size={18} className="text-emerald-600 dark:text-emerald-400" />
               Form Jurnal Harian Pembelajaran
             </h2>
             <button
@@ -304,7 +304,7 @@ export default function JournalManager({
                 href="https://generator-rpp-pm-stem-estuga-266662401322.asia-southeast1.run.app" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mb-3 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-xs font-bold rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 border border-indigo-100 dark:border-indigo-800/50 transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 border border-emerald-100 dark:border-emerald-800/50 transition-colors shadow-sm"
               >
                 <span className="text-sm">✨</span>
                 Generator Tulis RPP
@@ -316,7 +316,7 @@ export default function JournalManager({
                 ⚠️ RPP yang diunggah akan otomatis terhapus secara permanen setelah 24 jam untuk menghemat memori penyimpanan sistem.
               </p>
               <div className="flex flex-wrap items-center gap-3">
-                <label className="flex items-center gap-2 px-4 py-2.5 border-2 border-dashed border-slate-200 dark:border-[#3e405b] hover:border-indigo-500 rounded-lg bg-gray-50 dark:bg-[#1f2030] cursor-pointer text-xs transition-colors z-0">
+                <label className="flex items-center gap-2 px-4 py-2.5 border-2 border-dashed border-slate-200 dark:border-[#3e405b] hover:border-emerald-500 rounded-lg bg-gray-50 dark:bg-[#1f2030] cursor-pointer text-xs transition-colors z-0">
                   <FileText size={16} className="text-slate-400" />
                   <span className="font-semibold text-slate-600 dark:text-slate-300">
                     {rppFileName ? "Ganti RPP PDF" : "Unggah RPP Pembelajaran"}
@@ -340,7 +340,7 @@ export default function JournalManager({
                 </label>
 
                 {rppFileName && (
-                  <div className="flex items-center gap-2 bg-indigo-50/50 dark:bg-indigo-950/20 px-3 py-1.5 rounded-lg border border-indigo-100/30 text-xs text-indigo-700 dark:text-indigo-400 font-medium">
+                  <div className="flex items-center gap-2 bg-emerald-50/50 dark:bg-emerald-950/20 px-3 py-1.5 rounded-lg border border-emerald-100/30 text-xs text-emerald-700 dark:text-emerald-400 font-medium">
                     <CheckCircle size={14} className="text-emerald-500" />
                     <span className="truncate max-w-[200px] font-mono">{rppFileName}</span>
                     <button
@@ -369,7 +369,7 @@ export default function JournalManager({
               <button
                 id="submit-journal-btn"
                 type="submit"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-4 py-2 rounded-lg cursor-pointer transition-colors"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2 rounded-lg cursor-pointer transition-colors"
               >
                 Simpan Jurnal & Hubungkan Data
               </button>
@@ -385,7 +385,7 @@ export default function JournalManager({
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
             <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2 mb-1">
-              <ListTodo size={18} className="text-indigo-600 dark:text-indigo-400" />
+              <ListTodo size={18} className="text-emerald-600 dark:text-emerald-400" />
               Kontrol Kurikulum & Silabus
             </h2>
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
@@ -396,13 +396,13 @@ export default function JournalManager({
             <div className="mb-4">
               <div className="flex justify-between text-xs font-semibold mb-1">
                 <span>Materi Terajarkan</span>
-                <span className="text-indigo-600 dark:text-indigo-400">
+                <span className="text-emerald-600 dark:text-emerald-400">
                   {taughtCount} dari {totalCount} Topik ({Math.round((taughtCount / totalCount) * 100)}%)
                 </span>
               </div>
               <div className="w-full h-2.5 bg-gray-100 dark:bg-[#232333] rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-500"
+                  className="h-full bg-emerald-600 dark:bg-emerald-500 rounded-full transition-all duration-500"
                   style={{ width: `${(taughtCount / totalCount) * 100}%` }}
                 />
               </div>
@@ -460,7 +460,7 @@ export default function JournalManager({
           <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
               <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
-                <BookMarked size={18} className="text-indigo-600 dark:text-indigo-400" />
+                <BookMarked size={18} className="text-emerald-600 dark:text-emerald-400" />
                 Daftar Riwayat Jurnal Mengajar
               </h2>
               
@@ -518,7 +518,7 @@ export default function JournalManager({
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2 border-b dark:border-[#3e405b]/40 pb-2 mb-2.5">
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 font-bold px-2.5 py-0.75 rounded-full font-mono">
+                          <span className="text-[10px] bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 font-bold px-2.5 py-0.75 rounded-full font-mono">
                             {journal.className}
                           </span>
                           <span className="text-xs font-bold text-gray-800 dark:text-gray-100">{journal.subject}</span>
@@ -549,9 +549,9 @@ export default function JournalManager({
 
                         {/* RPP Attachment indicator/downloader */}
                         {journal.rppFile && (
-                          <div className="p-2.5 rounded-lg border border-indigo-100/30 dark:border-indigo-900/40 bg-indigo-50/20 dark:bg-indigo-950/10 flex items-center justify-between gap-2.5">
+                          <div className="p-2.5 rounded-lg border border-emerald-100/30 dark:border-emerald-900/40 bg-emerald-50/20 dark:bg-emerald-950/10 flex items-center justify-between gap-2.5">
                             <div className="flex items-center gap-1.5 min-w-0">
-                              <FileText size={14} className="text-indigo-600 dark:text-indigo-400 shrink-0" />
+                              <FileText size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
                               <div className="min-w-0">
                                 <p className="text-[9px] text-slate-400 uppercase font-semibold leading-none">RPP Terlampir</p>
                                 <p className="text-[10px] text-slate-700 dark:text-slate-300 font-mono truncate mt-0.5">{journal.rppFileName || "rpp_pembelajaran.pdf"}</p>
@@ -560,7 +560,7 @@ export default function JournalManager({
                             <a
                               href={journal.rppFile}
                               download={journal.rppFileName || "rpp_pembelajaran.pdf"}
-                              className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-md transition-all text-[10px] flex items-center gap-1 shrink-0 cursor-pointer shadow-xs"
+                              className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-md transition-all text-[10px] flex items-center gap-1 shrink-0 cursor-pointer shadow-xs"
                             >
                               Unduh 📥
                             </a>
@@ -585,7 +585,7 @@ export default function JournalManager({
                           <span className="font-medium">Guru: {journal.teacherName}</span>
                           <div className="flex items-center gap-2 font-mono">
                             <span className="flex items-center gap-1">
-                              <Users size={12} className="text-indigo-500" />
+                              <Users size={12} className="text-emerald-500" />
                               {absCount > 0 ? `${absCount} Izin/Sakit Terkoneksi` : 'Siswa Hadir Semua'}
                             </span>
                           </div>

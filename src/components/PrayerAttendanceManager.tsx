@@ -106,7 +106,7 @@ export default function PrayerAttendanceManager({
               type="date" 
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-[#232333] border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:text-white outline-none transition-all"
+              className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-[#232333] border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 dark:text-white outline-none transition-all"
             />
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function PrayerAttendanceManager({
             <select 
               value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-[#232333] border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:text-white outline-none transition-all appearance-none"
+              className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-[#232333] border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 dark:text-white outline-none transition-all appearance-none"
             >
               <option value="all">Semua Kelas</option>
               {classes.map(c => (
@@ -137,7 +137,7 @@ export default function PrayerAttendanceManager({
               placeholder="Nama atau NIS..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-[#232333] border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:text-white outline-none transition-all"
+              className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-[#232333] border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 dark:text-white outline-none transition-all"
             />
           </div>
         </div>

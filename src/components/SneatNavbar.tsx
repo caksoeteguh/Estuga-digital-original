@@ -110,7 +110,7 @@ export default function SneatNavbar({
         )}
         <div className="hidden sm:flex flex-col">
           <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold font-mono">Panel Akses</span>
-          <span className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">
+          <span className="text-xs font-extrabold text-emerald-600 dark:text-emerald-400">
             {getRoleDisplayName(activeRole)}
           </span>
         </div>
@@ -162,7 +162,7 @@ export default function SneatNavbar({
               id="role-quick-switcher"
               value={activeRole}
               onChange={(e) => setActiveRole(e.target.value as UserRole)}
-              className="text-xs bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 font-bold border-none rounded-lg px-2.5 py-1.5 focus:ring-0 outline-none cursor-pointer appearance-none pr-8 relative z-10"
+              className="text-xs bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 font-bold border-none rounded-lg px-2.5 py-1.5 focus:ring-0 outline-none cursor-pointer appearance-none pr-8 relative z-10"
             >
               <option value="admin">Admin</option>
               <option value="guru">Guru</option>
@@ -170,7 +170,7 @@ export default function SneatNavbar({
               <option value="walimurid">Walimurid</option>
               <option value="siswa">Siswa</option>
             </select>
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-indigo-500 z-20">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-500 z-20">
               <ChevronDown size={14} />
             </div>
           </div>
@@ -270,7 +270,7 @@ export default function SneatNavbar({
                       markAllNotificationsRead();
                       setShowNotificationDropdown(false);
                     }}
-                    className="text-[10px] text-indigo-600 dark:text-indigo-400 hover:underline font-medium cursor-pointer"
+                    className="text-[10px] text-emerald-600 dark:text-emerald-400 hover:underline font-medium cursor-pointer"
                   >
                     Tandai semua dibaca
                   </button>
@@ -286,9 +286,9 @@ export default function SneatNavbar({
                     <div 
                       key={notif.id || idx}
                       className={`p-3 border-b border-slate-100 dark:border-slate-800 flex gap-3 text-left
-                        ${!notif.read ? (isDark ? 'bg-indigo-950/20' : 'bg-indigo-50/50') : ''}`}
+                        ${!notif.read ? (isDark ? 'bg-emerald-950/20' : 'bg-emerald-50/50') : ''}`}
                     >
-                      <div className={`w-2 h-2 mt-1.5 rounded-full flex-shrink-0 ${!notif.read ? 'bg-indigo-500' : 'bg-transparent'}`}></div>
+                      <div className={`w-2 h-2 mt-1.5 rounded-full flex-shrink-0 ${!notif.read ? 'bg-emerald-500' : 'bg-transparent'}`}></div>
                       <div>
                         <p className="text-xs font-medium text-slate-700 dark:text-slate-200 leading-snug">{notif.text || notif.message}</p>
                         <p className="text-[10px] text-slate-400 mt-1">{notif.time}</p>
@@ -310,7 +310,7 @@ export default function SneatNavbar({
             }}
             className="flex items-center gap-1 p-1 rounded-full border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
           >
-            <div className="w-8 h-8 rounded-full bg-indigo-50/80 dark:bg-indigo-950/30 flex items-center justify-center text-lg">
+            <div className="w-8 h-8 rounded-full bg-emerald-50/80 dark:bg-emerald-950/30 flex items-center justify-center text-lg">
               {getRoleAvatar(activeRole)}
             </div>
             <ChevronDown size={12} className="text-slate-400 pr-0.5" />
@@ -324,7 +324,7 @@ export default function SneatNavbar({
                 ${isDark ? 'bg-[#111625] border-slate-800 text-slate-200' : 'bg-white border-slate-100 text-slate-800'}`}
             >
               <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-[#090d16]/50 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-indigo-50/80 dark:bg-indigo-950/30 flex items-center justify-center text-xl shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-emerald-50/80 dark:bg-emerald-950/30 flex items-center justify-center text-xl shadow-sm">
                   {getRoleAvatar(activeRole)}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -349,7 +349,7 @@ export default function SneatNavbar({
                         }}
                         className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium rounded-lg text-left transition-colors cursor-pointer
                           ${activeRole === role 
-                            ? 'bg-indigo-50/80 text-indigo-600 dark:bg-indigo-950/30 dark:text-indigo-400' 
+                            ? 'bg-emerald-50/80 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400' 
                             : 'hover:bg-slate-50 dark:hover:bg-[#1c2438]'}`}
                       >
                         <span className="text-sm">{getRoleAvatar(role)}</span>

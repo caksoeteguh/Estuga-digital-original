@@ -155,14 +155,6 @@ export interface ELearningMaterial {
   expiryDate?: string; // Optional expiry datetime (YYYY-MM-DDTHH:mm)
 }
 
-export interface WA_NotificationSim {
-  id: string;
-  timestamp: string;
-  recipient: string;
-  phone: string;
-  message: string;
-  type: 'masuk' | 'pulang' | 'sakit' | 'nilai';
-}
 
 export interface AssignmentTask {
   id: string;

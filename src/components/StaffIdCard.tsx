@@ -110,7 +110,7 @@ export default function StaffIdCard({ staff, isDark = false, schoolIdentity, isP
       <div className="w-full max-w-sm bg-white dark:bg-[#1a1b2e] border border-slate-200/60 dark:border-[#3e405b]/40 rounded-2xl p-3.5 shadow-xs space-y-2.5 no-print">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <Palette size={14} className="text-indigo-500" />
+            <Palette size={14} className="text-emerald-500" />
             <span className="text-xs font-bold text-gray-700 dark:text-slate-200">Gaya &amp; Warna Kartu 🎨</span>
           </div>
         </div>
@@ -250,7 +250,7 @@ export default function StaffIdCard({ staff, isDark = false, schoolIdentity, isP
           className={`flex items-center justify-center gap-1.5 text-xs font-bold px-3 py-2.5 rounded-xl transition-all cursor-pointer shadow-sm flex-1
             ${downloadSuccess
               ? 'bg-emerald-600 text-white shadow-emerald-500/20'
-              : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/10 hover:scale-[1.02]'}`}
+              : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/10 hover:scale-[1.02]'}`}
         >
           <span>{downloading ? 'Unduh...' : downloadSuccess ? 'Selesai!' : 'Download PNG'}</span>
         </button>

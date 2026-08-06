@@ -262,11 +262,11 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
       {/* HEADER CONTROLS (Hidden during printing) */}
       <div className="p-4 md:p-5 bg-white dark:bg-[#1a1b2e] border-b border-slate-200/60 dark:border-slate-800/60 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shrink-0 shadow-sm print:hidden">
         <div>
-          <span className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-400 font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">
+          <span className="bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">
             Modul Cetak Massal A4
           </span>
           <h2 className="text-xl font-bold text-slate-800 dark:text-white mt-1.5 flex items-center gap-2">
-            <Printer size={20} className="text-indigo-600" />
+            <Printer size={20} className="text-emerald-600" />
             <span>Cetak Kartu Identitas Banyak (4 Kartu per A4)</span>
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -284,8 +284,8 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
               ${downloadSuccess 
                 ? 'bg-emerald-600' 
                 : downloadingPngs 
-                  ? 'bg-indigo-500' 
-                  : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                  ? 'bg-emerald-500' 
+                  : 'bg-emerald-600 hover:bg-emerald-700'}`}
           >
             {downloadingPngs ? (
               <Loader2 size={15} className="animate-spin" />
@@ -387,7 +387,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
               </span>
               <button
                 onClick={handleSelectAllFiltered}
-                className="text-[10px] text-indigo-600 dark:text-indigo-400 font-extrabold flex items-center gap-1 hover:underline cursor-pointer"
+                className="text-[10px] text-emerald-600 dark:text-emerald-400 font-extrabold flex items-center gap-1 hover:underline cursor-pointer"
               >
                 {filteredStaffs.every(s => selectedStaffIds.includes(s.id)) ? 'Hapus Semua' : 'Pilih Semua'}
               </button>
@@ -408,12 +408,12 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                       onClick={() => toggleStaffSelection(staff.id)}
                       className={`w-full flex items-center justify-between p-2 rounded-xl border text-left transition-all cursor-pointer
                         ${isSelected 
-                          ? 'bg-indigo-50/50 dark:bg-indigo-950/20 border-indigo-200/50 dark:border-indigo-800/40' 
+                          ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200/50 dark:border-emerald-800/40' 
                           : 'bg-white dark:bg-[#1a1b2e] border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-[#1f2035]'}`}
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         {isSelected ? (
-                          <CheckSquare size={16} className="text-indigo-600 shrink-0" />
+                          <CheckSquare size={16} className="text-emerald-600 shrink-0" />
                         ) : (
                           <Square size={16} className="text-slate-300 shrink-0" />
                         )}
@@ -452,7 +452,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                   setOffsetY(0);
                   setScaleAdjust(100);
                 }}
-                className="text-[9px] text-indigo-600 dark:text-indigo-400 font-bold hover:underline cursor-pointer"
+                className="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer"
               >
                 Reset Alinyemen
               </button>
@@ -471,7 +471,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                   step="0.5"
                   value={offsetX}
                   onChange={(e) => setOffsetX(parseFloat(e.target.value))}
-                  className="w-full accent-indigo-600 h-1 bg-slate-200 rounded-lg cursor-pointer dark:bg-slate-700"
+                  className="w-full accent-emerald-600 h-1 bg-slate-200 rounded-lg cursor-pointer dark:bg-slate-700"
                 />
               </div>
 
@@ -487,7 +487,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                   step="0.5"
                   value={offsetY}
                   onChange={(e) => setOffsetY(parseFloat(e.target.value))}
-                  className="w-full accent-indigo-600 h-1 bg-slate-200 rounded-lg cursor-pointer dark:bg-slate-700"
+                  className="w-full accent-emerald-600 h-1 bg-slate-200 rounded-lg cursor-pointer dark:bg-slate-700"
                 />
               </div>
 
@@ -503,7 +503,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                   step="1"
                   value={scaleAdjust}
                   onChange={(e) => setScaleAdjust(parseInt(e.target.value))}
-                  className="w-full accent-indigo-600 h-1 bg-slate-200 rounded-lg cursor-pointer dark:bg-slate-700"
+                  className="w-full accent-emerald-600 h-1 bg-slate-200 rounded-lg cursor-pointer dark:bg-slate-700"
                 />
               </div>
             </div>
@@ -514,7 +514,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
             <div className="space-y-1">
               <div className="flex justify-between font-bold">
                 <span>Siswa Terpilih:</span>
-                <span className="text-indigo-600 dark:text-indigo-400">{selectedStaffIds.length} Siswa</span>
+                <span className="text-emerald-600 dark:text-emerald-400">{selectedStaffIds.length} Siswa</span>
               </div>
               <div className="flex justify-between text-[11px]">
                 <span>Jumlah Lembar A4:</span>
@@ -530,8 +530,8 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                 ${downloadSuccess 
                   ? 'bg-emerald-600' 
                   : downloadingPngs 
-                    ? 'bg-indigo-500' 
-                    : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                    ? 'bg-emerald-500' 
+                    : 'bg-emerald-600 hover:bg-emerald-700'}`}
             >
               {downloadingPngs ? (
                 <Loader2 size={14} className="animate-spin" />
@@ -557,7 +557,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="space-y-0.5">
                 <h3 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-1.5">
-                  <Printer size={15} className="text-indigo-600" />
+                  <Printer size={15} className="text-emerald-600" />
                   Hubungkan &amp; Cetak Kartu EstugaDigital 🖨️
                 </h3>
                 <p className="text-[11px] text-slate-500">Sistem terintegrasi penuh dengan printer lokal Anda.</p>
@@ -571,12 +571,12 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
               {/* Panduan Browser */}
               <div className="space-y-2 bg-slate-50 dark:bg-[#131422] p-3 rounded-xl border border-slate-100 dark:border-slate-800/40">
-                <span className="font-extrabold text-indigo-600 dark:text-indigo-400 block text-[10.5px] uppercase tracking-wider">💡 1. Pengaturan Browser (Kritikal)</span>
+                <span className="font-extrabold text-emerald-600 dark:text-emerald-400 block text-[10.5px] uppercase tracking-wider">💡 1. Pengaturan Browser (Kritikal)</span>
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
                   Saat kotak dialog print browser muncul, pastikan konfigurasi berikut agar presisi dan warna keluar sempurna:
                 </p>
                 <ul className="space-y-1 list-disc list-inside text-[10.5px] text-slate-500 dark:text-slate-400 pl-1">
-                  <li><strong>Tujuan (Destination):</strong> Pilih printer fisik Anda atau <span className="text-indigo-500 font-bold">Simpan ke PDF</span>.</li>
+                  <li><strong>Tujuan (Destination):</strong> Pilih printer fisik Anda atau <span className="text-emerald-500 font-bold">Simpan ke PDF</span>.</li>
                   <li><strong>Ukuran Kertas:</strong> Wajib pilih <span className="font-bold text-slate-700 dark:text-slate-300">A4</span>.</li>
                   <li><strong>Margin:</strong> Atur ke <span className="font-bold text-slate-700 dark:text-slate-300">None / Tanpa Margin</span>.</li>
                   <li><strong>Background Graphics:</strong> Wajib <span className="text-emerald-600 font-extrabold">DICENTANG</span> agar warna gradasi &amp; QR Code tercetak.</li>
@@ -585,7 +585,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
 
               {/* Rekomendasi Kertas */}
               <div className="space-y-2 bg-slate-50 dark:bg-[#131422] p-3 rounded-xl border border-slate-100 dark:border-slate-800/40">
-                <span className="font-extrabold text-indigo-600 dark:text-indigo-400 block text-[10.5px] uppercase tracking-wider">📄 2. Rekomendasi Media &amp; Kertas</span>
+                <span className="font-extrabold text-emerald-600 dark:text-emerald-400 block text-[10.5px] uppercase tracking-wider">📄 2. Rekomendasi Media &amp; Kertas</span>
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
                   Gunakan kertas berkualitas tinggi untuk menjamin daya tahan kartu yang dipegang staf sehari-hari:
                 </p>
@@ -610,7 +610,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                   <li>Pastikan kabel USB printer telah tercolok ke komputer, atau printer terhubung ke Wi-Fi / LAN yang sama.</li>
                   <li>Nyalakan printer, pastikan Ribbon tinta warna (YMCKO) dan kartu PVC kosong sudah terpasang.</li>
                   <li>Buka driver printer di Control Panel komputer Anda dan atur ukuran kertas cetak bawaan ke <span className="font-bold text-slate-800 dark:text-slate-200">CR-80 (Card Standard)</span>.</li>
-                  <li>Klik tombol <strong className="text-indigo-600 dark:text-indigo-400">Cetak Sekarang</strong> diatas, lalu pilih printer PVC Anda pada kolom "Printer/Destination".</li>
+                  <li>Klik tombol <strong className="text-emerald-600 dark:text-emerald-400">Cetak Sekarang</strong> diatas, lalu pilih printer PVC Anda pada kolom "Printer/Destination".</li>
                   <li><em>Tips Kalibrasi:</em> Jika posisi cetak kurang pas atau terpotong sedikit, gunakan panel <strong>Kalibrasi Sumbu Printer (X/Y)</strong> di sebelah kiri untuk menggeser letak kartu sebelum klik cetak!</li>
                 </ol>
               </div>
@@ -710,7 +710,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
               <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
                 <div>
                   <h2 className="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <Printer className="text-indigo-600" />
+                    <Printer className="text-emerald-600" />
                     Preview Cetak Massal
                   </h2>
                   <p className="text-sm text-slate-500 mt-1">Pastikan printer disetel ke ukuran A4 & margin Minimum/None.</p>
@@ -751,7 +751,7 @@ export default function BulkPrintStaffCards({ staffs, schoolIdentity, onClose }:
                     setShowPrintPreview(false);
                     handlePrint();
                   }} 
-                  className="px-8 py-2.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all flex items-center gap-2"
+                  className="px-8 py-2.5 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all flex items-center gap-2"
                 >
                   <Printer size={18} />
                   Lanjutkan ke Printer

@@ -818,7 +818,7 @@ export default function AssignmentManager({
         <div className="bg-white dark:bg-[#111625] rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-lg space-y-6">
           <div className="flex justify-between items-center border-b dark:border-slate-800 pb-4">
             <div>
-              <span className="text-[10px] uppercase font-mono font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded">
+              <span className="text-[10px] uppercase font-mono font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">
                 Hasil Latihan Mandiri (Auto-Graded)
               </span>
               <h2 className="text-lg font-bold mt-1 text-slate-800 dark:text-white">
@@ -828,14 +828,14 @@ export default function AssignmentManager({
             </div>
             <button
               onClick={() => setShowExerciseResults(null)}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer"
             >
               Kembali ke Daftar Tugas
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-indigo-50/40 dark:bg-[#090d16]/30 p-5 rounded-2xl border dark:border-slate-800 flex flex-col items-center justify-center text-center">
+            <div className="bg-emerald-50/40 dark:bg-[#090d16]/30 p-5 rounded-2xl border dark:border-slate-800 flex flex-col items-center justify-center text-center">
               <span className="text-xs text-slate-400 font-semibold mb-2">Skor Anda</span>
               <div className={`text-5xl font-extrabold font-mono mb-2 ${showExerciseResults.score >= 75 ? 'text-emerald-500' : showExerciseResults.score >= 50 ? 'text-amber-500' : 'text-rose-500'}`}>
                 {showExerciseResults.score}
@@ -856,9 +856,9 @@ export default function AssignmentManager({
                 <span className="text-rose-600/80 dark:text-rose-400 text-[10px]">Jawaban Salah</span>
                 <span className="text-2xl font-bold font-mono text-rose-600 dark:text-rose-400 mt-1">{showExerciseResults.totalQuestions - showExerciseResults.correctCount}</span>
               </div>
-              <div className="bg-indigo-50/25 dark:bg-indigo-950/10 p-4 rounded-xl border border-indigo-100/60 dark:border-indigo-950/40 flex flex-col justify-center">
-                <span className="text-indigo-600/80 dark:text-indigo-400 text-[10px]">Rasio Ketepatan</span>
-                <span className="text-2xl font-bold font-mono text-indigo-600 dark:text-indigo-400 mt-1">
+              <div className="bg-emerald-50/25 dark:bg-emerald-950/10 p-4 rounded-xl border border-emerald-100/60 dark:border-emerald-950/40 flex flex-col justify-center">
+                <span className="text-emerald-600/80 dark:text-emerald-400 text-[10px]">Rasio Ketepatan</span>
+                <span className="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">
                   {showExerciseResults.totalQuestions > 0 ? Math.round((showExerciseResults.correctCount / showExerciseResults.totalQuestions) * 100) : 100}%
                 </span>
               </div>
@@ -927,7 +927,7 @@ export default function AssignmentManager({
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2 border-t dark:border-slate-800/60">
                       <div>
                         <span className="text-slate-400 font-medium block">Jawaban Anda:</span>
-                        <div className="mt-1 font-semibold font-mono text-indigo-600 dark:text-indigo-400">
+                        <div className="mt-1 font-semibold font-mono text-emerald-600 dark:text-emerald-400">
                           {q.type === 'menjodohkan' ? (
                             <div className="space-y-1 mt-1 text-[11px] font-sans font-normal text-slate-600 dark:text-slate-300">
                               {q.matchingPairs?.map((pair, pIdx) => {
@@ -980,7 +980,7 @@ export default function AssignmentManager({
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <BookOpen className="text-indigo-600 dark:text-indigo-400" />
+            <BookOpen className="text-emerald-600 dark:text-emerald-400" />
             E-Learning Tugas & Penilaian
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -994,7 +994,7 @@ export default function AssignmentManager({
               onClick={() => { setActiveTab('list'); setGradingSubmission(null); }}
               className={`text-xs font-semibold px-4 py-2 rounded-lg border transition-all cursor-pointer
                 ${activeTab === 'list' && !gradingSubmission
-                  ? 'bg-indigo-600 text-white border-indigo-600'
+                  ? 'bg-emerald-600 text-white border-emerald-600'
                   : 'bg-white dark:bg-[#111625] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800'}`}
             >
               Daftar Tugas
@@ -1003,7 +1003,7 @@ export default function AssignmentManager({
               onClick={() => { setEditingTaskId(null); setTitle(''); setDescription(''); setDeadline(''); setQuestions([]); setTaskType('tugas'); setActiveTab('create'); setGradingSubmission(null); }}
               className={`text-xs font-semibold px-4 py-2 rounded-lg border transition-all cursor-pointer flex items-center gap-1
                 ${activeTab === 'create'
-                  ? 'bg-indigo-600 text-white border-indigo-600'
+                  ? 'bg-emerald-600 text-white border-emerald-600'
                   : 'bg-white dark:bg-[#111625] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800'}`}
             >
               <Plus size={14} />
@@ -1037,7 +1037,7 @@ export default function AssignmentManager({
             <div className="lg:col-span-7 space-y-6">
               <div className="flex justify-between items-center border-b dark:border-slate-800 pb-3">
                 <div>
-                  <span className="text-[10px] uppercase font-mono font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-mono font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">
                     Lembar Jawaban Siswa
                   </span>
                   <h2 className="text-md font-bold mt-1 text-slate-800 dark:text-white">
@@ -1063,7 +1063,7 @@ export default function AssignmentManager({
                       </p>
                       <div className="text-xs bg-slate-50 dark:bg-[#090d16] p-3 rounded-lg space-y-1">
                         <p>
-                          <span className="text-slate-400">Tipe:</span> <span className="font-bold uppercase font-mono text-[10px] text-indigo-500">{q.type ? q.type.replace('_', ' ') : 'Uraian'}</span>
+                          <span className="text-slate-400">Tipe:</span> <span className="font-bold uppercase font-mono text-[10px] text-emerald-500">{q.type ? q.type.replace('_', ' ') : 'Uraian'}</span>
                         </p>
                         <p>
                           <span className="text-slate-400">Kunci Jawaban:</span>{' '}
@@ -1073,7 +1073,7 @@ export default function AssignmentManager({
                         </p>
                         <p>
                           <span className="text-slate-400">Jawaban Siswa:</span>{' '}
-                          <span className="font-bold text-indigo-600 dark:text-indigo-400 font-mono">
+                          <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono">
                             {answer !== undefined ? (Array.isArray(answer) ? answer.join(', ') : String(answer)) : 'Tidak diisi'}
                           </span>
                         </p>
@@ -1108,7 +1108,7 @@ export default function AssignmentManager({
                     </div>
                   </div>
                 ) : (
-                  <div className="p-3 bg-indigo-50/50 dark:bg-indigo-950/10 border border-indigo-100/50 dark:border-indigo-900/30 rounded-lg text-slate-500 text-[10px] leading-relaxed">
+                  <div className="p-3 bg-emerald-50/50 dark:bg-emerald-950/10 border border-emerald-100/50 dark:border-emerald-900/30 rounded-lg text-slate-500 text-[10px] leading-relaxed">
                     💡 Pengumpulan murni kuis &amp; jawaban teks digital. Sesuai kebijakan, tidak ada file lampiran foto yang perlu dikoreksi.
                   </div>
                 )}
@@ -1140,7 +1140,7 @@ export default function AssignmentManager({
 
                   <button
                     onClick={handleSaveGrading}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-sm shadow-indigo-600/10"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-sm shadow-emerald-600/10"
                   >
                     <Check size={14} />
                     <span>{gradingSubmission.isGraded ? 'Update Penilaian' : 'Simpan Penilaian & Rilis Nilai'}</span>
@@ -1221,7 +1221,7 @@ export default function AssignmentManager({
 
           <div className="flex justify-between items-start border-b dark:border-slate-800 pb-4 mb-6">
             <div>
-              <span className="text-[10px] uppercase font-mono font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded">
+              <span className="text-[10px] uppercase font-mono font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">
                 Siswa Portal • Sedang Mengerjakan
               </span>
               <h2 className="text-lg font-bold mt-1 text-slate-800 dark:text-white">
@@ -1285,7 +1285,7 @@ export default function AssignmentManager({
                             key={opt.id}
                             className={`flex items-start gap-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-xs
                               ${studentAnswers[q.id] === opt.id 
-                                ? 'border-indigo-600 bg-indigo-50/30 dark:bg-indigo-950/20 text-indigo-600 dark:text-indigo-400' 
+                                ? 'border-emerald-600 bg-emerald-50/30 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400' 
                                 : 'border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-[#090d16]/80'}`}
                           >
                             <input
@@ -1294,7 +1294,7 @@ export default function AssignmentManager({
                               value={opt.id}
                               checked={studentAnswers[q.id] === opt.id}
                               onChange={() => setStudentAnswers({ ...studentAnswers, [q.id]: opt.id })}
-                              className="accent-indigo-600 mt-0.5"
+                              className="accent-emerald-600 mt-0.5"
                             />
                             <div className="flex flex-col gap-2 w-full">
                               <span><span className="font-bold font-mono mr-1">{opt.id}.</span> <MathText text={opt.text} /></span>
@@ -1324,7 +1324,7 @@ export default function AssignmentManager({
                               key={opt.id}
                               className={`flex items-start gap-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-xs
                                 ${isChecked 
-                                  ? 'border-indigo-600 bg-indigo-50/30 dark:bg-indigo-950/20 text-indigo-600 dark:text-indigo-400' 
+                                  ? 'border-emerald-600 bg-emerald-50/30 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400' 
                                   : 'border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-[#090d16]/80'}`}
                             >
                               <input
@@ -1339,7 +1339,7 @@ export default function AssignmentManager({
                                   }
                                   setStudentAnswers({ ...studentAnswers, [q.id]: newSel });
                                 }}
-                                className="accent-indigo-600 mt-0.5"
+                                className="accent-emerald-600 mt-0.5"
                               />
                               <div className="flex flex-col gap-2 w-full">
                                 <span><span className="font-bold font-mono mr-1">{opt.id}.</span> <MathText text={opt.text} /></span>
@@ -1368,7 +1368,7 @@ export default function AssignmentManager({
                             onClick={() => setStudentAnswers({ ...studentAnswers, [q.id]: val })}
                             className={`flex-1 py-2 rounded-lg border font-bold font-sans text-center cursor-pointer transition-all
                               ${studentAnswers[q.id] === val
-                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                                ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
                                 : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300'}`}
                           >
                             {val}
@@ -1419,7 +1419,7 @@ export default function AssignmentManager({
                           type="text"
                           value={studentAnswers[q.id] || ''}
                           onChange={(e) => setStudentAnswers({ ...studentAnswers, [q.id]: e.target.value })}
-                          className="w-full sm:w-1/2 p-2 rounded-lg border bg-white text-slate-800 dark:bg-slate-900 dark:border-slate-800 dark:text-white focus:outline-none focus:border-indigo-500 font-semibold"
+                          className="w-full sm:w-1/2 p-2 rounded-lg border bg-white text-slate-800 dark:bg-slate-900 dark:border-slate-800 dark:text-white focus:outline-none focus:border-emerald-500 font-semibold"
                           placeholder="Jawaban singkat..."
                         />
                       </div>
@@ -1433,7 +1433,7 @@ export default function AssignmentManager({
                           rows={4}
                           value={studentAnswers[q.id] || ''}
                           onChange={(e) => setStudentAnswers({ ...studentAnswers, [q.id]: e.target.value })}
-                          className="w-full p-3 rounded-lg border bg-white text-slate-800 dark:bg-slate-900 dark:border-slate-800 dark:text-white focus:outline-none focus:border-indigo-500"
+                          className="w-full p-3 rounded-lg border bg-white text-slate-800 dark:bg-slate-900 dark:border-slate-800 dark:text-white focus:outline-none focus:border-emerald-500"
                           placeholder="Jawaban penjelasan terperinci..."
                         />
                       </div>
@@ -1445,7 +1445,7 @@ export default function AssignmentManager({
 
               {(activeTaskToSolve.questions || []).length === 0 && (
                 <div className="p-8 border-2 border-dashed rounded-xl text-center text-slate-400">
-                  <FileText size={24} className="mx-auto mb-2 text-indigo-500" />
+                  <FileText size={24} className="mx-auto mb-2 text-emerald-500" />
                   <p>Tugas ini murni berupa pengiriman dokumen atau foto catatan tugas.</p>
                 </div>
               )}
@@ -1479,7 +1479,7 @@ export default function AssignmentManager({
                     onDragLeave={() => setDragOver(false)}
                     onDrop={handleFileDrop}
                     className={`border-2 border-dashed rounded-xl p-6 text-center transition-all relative cursor-pointer
-                      ${dragOver ? 'border-indigo-500 bg-indigo-500/10' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/20'}
+                      ${dragOver ? 'border-emerald-500 bg-emerald-500/10' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/20'}
                       ${studentPhoto ? 'border-emerald-500/60 bg-emerald-500/5' : ''}`}
                   >
                     <input
@@ -1527,7 +1527,7 @@ export default function AssignmentManager({
                             key={pIdx}
                             type="button"
                             onClick={() => setStudentPhoto(photo)}
-                            className="px-2.5 py-1 text-[10px] font-bold border border-indigo-100 dark:border-indigo-900/30 rounded bg-indigo-50/50 hover:bg-indigo-100 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 cursor-pointer"
+                            className="px-2.5 py-1 text-[10px] font-bold border border-emerald-100 dark:border-emerald-900/30 rounded bg-emerald-50/50 hover:bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 cursor-pointer"
                           >
                             Simulasi Notebook #{pIdx + 1}
                           </button>
@@ -1561,7 +1561,7 @@ export default function AssignmentManager({
           {/* Assignment Settings Form (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
             <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 border-b pb-2">
-              <Sparkles size={16} className="text-indigo-600" />
+              <Sparkles size={16} className="text-emerald-600" />
               {editingTaskId ? "1. Edit Pengaturan Tugas Utama" : "1. Pengaturan Tugas Utama"}
             </h2>
 
@@ -1574,7 +1574,7 @@ export default function AssignmentManager({
                     onClick={() => { setTaskType('tugas'); setAllowImage(false); }}
                     className={`py-2 rounded-lg font-bold border text-center transition-all cursor-pointer
                       ${taskType === 'tugas'
-                        ? 'bg-indigo-600 border-indigo-600 text-white shadow-xs'
+                        ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs'
                         : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100'}`}
                   >
                     📝 Tugas Deskripsi & Kuis
@@ -1584,7 +1584,7 @@ export default function AssignmentManager({
                     onClick={() => { setTaskType('latihan'); setAllowImage(false); }}
                     className={`py-2 rounded-lg font-bold border text-center transition-all cursor-pointer
                       ${taskType === 'latihan'
-                        ? 'bg-indigo-600 border-indigo-600 text-white shadow-xs'
+                        ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs'
                         : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100'}`}
                   >
                     🎯 Latihan Soal Mandiri
@@ -1611,7 +1611,7 @@ export default function AssignmentManager({
                     <button
                       type="button"
                       onClick={() => setSelectedClasses(schoolClasses)}
-                      className="text-[9px] text-indigo-500 hover:text-indigo-700 font-bold bg-indigo-50 dark:bg-indigo-900/40 px-2 py-0.5 rounded cursor-pointer"
+                      className="text-[9px] text-emerald-500 hover:text-emerald-700 font-bold bg-emerald-50 dark:bg-emerald-900/40 px-2 py-0.5 rounded cursor-pointer"
                     >
                       Pilih Semua
                     </button>
@@ -1630,7 +1630,7 @@ export default function AssignmentManager({
                               setSelectedClasses(prev => prev.filter(cls => cls !== c));
                             }
                           }}
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-slate-800"
+                          className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 bg-white dark:bg-slate-800"
                         />
                         <span className="text-xs text-slate-700 dark:text-slate-300">{c}</span>
                       </label>
@@ -1656,7 +1656,7 @@ export default function AssignmentManager({
 
               <div>
                 <label className="block text-[10px] font-semibold text-slate-400 mb-1 flex items-center gap-1">
-                  <Calendar size={12} className="text-indigo-600" />
+                  <Calendar size={12} className="text-emerald-600" />
                   Batas Akhir Pengumpulan {taskType === 'latihan' && '(Opsional)'}
                 </label>
                 <input
@@ -1693,7 +1693,7 @@ export default function AssignmentManager({
 
               <button
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1"
               >
                 <span>{editingTaskId ? "Simpan Perubahan Tugas" : "Bagikan Kegiatan Ke E-Learning"}</span>
               </button>
@@ -1704,10 +1704,10 @@ export default function AssignmentManager({
           <div className="lg:col-span-7 bg-slate-50/50 dark:bg-[#090d16]/30 p-5 rounded-xl border dark:border-slate-800 space-y-4 text-xs">
             <div className="flex justify-between items-center border-b pb-2 mb-2">
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
-                <Plus size={16} className="text-indigo-600" />
+                <Plus size={16} className="text-emerald-600" />
                 2. Buat Lembar Pertanyaan Kuis Tugas
               </h2>
-              <a href="https://generator-soal.ai.studio" target="_blank" rel="noopener noreferrer" className="text-[10px] bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2.5 py-1 rounded-md font-semibold hover:bg-indigo-200 transition-colors flex items-center gap-1">
+              <a href="https://generator-soal.ai.studio" target="_blank" rel="noopener noreferrer" className="text-[10px] bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-2.5 py-1 rounded-md font-semibold hover:bg-emerald-200 transition-colors flex items-center gap-1">
                 <span>✨ Buat Soal AI</span>
               </a>
             </div>
@@ -1746,7 +1746,7 @@ export default function AssignmentManager({
                 )}
                 <div className="flex items-center gap-2 mb-4 border-b pb-3 dark:border-slate-800">
                   <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg border dark:border-slate-700 text-[10px] font-semibold flex items-center gap-1.5 transition-colors">
-                    <ImageIcon size={14} className="text-indigo-600 dark:text-indigo-400" />
+                    <ImageIcon size={14} className="text-emerald-600 dark:text-emerald-400" />
                     <span>Upload Gambar Stimulus</span>
                     <input 
                       type="file" 
@@ -1787,7 +1787,7 @@ export default function AssignmentManager({
                       key={sIdx}
                       type="button"
                       onClick={() => setQText(prev => prev + ' $' + sym.code + '$ ')}
-                      className="px-1.5 py-0.5 text-[10px] font-mono font-semibold bg-white dark:bg-slate-850 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-950/40 rounded border dark:border-slate-800 transition-colors cursor-pointer"
+                      className="px-1.5 py-0.5 text-[10px] font-mono font-semibold bg-white dark:bg-slate-850 hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-950/40 rounded border dark:border-slate-800 transition-colors cursor-pointer"
                     >
                       {sym.label}
                     </button>
@@ -1806,7 +1806,7 @@ export default function AssignmentManager({
                   )}
                 </label>
                 <div className="flex items-center gap-2">
-                  <label className="cursor-pointer bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 px-3 py-1.5 rounded-lg border border-indigo-200 dark:border-indigo-800 text-[10px] font-bold flex items-center gap-1.5 transition-colors w-full justify-center">
+                  <label className="cursor-pointer bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 px-3 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800 text-[10px] font-bold flex items-center gap-1.5 transition-colors w-full justify-center">
                     <span>🖼️ Upload Gambar dari Komputer/HP</span>
                     <input 
                       type="file" 
@@ -1824,7 +1824,7 @@ export default function AssignmentManager({
 
                 {qImage && (
                   <div className="mt-2 p-1.5 border dark:border-slate-800 rounded bg-white dark:bg-slate-900 max-w-[150px]">
-                    <span className="text-[8px] uppercase font-bold text-indigo-500 block mb-1">Preview Gambar Soal</span>
+                    <span className="text-[8px] uppercase font-bold text-emerald-500 block mb-1">Preview Gambar Soal</span>
                     <img src={qImage} alt="Preview Soal" className="h-16 w-full object-cover rounded" referrerPolicy="no-referrer" />
                   </div>
                 )}
@@ -1838,7 +1838,7 @@ export default function AssignmentManager({
                     {mcOptions.map((opt, oIdx) => (
                       <div key={oIdx} className="bg-white dark:bg-slate-900 p-2.5 border dark:border-slate-800 rounded-xl space-y-1.5">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-bold font-mono text-indigo-600 text-xs">{String.fromCharCode(65 + oIdx)}:</span>
+                          <span className="font-bold font-mono text-emerald-600 text-xs">{String.fromCharCode(65 + oIdx)}:</span>
                           <input
                             type="text"
                             placeholder={`Jawaban Pilihan ${String.fromCharCode(65 + oIdx)}`}
@@ -1874,7 +1874,7 @@ export default function AssignmentManager({
                                 updatedOpts[oIdx] = updatedOpts[oIdx] + ' $' + sym.code + '$ ';
                                 setMcOptions(updatedOpts);
                               }}
-                              className="px-1.5 py-0.5 text-[9px] font-mono font-semibold bg-slate-50 dark:bg-slate-850 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-950/40 rounded border dark:border-slate-800 transition-colors cursor-pointer text-slate-500"
+                              className="px-1.5 py-0.5 text-[9px] font-mono font-semibold bg-slate-50 dark:bg-slate-850 hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-950/40 rounded border dark:border-slate-800 transition-colors cursor-pointer text-slate-500"
                             >
                               {sym.label}
                             </button>
@@ -1963,7 +1963,7 @@ export default function AssignmentManager({
                               }}
                               className={`w-10 h-10 rounded-full font-bold font-mono border flex items-center justify-center transition-all cursor-pointer
                                 ${isSel 
-                                  ? 'bg-indigo-600 border-indigo-600 text-white shadow-xs' 
+                                  ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs' 
                                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300'}`}
                             >
                               {char}
@@ -1988,7 +1988,7 @@ export default function AssignmentManager({
                         onClick={() => setTfCorrect(val)}
                         className={`flex-1 py-2 rounded-lg border font-bold text-center cursor-pointer transition-all
                           ${tfCorrect === val
-                            ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
                             : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300'}`}
                       >
                         {val}
@@ -2006,7 +2006,7 @@ export default function AssignmentManager({
                     <button
                       type="button"
                       onClick={() => setMatchPairs([...matchPairs, { left: '', right: '' }])}
-                      className="text-indigo-600 dark:text-indigo-400 font-bold flex items-center gap-0.5 hover:underline"
+                      className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-0.5 hover:underline"
                     >
                       <Plus size={12} /> Tambah Pasangan
                     </button>
@@ -2069,7 +2069,7 @@ export default function AssignmentManager({
 
               {/* Uraian Builder */}
               {qType === 'uraian' && (
-                <div className="pt-2 border-t dark:border-slate-800/60 p-3 bg-indigo-50/20 dark:bg-indigo-950/10 border border-indigo-100/50 dark:border-indigo-900/40 rounded-lg">
+                <div className="pt-2 border-t dark:border-slate-800/60 p-3 bg-emerald-50/20 dark:bg-emerald-950/10 border border-emerald-100/50 dark:border-emerald-900/40 rounded-lg">
                   <p className="text-slate-500 leading-relaxed text-[10px]">
                     📝 <strong>Tipe Soal Uraian/Essay:</strong> Tidak dinilai secara otomatis oleh program kuis mandiri. Guru dapat memberikan nilai secara manual ketika memeriksa lembar pengerjaan kuis siswa.
                   </p>
@@ -2125,7 +2125,7 @@ export default function AssignmentManager({
                           alert('Gagal membuat file ZIP.');
                         }
                       }}
-                      className="text-[9px] font-bold bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/40 dark:hover:bg-indigo-800/60 text-indigo-700 dark:text-indigo-300 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
+                      className="text-[9px] font-bold bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-900/40 dark:hover:bg-emerald-800/60 text-emerald-700 dark:text-emerald-300 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
                     >
                       ⬇️ Unduh ZIP
                     </button>
@@ -2133,7 +2133,7 @@ export default function AssignmentManager({
                   <div className="flex flex-wrap gap-3">
                     {qImage && (
                       <div className="flex flex-col items-center gap-1">
-                        <span className="text-[9px] font-semibold text-indigo-600 dark:text-indigo-400">Gambar Soal</span>
+                        <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400">Gambar Soal</span>
                         <div className="h-20 w-20 rounded border dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-center overflow-hidden p-1">
                           <img src={qImage} alt="Soal" className="max-h-full max-w-full object-contain" referrerPolicy="no-referrer" />
                         </div>
@@ -2166,7 +2166,7 @@ export default function AssignmentManager({
                 <button
                   type="button"
                   onClick={handleAddQuestionToDraft}
-                  className="flex-[2] bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-400 dark:hover:bg-indigo-950 border border-indigo-200 dark:border-indigo-900/50 font-bold py-2 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 text-xs"
+                  className="flex-[2] bg-emerald-50 hover:bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 dark:hover:bg-emerald-950 border border-emerald-200 dark:border-emerald-900/50 font-bold py-2 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 text-xs"
                 >
                   <Plus size={14} />
                   <span>Masukkan Soal ke Kertas</span>
@@ -2221,7 +2221,7 @@ export default function AssignmentManager({
             
             <div className="space-y-3">
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
-                <FileText size={16} className="text-indigo-600" />
+                <FileText size={16} className="text-emerald-600" />
                 Tugas & Latihan Soal Terkini
               </h2>
               
@@ -2239,7 +2239,7 @@ export default function AssignmentManager({
                   <div key={task.id} className="bg-white dark:bg-[#111625] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-sm transition-all text-xs flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className={`text-[9px] px-2 py-0.5 rounded font-bold font-mono ${task.taskType === 'latihan' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400' : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-400'}`}>
+                        <span className={`text-[9px] px-2 py-0.5 rounded font-bold font-mono ${task.taskType === 'latihan' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400' : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400'}`}>
                           {task.taskType === 'latihan' ? '🎯 LATIHAN SOAL' : '📝 TUGAS'} • {task.className}
                         </span>
                         <span className={`text-[10px] font-mono ${isDeadlinePassed(task.deadline) ? 'text-rose-500 font-bold' : 'text-slate-400'}`}>
@@ -2255,7 +2255,7 @@ export default function AssignmentManager({
                       </p>
 
                       <div className="mt-3 flex flex-wrap gap-2 text-[10px]">
-                        <span className="bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40 px-2 py-0.5 rounded font-bold">
+                        <span className="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/40 px-2 py-0.5 rounded font-bold">
                           {(task.questions?.length || 0)} Kuis Kertas
                         </span>
                         {false && task.allowImageUpload && (
@@ -2303,7 +2303,7 @@ export default function AssignmentManager({
                             className={`font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer transition-all
                               ${isDeadlinePassed(task.deadline)
                                 ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
-                                : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs'}`}
+                                : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'}`}
                           >
                             <span>Kerjakan</span>
                             <ChevronRight size={14} />
@@ -2311,7 +2311,7 @@ export default function AssignmentManager({
                         )
                       ) : (
                         <div className="flex items-center justify-between w-full">
-                          <div className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 font-mono">
+                          <div className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 font-mono">
                             {submissions.filter(s => s.assignmentId === task.id).length} Pengumpulan
                           </div>
                           <div className="flex flex-wrap items-center gap-2">
@@ -2473,7 +2473,7 @@ export default function AssignmentManager({
                                 setActiveTab('create');
                                 window.scrollTo(0, 0);
                               }}
-                              className="text-[10px] bg-slate-100 hover:bg-indigo-50 text-indigo-600 dark:bg-slate-800 dark:hover:bg-indigo-900/40 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 font-semibold transition-colors"
+                              className="text-[10px] bg-slate-100 hover:bg-emerald-50 text-emerald-600 dark:bg-slate-800 dark:hover:bg-emerald-900/40 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 font-semibold transition-colors"
                             >
                               Edit
                             </button>
@@ -2499,7 +2499,7 @@ export default function AssignmentManager({
 
               {visibleAssignments.length === 0 && (
                 <div className="col-span-2 bg-white dark:bg-[#111625] rounded-xl p-8 text-center border text-slate-400 space-y-2">
-                  <Award size={28} className="mx-auto text-indigo-500" />
+                  <Award size={28} className="mx-auto text-emerald-500" />
                   <p className="font-bold text-slate-600 dark:text-slate-300">Belum Ada Tugas E-Learning</p>
                   <p className="text-xs">Materi tugas dengan soal kuis digital dan latihan mandiri akan muncul di sini.</p>
                 </div>
@@ -2512,14 +2512,14 @@ export default function AssignmentManager({
           <div className="lg:col-span-4 bg-white dark:bg-[#111625] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 text-xs">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
-                <Award size={16} className="text-indigo-600" />
+                <Award size={16} className="text-emerald-600" />
                 {((activeRole === 'siswa' || activeRole === 'walimurid') || activeRole === 'walimurid') ? 'Laporan Tugas & Nilai' : 'Daftar Pengumpulan Tugas'}
               </h2>
               {((activeRole !== 'siswa' && activeRole !== 'walimurid') && activeRole !== 'walimurid') && (
                 <button
                   type="button"
                   onClick={() => window.dispatchEvent(new CustomEvent('data-updated'))}
-                  className="text-[9px] font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-600 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/60 dark:text-indigo-400 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
+                  className="text-[9px] font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-600 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 dark:text-emerald-400 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
                   title="Segarkan data pengumpulan tugas"
                 >
                   🔄 Segarkan
@@ -2579,7 +2579,7 @@ export default function AssignmentManager({
                   const canSeeScore = !isTugas || isCreatorTeacher;
                   
                   return (
-                    <div key={sub.id} className="p-3.5 border dark:border-slate-800 rounded-xl space-y-2 hover:border-indigo-200 transition-all">
+                    <div key={sub.id} className="p-3.5 border dark:border-slate-800 rounded-xl space-y-2 hover:border-emerald-200 transition-all">
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="font-bold text-slate-800 dark:text-slate-200">{sub.studentName}</h4>
@@ -2595,7 +2595,7 @@ export default function AssignmentManager({
                         </span>
                       </div>
                       
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400">Tugas: <span className="font-bold text-indigo-600 dark:text-indigo-400">{task?.title || 'Tugas'}</span></p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">Tugas: <span className="font-bold text-emerald-600 dark:text-emerald-400">{task?.title || 'Tugas'}</span></p>
                       <p className="text-[10px] text-slate-400">Pengajar: <span className="font-semibold">{task?.teacherName || 'Guru Pengampu'}</span></p>
  
                       <div className="flex justify-between items-center pt-2 border-t dark:border-slate-800/60 text-[10px]">
@@ -2607,7 +2607,7 @@ export default function AssignmentManager({
                               setTeacherScore(sub.score !== undefined ? sub.score : 0);
                               setTeacherFeedback(sub.feedback || '');
                             }}
-                            className="font-bold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 cursor-pointer"
+                            className="font-bold text-emerald-600 hover:text-emerald-800 dark:text-emerald-400 cursor-pointer"
                           >
                             {sub.isGraded ? 'Tinjau Ulang & Edit Nilai ↗' : 'Koreksi Jawaban & Foto ↗'}
                           </button>

@@ -1155,7 +1155,7 @@ export default function App() {
                 onClick={() => setElearningSubTab('materials')}
                 className={`pb-2.5 text-xs font-bold transition-all border-b-2 cursor-pointer
                   ${elearningSubTab === 'materials'
-                    ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400'
+                    ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
                     : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}
               >
                 📚 Materi Pembelajaran
@@ -1164,7 +1164,7 @@ export default function App() {
                 onClick={() => setElearningSubTab('meet')}
                 className={`pb-2.5 text-xs font-bold transition-all border-b-2 cursor-pointer flex items-center gap-1.5
                   ${elearningSubTab === 'meet'
-                    ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400'
+                    ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
                     : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}
               >
                 🎥 Jadwal Meet
@@ -1173,7 +1173,7 @@ export default function App() {
                 onClick={() => setElearningSubTab('assignments')}
                 className={`pb-2.5 text-xs font-bold transition-all border-b-2 cursor-pointer flex items-center gap-1.5
                   ${elearningSubTab === 'assignments'
-                    ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400'
+                    ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
                     : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}
               >
                 ✍️ Tugas & Latihan Soal
@@ -1416,24 +1416,24 @@ export default function App() {
       return (
         <div className="space-y-6 animate-fade-in">
           {/* Welcome Card */}
-          <div className="bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-indigo-900/70 dark:to-indigo-950 text-white rounded-2xl p-6 relative overflow-hidden shadow-xl">
+          <div className="bg-gradient-to-r from-violet-600 to-emerald-600 dark:from-emerald-900/70 dark:to-emerald-950 text-white rounded-2xl p-6 relative overflow-hidden shadow-xl">
             <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
               <div className="space-y-2">
-                <span className="text-[10px] bg-indigo-500/30 text-indigo-100 font-mono font-black tracking-widest uppercase px-2.5 py-1 rounded-full">
+                <span className="text-[10px] bg-emerald-500/30 text-emerald-100 font-mono font-black tracking-widest uppercase px-2.5 py-1 rounded-full">
                   Dashboard {activeRole === 'walimurid' ? 'Wali Murid' : 'Murid / Siswa'}
                 </span>
                 <h1 className="text-2xl md:text-3xl font-black tracking-tight">Halo, {activeRole === 'walimurid' ? 'Wali dari ' + student.name : student.name}! 👋</h1>
-                <p className="text-xs text-indigo-100 leading-relaxed max-w-xl">
+                <p className="text-xs text-emerald-100 leading-relaxed max-w-xl">
                   {activeRole === 'walimurid' ? 'Pantau perkembangan belajar anak Anda! Anak Anda terdaftar di ' : 'Selamat belajar! Kamu terdaftar di '}<span className="font-extrabold text-yellow-300">{student.className}</span> (NIS: {student.id}). Selalu periksa daftar tugas mandiri dan jadwal ujian CBT agar {activeRole === 'walimurid' ? 'anak Anda' : 'kamu'} tidak ketinggalan nilai terbaik!
                 </p>
               </div>
               <div className="bg-white/10 p-4 rounded-2xl border border-white/10  shrink-0 space-y-1 text-center min-w-[140px]">
-                <span className="text-[10px] uppercase font-mono font-extrabold text-indigo-200">Kehadiran Hari Ini</span>
+                <span className="text-[10px] uppercase font-mono font-extrabold text-emerald-200">Kehadiran Hari Ini</span>
                 <div className="text-lg font-black text-yellow-300">
                   {s_attendance.find(a => a.studentId === student.id && a.date === new Date().toISOString().split('T')[0])?.status?.toUpperCase() || 'BELUM ABSEN ⚠️'}
                 </div>
-                <p className="text-[9px] text-indigo-100 font-medium">Scan kartu QR saat tiba</p>
+                <p className="text-[9px] text-emerald-100 font-medium">Scan kartu QR saat tiba</p>
               </div>
             </div>
           </div>
@@ -1508,7 +1508,7 @@ export default function App() {
                       <div key={task.id} className="py-3.5 first:pt-2 last:pb-0 flex justify-between items-start gap-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="text-[10px] px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-extrabold rounded">
+                            <span className="text-[10px] px-2 py-0.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-extrabold rounded">
                               {task.subject}
                             </span>
                             <span className="text-[9px] font-mono text-rose-500 font-bold bg-rose-500/10 px-1.5 py-0.2 rounded">
@@ -1540,13 +1540,13 @@ export default function App() {
               <div className="bg-white dark:bg-[#111625] border border-slate-100 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
                 <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-2">
-                    <span className="p-2 bg-indigo-500/10 text-indigo-500 rounded-xl text-lg">🏆</span>
+                    <span className="p-2 bg-emerald-500/10 text-emerald-500 rounded-xl text-lg">🏆</span>
                     <div>
                       <h3 className="font-extrabold text-slate-800 dark:text-slate-200 text-xs">Jadwal Ujian CBT Aktif</h3>
                       <p className="text-[10px] text-slate-400">Kompetensi Mandiri / CBT online kelas {student.className}</p>
                     </div>
                   </div>
-                  <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-full font-mono text-[10px] font-black">
+                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full font-mono text-[10px] font-black">
                     {pendingExams.length} Ujian
                   </span>
                 </div>
@@ -1563,7 +1563,7 @@ export default function App() {
                       <div key={exam.id} className="py-3.5 first:pt-2 last:pb-0 flex justify-between items-center gap-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="text-[10px] px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-extrabold rounded">
+                            <span className="text-[10px] px-2 py-0.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-extrabold rounded">
                               {exam.subject}
                             </span>
                             <span className="text-[10px] text-slate-400 font-mono">
@@ -1579,7 +1579,7 @@ export default function App() {
                           onClick={() => {
                             setCurrentTab('cbt-exam');
                           }}
-                          className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[10px] rounded-xl shrink-0 transition-all cursor-pointer hover:scale-105"
+                          className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] rounded-xl shrink-0 transition-all cursor-pointer hover:scale-105"
                         >
                           Mulai Ujian
                         </button>
@@ -1681,13 +1681,13 @@ export default function App() {
               <div className="bg-white dark:bg-[#111625] border border-slate-100 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
                 <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-850">
                   <div className="flex items-center gap-2">
-                    <span className="p-2 bg-indigo-500/10 text-indigo-500 rounded-xl text-sm">📚</span>
+                    <span className="p-2 bg-emerald-500/10 text-emerald-500 rounded-xl text-sm">📚</span>
                     <div>
                       <h3 className="font-extrabold text-slate-800 dark:text-slate-200 text-xs">Perkembangan Materi Mengajar (Jurnal)</h3>
                       <p className="text-[10px] text-slate-400">Daftar jurnal silabus harian yang telah Anda selesaikan</p>
                     </div>
                   </div>
-                  <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-full font-mono text-[10px] font-black">
+                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full font-mono text-[10px] font-black">
                     {teacherJournals.length} Jurnal
                   </span>
                 </div>
@@ -1706,10 +1706,10 @@ export default function App() {
                           {journal.date}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-bold px-1.5 py-0.2 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded">
+                          <span className="text-[10px] font-bold px-1.5 py-0.2 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded">
                             {journal.className}
                           </span>
-                          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">
+                          <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                             Pertemuan {index + 1}
                           </span>
                         </div>
@@ -1766,7 +1766,7 @@ export default function App() {
                               setElearningSubTab('assignments');
                               setCurrentTab('e-learning');
                             }}
-                            className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[10px] rounded-lg cursor-pointer"
+                            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] rounded-lg cursor-pointer"
                           >
                             Koreksi
                           </button>
@@ -1789,9 +1789,9 @@ export default function App() {
                 ) : (
                   <div className="space-y-2.5">
                     {teacherAssignments.map(a => (
-                      <div key={a.id} className="p-3 bg-indigo-50/10 dark:bg-indigo-950/5 border dark:border-slate-800 rounded-xl text-xs space-y-1">
+                      <div key={a.id} className="p-3 bg-emerald-50/10 dark:bg-emerald-950/5 border dark:border-slate-800 rounded-xl text-xs space-y-1">
                         <div className="flex justify-between items-center">
-                          <span className="font-bold text-indigo-600 dark:text-indigo-400">{a.className}</span>
+                          <span className="font-bold text-emerald-600 dark:text-emerald-400">{a.className}</span>
                           <span className="text-[9px] font-mono text-rose-500 bg-rose-500/10 px-1.5 py-0.2 rounded font-bold">
                             Batas: {new Date(a.deadline).toLocaleDateString('id-ID')}
                           </span>
@@ -1858,10 +1858,10 @@ export default function App() {
         <div className="space-y-6 animate-fade-in" id="kepsek-dashboard-container">
           {/* Elegant Kepala Sekolah Welcome Card */}
           <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-850 text-white rounded-2xl p-6 relative overflow-hidden shadow-xl border border-slate-700/40">
-            <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
               <div className="space-y-2">
-                <span className="text-[10px] bg-slate-700/60 text-indigo-300 font-mono font-black tracking-widest uppercase px-2.5 py-1 rounded-full border border-indigo-500/20">
+                <span className="text-[10px] bg-slate-700/60 text-emerald-300 font-mono font-black tracking-widest uppercase px-2.5 py-1 rounded-full border border-emerald-500/20">
                   Dashboard Kepala Sekolah (Executive Panel)
                 </span>
                 <div className="flex items-center gap-3">
@@ -1906,7 +1906,7 @@ export default function App() {
 
             {/* Stat 2: Total Teachers */}
             <div className="bg-white dark:bg-[#1e1f33] rounded-xl p-4 border border-slate-100 dark:border-slate-800/80 shadow-xs flex items-center gap-3 hover:shadow-md transition-all">
-              <div className="p-3 bg-indigo-50 text-indigo-600 dark:bg-indigo-950/20 dark:text-indigo-400 rounded-lg">
+              <div className="p-3 bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 rounded-lg">
                 <GraduationCap size={20} />
               </div>
               <div>
@@ -1963,7 +1963,7 @@ export default function App() {
 
                 <div className="space-y-4">
                   {[
-                    { name: 'Kelas 4-A (SD)', color: 'from-indigo-500 to-indigo-600' },
+                    { name: 'Kelas 4-A (SD)', color: 'from-emerald-500 to-emerald-600' },
                     { name: 'Kelas 8-B (SMP)', color: 'from-emerald-500 to-teal-500' }
                   ].map(cls => {
                     const classPresent = s_attendance.filter(a => a.className === cls.name && a.date === todayStr && a.status === 'hadir').length;
@@ -1974,7 +1974,7 @@ export default function App() {
                       <div key={cls.name} className="space-y-2">
                         <div className="flex justify-between items-center text-xs">
                           <span className="font-bold text-slate-700 dark:text-slate-200">{cls.name}</span>
-                          <span className="font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/20 px-2 py-0.5 rounded font-mono text-[10px]">
+                          <span className="font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 px-2 py-0.5 rounded font-mono text-[10px]">
                             {classRate}% Kehadiran ({classPresent} dari {classTotal} siswa)
                           </span>
                         </div>
@@ -1999,8 +1999,8 @@ export default function App() {
                     <span className="block text-amber-600 dark:text-amber-400 font-extrabold text-base">{sickCount}</span>
                     <span className="text-gray-400 font-medium">Sakit</span>
                   </div>
-                  <div className="p-2 bg-indigo-50/50 dark:bg-indigo-950/10 rounded-xl border border-indigo-100/10">
-                    <span className="block text-indigo-600 dark:text-indigo-400 font-extrabold text-base">{permissionCount}</span>
+                  <div className="p-2 bg-emerald-50/50 dark:bg-emerald-950/10 rounded-xl border border-emerald-100/10">
+                    <span className="block text-emerald-600 dark:text-emerald-400 font-extrabold text-base">{permissionCount}</span>
                     <span className="text-gray-400 font-medium">Izin</span>
                   </div>
                   <div className="p-2 bg-rose-50/50 dark:bg-rose-950/10 rounded-xl border border-rose-100/10">
@@ -2019,7 +2019,7 @@ export default function App() {
                     </h3>
                     <p className="text-[10px] text-slate-400">Monitoring rekapitulasi penyampaian materi kurikulum</p>
                   </div>
-                  <span className="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-full font-mono text-[10px] font-bold">
+                  <span className="px-2 py-0.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-full font-mono text-[10px] font-bold">
                     Real-time Logs
                   </span>
                 </div>
@@ -2045,7 +2045,7 @@ export default function App() {
 
                         <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
                           <div className="p-2 bg-white dark:bg-[#232333]/50 rounded-lg border dark:border-slate-800">
-                            <span className="block text-xs font-black text-indigo-600 dark:text-indigo-400">{teacherJournalsCount}</span>
+                            <span className="block text-xs font-black text-emerald-600 dark:text-emerald-400">{teacherJournalsCount}</span>
                             <span className="text-[9px] text-slate-400 font-bold uppercase">Jurnal Harian</span>
                           </div>
                           <div className="p-2 bg-white dark:bg-[#232333]/50 rounded-lg border dark:border-slate-800">
@@ -2059,7 +2059,7 @@ export default function App() {
                         </div>
 
                         {teacherJournalsCount > 0 && (
-                          <p className="text-[10px] bg-indigo-50/40 dark:bg-indigo-950/20 p-2 rounded border border-indigo-100/10 text-slate-500 dark:text-slate-300">
+                          <p className="text-[10px] bg-emerald-50/40 dark:bg-emerald-950/20 p-2 rounded border border-emerald-100/10 text-slate-500 dark:text-slate-300">
                             💡 <span className="font-bold text-slate-700 dark:text-slate-200">Materi Terakhir:</span> "{teacherJournals[teacherJournals.length - 1].topic}"
                           </p>
                         )}
@@ -2120,7 +2120,7 @@ export default function App() {
 
                   <button
                     type="submit"
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2 rounded-lg transition-colors cursor-pointer"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 rounded-lg transition-colors cursor-pointer"
                   >
                     Kirim Catatan Evaluasi Guru
                   </button>
@@ -2153,7 +2153,7 @@ export default function App() {
           <div className="bg-white dark:bg-[#2b2c40] rounded-2xl p-6 border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-6 animate-fade-in" id="kepsek-rpp-review-section">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b dark:border-slate-800 pb-4">
               <div className="flex items-center gap-2.5">
-                <span className="p-2 bg-indigo-500/10 text-indigo-500 rounded-xl text-lg">📂</span>
+                <span className="p-2 bg-emerald-500/10 text-emerald-500 rounded-xl text-lg">📂</span>
                 <div>
                   <h2 className="text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-wider">
                     Peninjauan RPP &amp; Jurnal Mengajar Guru
@@ -2184,7 +2184,7 @@ export default function App() {
                   onClick={() => setKepsekRppFilterOnlyWithAttachment(!kepsekRppFilterOnlyWithAttachment)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5
                     ${kepsekRppFilterOnlyWithAttachment 
-                      ? 'bg-indigo-600 text-white shadow-xs' 
+                      ? 'bg-emerald-600 text-white shadow-xs' 
                       : 'bg-slate-100 dark:bg-[#232333] text-slate-600 dark:text-slate-300 border dark:border-slate-800'}`}
                 >
                   📄 {kepsekRppFilterOnlyWithAttachment ? 'Hanya dengan RPP ✓' : 'Semua Jurnal'}
@@ -2230,7 +2230,7 @@ export default function App() {
                         }}
                         className={`w-full text-left p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col gap-2
                           ${isSelected 
-                            ? 'bg-indigo-50/50 dark:bg-indigo-950/20 border-indigo-500 shadow-xs' 
+                            ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-500 shadow-xs' 
                             : 'bg-slate-50/50 dark:bg-[#1a1b2e]/30 border-slate-100 dark:border-slate-800 hover:bg-slate-100/40 dark:hover:bg-[#1a1b2e]/50'}`}
                       >
                         <div className="flex justify-between items-start gap-2">
@@ -2310,7 +2310,7 @@ export default function App() {
                     <div className="p-5 border rounded-2xl dark:border-slate-800 bg-slate-50/30 dark:bg-[#1a1b2e]/10 space-y-4">
                       <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b dark:border-slate-800 pb-3">
                         <div>
-                          <span className="text-[10px] bg-indigo-500/10 text-indigo-500 font-bold px-2 py-0.5 rounded uppercase tracking-wider font-mono">
+                          <span className="text-[10px] bg-emerald-500/10 text-emerald-500 font-bold px-2 py-0.5 rounded uppercase tracking-wider font-mono">
                             {selectedJournal.className} • {selectedJournal.subject}
                           </span>
                           <h3 className="text-xs font-black text-slate-850 dark:text-white mt-1">
@@ -2335,12 +2335,12 @@ export default function App() {
                       </div>
 
                       {/* RPP Attachment Block */}
-                      <div className="p-4 bg-indigo-50/30 dark:bg-indigo-950/10 border border-indigo-100/30 dark:border-indigo-950/30 rounded-xl space-y-3.5">
+                      <div className="p-4 bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-100/30 dark:border-emerald-950/30 rounded-xl space-y-3.5">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                           <div className="flex items-center gap-2">
                             <span className="text-2xl">📄</span>
                             <div>
-                              <span className="text-[9px] text-indigo-600 dark:text-indigo-400 font-black uppercase tracking-wider block">Status Lampiran Rencana Pembelajaran (RPP)</span>
+                              <span className="text-[9px] text-emerald-600 dark:text-emerald-400 font-black uppercase tracking-wider block">Status Lampiran Rencana Pembelajaran (RPP)</span>
                               <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5">
                                 {hasRpp ? selectedJournal.rppFileName : "Belum Mengunggah File RPP"}
                               </h4>
@@ -2351,7 +2351,7 @@ export default function App() {
                             <a
                               href={selectedJournal.rppFile}
                               download={selectedJournal.rppFileName}
-                              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-lg transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:scale-[1.02]"
+                              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-lg transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:scale-[1.02]"
                             >
                               <span>Unduh Dokumen RPP 📥</span>
                             </a>
@@ -2364,11 +2364,11 @@ export default function App() {
 
                         {/* Interactive base64 simulation preview or helper to let principal see content */}
                         {hasRpp && (
-                          <div className="p-3 bg-white/70 dark:bg-[#1a1b2e]/80 rounded-lg border border-indigo-100/20 text-[11px] text-slate-600 dark:text-slate-300 space-y-2">
+                          <div className="p-3 bg-white/70 dark:bg-[#1a1b2e]/80 rounded-lg border border-emerald-100/20 text-[11px] text-slate-600 dark:text-slate-300 space-y-2">
                             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">📋 Pratinjau Pokok RPP (Lesson Plan Outline)</span>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                               <div className="p-2 bg-slate-50/50 dark:bg-[#232333]/40 rounded">
-                                <span className="font-extrabold text-[9px] text-indigo-500 uppercase">A. Tujuan</span>
+                                <span className="font-extrabold text-[9px] text-emerald-500 uppercase">A. Tujuan</span>
                                 <p className="mt-0.5 text-[10px] leading-relaxed">Siswa mampu menjelaskan materi "{selectedJournal.topic}" dengan tepat.</p>
                               </div>
                               <div className="p-2 bg-slate-50/50 dark:bg-[#232333]/40 rounded">
@@ -2396,7 +2396,7 @@ export default function App() {
                             value={kepsekRppCommentText}
                             onChange={(e) => setKepsekRppCommentText(e.target.value)}
                             required
-                            className="w-full text-xs p-3 rounded-lg border bg-white text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                            className="w-full text-xs p-3 rounded-lg border bg-white text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                           />
                         </div>
 
@@ -2419,7 +2419,7 @@ export default function App() {
                             </button>
                             <button
                               type="submit"
-                              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg shadow-xs transition-all cursor-pointer hover:scale-[1.01]"
+                              className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-xs transition-all cursor-pointer hover:scale-[1.01]"
                             >
                               Simpan Komentar Supervisi
                             </button>
@@ -2444,14 +2444,14 @@ export default function App() {
     return (
       <div className="space-y-6">
         {/* Welcome Greeting Card styled beautifully in Sneat style */}
-        <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 dark:from-indigo-900/60 dark:to-indigo-950 text-white rounded-2xl p-6 relative overflow-hidden shadow-md">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-400/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 dark:from-emerald-900/60 dark:to-emerald-950 text-white rounded-2xl p-6 relative overflow-hidden shadow-md">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none" />
           <div className="max-w-xl space-y-2">
-            <span className="text-[10px] bg-indigo-400/30 text-indigo-100 font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded">
+            <span className="text-[10px] bg-emerald-400/30 text-emerald-100 font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded">
               Selamat Datang Kembali
             </span>
             <h1 className="text-2xl font-bold tracking-tight">Portal Akademik EstugaDigital</h1>
-            <p className="text-xs text-indigo-100 leading-relaxed">
+            <p className="text-xs text-emerald-100 leading-relaxed">
               Anda masuk sebagai <span className="font-bold uppercase text-yellow-300">{activeRole}</span>. Sistem terintegrasi penuh untuk pencatatan presensi QR Code instan, kurikulum jurnal harian guru, e-learning penunjang, hingga ujian CBT dengan penilaian otomatis real-time.
             </p>
           </div>
@@ -2469,16 +2469,16 @@ export default function App() {
 
         {/* Panduan Urutan Pengisian Data Sekolah (Only for Admin) */}
         {activeRole === 'admin' && session?.role === 'admin' && (
-          <div className="bg-[#e0e7ff] dark:bg-[#1e1b4b]/40 rounded-xl p-5 border border-indigo-150 dark:border-[#3e405b] shadow-sm animate-fade-in" id="admin-filling-guide-card">
+          <div className="bg-[#e0e7ff] dark:bg-[#1e1b4b]/40 rounded-xl p-5 border border-emerald-150 dark:border-[#3e405b] shadow-sm animate-fade-in" id="admin-filling-guide-card">
             <div className="flex items-start gap-3">
-              <div className="p-2.5 bg-indigo-600 text-white rounded-lg shadow-md shrink-0">
+              <div className="p-2.5 bg-emerald-600 text-white rounded-lg shadow-md shrink-0">
                 <Sparkles size={20} className="animate-pulse" />
               </div>
               <div className="space-y-1">
-                <h2 className="text-sm font-bold text-indigo-900 dark:text-indigo-200">
+                <h2 className="text-sm font-bold text-emerald-900 dark:text-emerald-200">
                   Panduan Urutan Pengisian Data Sekolah (Alur Kerja Lancar)
                 </h2>
-                <p className="text-xs text-indigo-700/80 dark:text-indigo-300/80">
+                <p className="text-xs text-emerald-700/80 dark:text-emerald-300/80">
                   Ikuti urutan langkah di bawah ini untuk mengonfigurasi data awal sekolah Anda agar seluruh menu e-learning, CBT dan presensi QR Code berjalan otomatis tanpa hambatan:
                 </p>
               </div>
@@ -2488,23 +2488,23 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-5 relative">
               
               {/* Step 1: Subjects */}
-              <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
+              <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-emerald-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
                 <div className="flex justify-between items-center">
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">1</span>
-                  <BookOpen size={16} className="text-indigo-500" />
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">1</span>
+                  <BookOpen size={16} className="text-emerald-500" />
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-gray-800 dark:text-white">Mata Pelajaran</h4>
                   <p className="text-[11px] text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">
-                    Isi/impor daftar Mata Pelajaran di menu <span className="font-semibold text-indigo-600 dark:text-indigo-400">Data Master & Impor</span> terlebih dahulu agar siap dihubungkan dengan jadwal guru.
+                    Isi/impor daftar Mata Pelajaran di menu <span className="font-semibold text-emerald-600 dark:text-emerald-400">Data Master & Impor</span> terlebih dahulu agar siap dihubungkan dengan jadwal guru.
                   </p>
                 </div>
               </div>
 
               {/* Step 2: Teachers */}
-              <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
+              <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-emerald-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
                 <div className="flex justify-between items-center">
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">2</span>
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">2</span>
                   <GraduationCap size={16} className="text-emerald-500" />
                 </div>
                 <div>
@@ -2516,9 +2516,9 @@ export default function App() {
               </div>
 
               {/* Step 3: Students & QR Code Generation */}
-              <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
+              <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-emerald-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
                 <div className="flex justify-between items-center">
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">3</span>
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">3</span>
                   <Users size={16} className="text-amber-500" />
                 </div>
                 <div>
@@ -2531,14 +2531,14 @@ export default function App() {
 
 
               {/* Step 4: Start Scanning & Activities */}
-              <div className="bg-indigo-600 text-white p-4 rounded-xl border border-indigo-500 space-y-3 relative hover:scale-[1.01] transition-all shadow-md">
+              <div className="bg-emerald-600 text-white p-4 rounded-xl border border-emerald-500 space-y-3 relative hover:scale-[1.01] transition-all shadow-md">
                 <div className="flex justify-between items-center">
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-indigo-700 text-xs font-bold font-mono">4</span>
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-emerald-700 text-xs font-bold font-mono">4</span>
                   <QrCode size={16} className="text-yellow-300 animate-pulse" />
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-white">Siap Presensi QR &amp; CBT</h4>
-                  <p className="text-[11px] text-indigo-100 mt-1 leading-relaxed">
+                  <p className="text-[11px] text-emerald-100 mt-1 leading-relaxed">
                     Masuk ke menu <span className="font-semibold text-yellow-300">Presensi QR Code</span> untuk memindai kehadiran secara riil. Guru juga bisa mulai mengisi jurnal &amp; meng-upload nilai CBT dengan lancar!
                   </p>
                 </div>
@@ -2563,9 +2563,9 @@ export default function App() {
                 {(activeRole !== 'walimurid' && activeRole !== 'siswa') && (
                   <button 
                     onClick={() => setCurrentTab('barcode-scan')}
-                    className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-indigo-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
+                    className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-emerald-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
                   >
-                    <span className="block text-indigo-600 dark:text-indigo-400 text-lg mb-1">📷</span>
+                    <span className="block text-emerald-600 dark:text-emerald-400 text-lg mb-1">📷</span>
                     <span className="font-semibold block">Absen Scan</span>
                   </button>
                 )}
@@ -2573,27 +2573,27 @@ export default function App() {
                 {(activeRole === 'walimurid' || activeRole === 'siswa') && (
                   <button 
                     onClick={() => setCurrentTab('parent-realtime')}
-                    className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-indigo-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
+                    className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-emerald-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
                   >
-                    <span className="block text-indigo-600 dark:text-indigo-400 text-lg mb-1">📈</span>
+                    <span className="block text-emerald-600 dark:text-emerald-400 text-lg mb-1">📈</span>
                     <span className="font-semibold block">Nilai & Presensi</span>
                   </button>
                 )}
 
                 <button 
                   onClick={() => setCurrentTab('calendar')}
-                  className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-indigo-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
+                  className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-emerald-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
                 >
-                  <span className="block text-indigo-600 dark:text-indigo-400 text-lg mb-1">📅</span>
+                  <span className="block text-emerald-600 dark:text-emerald-400 text-lg mb-1">📅</span>
                   <span className="font-semibold block">Jadwal Kalender</span>
                 </button>
 
                 {ALLOWED_TABS[activeRole].includes('php-export') && (
                   <button 
                     onClick={() => setCurrentTab('php-export')}
-                    className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-indigo-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
+                    className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-emerald-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
                   >
-                    <span className="block text-indigo-600 dark:text-indigo-400 text-lg mb-1">💾</span>
+                    <span className="block text-emerald-600 dark:text-emerald-400 text-lg mb-1">💾</span>
                     <span className="font-semibold block">Ekspor PHP/SQL</span>
                   </button>
                 )}
@@ -2604,7 +2604,7 @@ export default function App() {
             <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
               <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-3 flex justify-between items-center">
                 <span>Rangkuman Statistik Kehadiran Hari Ini</span>
-                <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">Total {students.length} Siswa</span>
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Total {students.length} Siswa</span>
               </h2>
 
               <div className="grid grid-cols-4 gap-2 text-center text-xs">
@@ -2620,7 +2620,7 @@ export default function App() {
                   </span>
                   <span>Sakit</span>
                 </div>
-                <div className="p-3 bg-indigo-50 text-indigo-800 dark:bg-indigo-950/20 dark:text-indigo-400 rounded-lg">
+                <div className="p-3 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/20 dark:text-emerald-400 rounded-lg">
                   <span className="block text-lg font-bold">
                     {s_attendance.filter(a => a.date === new Date().toISOString().split('T')[0] && a.status === 'izin').length}
                   </span>
@@ -2647,7 +2647,7 @@ export default function App() {
 
               <div className="space-y-3.5 text-xs">
                 <div className="flex gap-2">
-                  <span className="text-indigo-600">👩‍🏫</span>
+                  <span className="text-emerald-600">👩‍🏫</span>
                   <div>
                     <h4 className="font-bold">Homeroom (Admin)</h4>
                     <p className="text-[11px] text-gray-400">Mendaftarkan siswa, mengimpor Excel, dan melacak detail wali murid.</p>
@@ -2655,7 +2655,7 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-2">
-                  <span className="text-indigo-600">👨‍🏫</span>
+                  <span className="text-emerald-600">👨‍🏫</span>
                   <div>
                     <h4 className="font-bold">Guru Mata Pelajaran</h4>
                     <p className="text-[11px] text-gray-400">Mengisi jurnal harian materi, merilis CBT, dan mengunggah e-learning.</p>
@@ -2663,7 +2663,7 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-2">
-                  <span className="text-indigo-600">👨‍💼</span>
+                  <span className="text-emerald-600">👨‍💼</span>
                   <div>
                     <h4 className="font-bold">Kepala Sekolah</h4>
                     <p className="text-[11px] text-gray-400">Memantau progres guru, grafik kehadiran, dan memberikan catatan kinerja.</p>
@@ -2671,7 +2671,7 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-2">
-                  <span className="text-indigo-600">👪</span>
+                  <span className="text-emerald-600">👪</span>
                   <div>
                     <h4 className="font-bold">Wali Murid (Orangtua)</h4>
                     <p className="text-[11px] text-gray-400">Melacak nilai CBT, melihat absensi realtime anak, dan mengakses materi.</p>
@@ -2756,9 +2756,9 @@ export default function App() {
             </h1>
             <p className="text-sm text-gray-500 dark:text-[#a3a4cc]">
               {activeRole === 'siswa' ? (
-                <>Akses khusus <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">{student.name}</strong> untuk memantau rekap kehadiran, nilai murni, dan tugas e-learning.</>
+                <>Akses khusus <strong className="text-emerald-600 dark:text-emerald-400 font-semibold">{student.name}</strong> untuk memantau rekap kehadiran, nilai murni, dan tugas e-learning.</>
               ) : (
-                <>Akses khusus Bapak/Ibu <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">{student.parentName}</strong> untuk memantau kehadiran, nilai murni, dan tugas e-learning <strong className="text-gray-700 dark:text-slate-300">{student.name}</strong>.</>
+                <>Akses khusus Bapak/Ibu <strong className="text-emerald-600 dark:text-emerald-400 font-semibold">{student.parentName}</strong> untuk memantau kehadiran, nilai murni, dan tugas e-learning <strong className="text-gray-700 dark:text-slate-300">{student.name}</strong>.</>
               )}
             </p>
           </div>
@@ -2807,13 +2807,13 @@ export default function App() {
           <div className="lg:col-span-4 bg-white dark:bg-[#2b2c40] rounded-2xl p-6 border border-gray-100 dark:border-[#3e405b] shadow-sm space-y-6 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-violet-600 rounded-full flex items-center justify-center text-3xl shadow-md text-white">
+                <div className="w-16 h-16 bg-gradient-to-tr from-emerald-500 to-violet-600 rounded-full flex items-center justify-center text-3xl shadow-md text-white">
                   👦
                 </div>
                 <div>
                   <h3 className="text-base font-black text-gray-800 dark:text-white leading-tight">{student.name}</h3>
                   <p className="text-xs text-slate-400 mt-1">NIS: {student.id}</p>
-                  <p className="text-xs font-semibold text-indigo-500 mt-0.5">{student.className}</p>
+                  <p className="text-xs font-semibold text-emerald-500 mt-0.5">{student.className}</p>
                 </div>
               </div>
 
@@ -2971,7 +2971,7 @@ export default function App() {
                         <span className="px-2.5 py-0.5 bg-rose-500/10 text-rose-500 text-[10px] font-bold rounded-full border border-rose-500/20 uppercase tracking-wider">
                           Belum Dikerjakan
                         </span>
-                        <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-wide">{task.subject}</span>
+                        <span className="text-[11px] font-bold text-emerald-500 uppercase tracking-wide">{task.subject}</span>
                       </div>
                       
                       <h4 className="font-bold text-xs text-gray-800 dark:text-slate-200 leading-snug line-clamp-2">
@@ -3010,12 +3010,12 @@ export default function App() {
                 <p className="text-xs text-gray-400 text-center py-8">Belum ada nilai ujian CBT terunggah.</p>
               ) : (
                 studentCbtList.map((res, idx) => (
-                  <div key={idx} className="p-3 border dark:border-slate-800 rounded-xl bg-gray-50/50 dark:bg-[#232333]/30 text-xs flex justify-between items-center hover:border-indigo-500/30 transition-all">
+                  <div key={idx} className="p-3 border dark:border-slate-800 rounded-xl bg-gray-50/50 dark:bg-[#232333]/30 text-xs flex justify-between items-center hover:border-emerald-500/30 transition-all">
                     <div className="space-y-1">
                       <h4 className="font-bold text-gray-800 dark:text-gray-200">{res.examTitle}</h4>
                       <p className="text-[10px] text-gray-400">Mapel: {res.subject} • Tanggal: {res.submittedAt.split(' ')[0]}</p>
                       {res.teacherFeedback && (
-                        <p className="text-[10px] text-indigo-600 dark:text-indigo-400 italic font-medium bg-indigo-500/5 px-2 py-0.5 rounded border border-indigo-500/10 inline-block mt-1">Ulasan Guru: "{res.teacherFeedback}"</p>
+                        <p className="text-[10px] text-emerald-600 dark:text-emerald-400 italic font-medium bg-emerald-500/5 px-2 py-0.5 rounded border border-emerald-500/10 inline-block mt-1">Ulasan Guru: "{res.teacherFeedback}"</p>
                       )}
                     </div>
                     <div className="text-right ml-2 shrink-0">
@@ -3058,7 +3058,7 @@ export default function App() {
                   <div key={sub} className="p-4 rounded-xl border border-gray-100 dark:border-slate-800 bg-gray-50/20 dark:bg-[#232333]/10 space-y-3">
                     <div className="flex justify-between items-center border-b dark:border-slate-800/40 pb-2">
                       <span className="font-bold text-xs text-gray-800 dark:text-white flex items-center gap-1.5">
-                        <span className="text-indigo-500">📘</span>
+                        <span className="text-emerald-500">📘</span>
                         {sub}
                       </span>
                       <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Kurikulum Merdeka</span>
@@ -3067,7 +3067,7 @@ export default function App() {
                     <div className="space-y-3">
                       {/* Nilai Tugas Row */}
                       <div>
-                        <span className="block text-[9px] font-bold text-indigo-400 uppercase tracking-wider mb-1">Nilai Tugas & PR (Max 10)</span>
+                        <span className="block text-[9px] font-bold text-emerald-400 uppercase tracking-wider mb-1">Nilai Tugas & PR (Max 10)</span>
                         <div className="flex flex-wrap gap-1">
                           {Array.from({ length: 10 }).map((_, i) => {
                             const val = rec.tugas[i];
@@ -3076,7 +3076,7 @@ export default function App() {
                               <div key={i} className="flex flex-col items-center">
                                 <span className={`w-7 h-7 rounded-md flex items-center justify-center font-mono font-bold text-[10px] border
                                   ${hasVal 
-                                    ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' 
+                                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
                                     : 'bg-slate-100/30 dark:bg-slate-900/40 text-slate-400 dark:text-slate-600 border-dashed border-slate-200 dark:border-slate-800'}`}>
                                   {hasVal ? val : '-'}
                                 </span>
@@ -3284,7 +3284,7 @@ export default function App() {
 
         {/* Content Body Area */}
         <main className="p-2 sm:p-4 md:p-6 flex-1 max-w-7xl w-full mx-auto animate-fade-in select-none">
-          <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div></div>}>
+          <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div></div>}>
             {renderTabContent()}
           </Suspense>
         </main>
@@ -3295,7 +3295,7 @@ export default function App() {
             ${isDark ? 'bg-[#2b2c40] border-[#3e405b] text-gray-400' : 'bg-white border-gray-100 text-gray-500'}`}
         >
           <span>© 2026 <b>EstugaDigital</b> • Created by Cak Soeteguh Estuga 2026. Semua Hak Cipta Dilindungi Undang-Undang.</span>
-          <div className="flex gap-4 font-semibold text-indigo-600 dark:text-indigo-400">
+          <div className="flex gap-4 font-semibold text-emerald-600 dark:text-emerald-400">
             <span className="cursor-pointer hover:underline" onClick={() => setCurrentTab('php-export')}>PHP Native Core</span>
             <span>v1.2.0 Stable</span>
           </div>
@@ -3306,9 +3306,9 @@ export default function App() {
       {/* Real-time Push Toaster Overlay */}
       <div className="fixed top-20 right-4 z-[9999] w-full max-w-sm flex flex-col gap-3 pointer-events-none">
         {activeToasts.map((toast) => {
-          let borderClass = 'border-l-4 border-l-indigo-600 border-slate-200 dark:border-slate-800';
+          let borderClass = 'border-l-4 border-l-emerald-600 border-slate-200 dark:border-slate-800';
           let icon = '🔔';
-          let iconBg = 'bg-indigo-100 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400';
+          let iconBg = 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400';
           let label = 'Sistem';
 
           if (toast.type === 'attendance') {
@@ -3334,8 +3334,8 @@ export default function App() {
               className={`pointer-events-auto p-4 rounded-2xl shadow-2xl border flex gap-3 items-start animate-scale-up duration-300 relative overflow-hidden bg-white dark:bg-[#111625] ${borderClass}`}
             >
               {/* Animated Progress Bar */}
-              <div className="absolute bottom-0 left-0 h-1 bg-indigo-500/20 w-full">
-                <div className="h-full bg-indigo-500 animate-toast-progress" style={{ animationDuration: '5s', animationTimingFunction: 'linear' }}></div>
+              <div className="absolute bottom-0 left-0 h-1 bg-emerald-500/20 w-full">
+                <div className="h-full bg-emerald-500 animate-toast-progress" style={{ animationDuration: '5s', animationTimingFunction: 'linear' }}></div>
               </div>
 
               <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm shrink-0 ${iconBg}`}>

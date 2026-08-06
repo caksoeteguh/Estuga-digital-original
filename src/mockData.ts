@@ -1,4 +1,4 @@
-import { Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial, WA_NotificationSim } from './types';
+import { Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial } from './types';
 
 // Mock Data Arrays
 export const INITIAL_STUDENTS: any[] = [
@@ -910,7 +910,6 @@ export const INITIAL_EVENTS: any[] = [];
 export const INITIAL_FEEDBACKS: any[] = [];
 export const INITIAL_MATERIALS: any[] = [];
 export const INITIAL_MEETS: any[] = [];
-export const INITIAL_WA_NOTIFS: WA_NotificationSim[] = [];
 export const INITIAL_ASSIGNMENTS: any[] = [];
 export const INITIAL_SUBMISSIONS: any[] = [];
 export const INITIAL_PRAYER_ATTENDANCE: PrayerAttendance[] = [];

@@ -851,7 +851,7 @@ export default function DataImporter({
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold font-sans text-gray-800 dark:text-white flex items-center gap-2">
-            <School className="text-indigo-600 dark:text-indigo-400" />
+            <School className="text-emerald-600 dark:text-emerald-400" />
             <span>Workspace Data Master Admin</span>
           </h1>
           <p className="text-sm text-gray-500 dark:text-[#a3a4cc]">
@@ -860,7 +860,7 @@ export default function DataImporter({
         </div>
         <div className="flex flex-col gap-2">
           <div className="bg-slate-100 dark:bg-[#1f2030] px-4 py-2.5 rounded-xl border dark:border-[#3e405b] text-xs font-semibold text-gray-700 dark:text-slate-300 whitespace-nowrap">
-            Identitas: <span className="font-bold text-indigo-600 dark:text-indigo-400">{scLogo} {scName}</span>
+            Identitas: <span className="font-bold text-emerald-600 dark:text-emerald-400">{scLogo} {scName}</span>
           </div>
           <button
             onClick={handleForceSync}
@@ -879,7 +879,7 @@ export default function DataImporter({
           onClick={() => setActiveTab('siswa')}
           className={`px-3 py-2 md:py-2.5 font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center md:justify-start gap-1.5 rounded-lg md:rounded-b-none
             ${activeTab === 'siswa' 
-              ? 'border-indigo-600 bg-indigo-50/70 text-indigo-600 dark:bg-indigo-950/40 dark:border-indigo-400 dark:text-indigo-400 shadow-xs' 
+              ? 'border-emerald-600 bg-emerald-50/70 text-emerald-600 dark:bg-emerald-950/40 dark:border-emerald-400 dark:text-emerald-400 shadow-xs' 
               : 'border-transparent text-gray-500 hover:text-gray-700 bg-slate-50 dark:bg-slate-900 md:bg-transparent md:dark:bg-transparent'}`}
         >
           <Users size={14} />
@@ -889,7 +889,7 @@ export default function DataImporter({
           onClick={() => setActiveTab('kelas')}
           className={`px-3 py-2 md:py-2.5 font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center md:justify-start gap-1.5 rounded-lg md:rounded-b-none
             ${activeTab === 'kelas' 
-              ? 'border-indigo-600 bg-indigo-50/70 text-indigo-600 dark:bg-indigo-950/40 dark:border-indigo-400 dark:text-indigo-400 shadow-xs' 
+              ? 'border-emerald-600 bg-emerald-50/70 text-emerald-600 dark:bg-emerald-950/40 dark:border-emerald-400 dark:text-emerald-400 shadow-xs' 
               : 'border-transparent text-gray-500 hover:text-gray-700 bg-slate-50 dark:bg-slate-900 md:bg-transparent md:dark:bg-transparent'}`}
         >
           <Settings size={14} className="text-purple-500" />
@@ -899,7 +899,7 @@ export default function DataImporter({
           onClick={() => setActiveTab('ortu')}
           className={`px-3 py-2 md:py-2.5 font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center md:justify-start gap-1.5 rounded-lg md:rounded-b-none
             ${activeTab === 'ortu' 
-              ? 'border-indigo-600 bg-indigo-50/70 text-indigo-600 dark:bg-indigo-950/40 dark:border-indigo-400 dark:text-indigo-400 shadow-xs' 
+              ? 'border-emerald-600 bg-emerald-50/70 text-emerald-600 dark:bg-emerald-950/40 dark:border-emerald-400 dark:text-emerald-400 shadow-xs' 
               : 'border-transparent text-gray-500 hover:text-gray-700 bg-slate-50 dark:bg-slate-900 md:bg-transparent md:dark:bg-transparent'}`}
         >
           <Smartphone size={14} className="text-amber-500" />
@@ -909,17 +909,17 @@ export default function DataImporter({
           onClick={() => setActiveTab('guru')}
           className={`px-3 py-2 md:py-2.5 font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center md:justify-start gap-1.5 rounded-lg md:rounded-b-none
             ${activeTab === 'guru' 
-              ? 'border-indigo-600 bg-indigo-50/70 text-indigo-600 dark:bg-indigo-950/40 dark:border-indigo-400 dark:text-indigo-400 shadow-xs' 
+              ? 'border-emerald-600 bg-emerald-50/70 text-emerald-600 dark:bg-emerald-950/40 dark:border-emerald-400 dark:text-emerald-400 shadow-xs' 
               : 'border-transparent text-gray-500 hover:text-gray-700 bg-slate-50 dark:bg-slate-900 md:bg-transparent md:dark:bg-transparent'}`}
         >
-          <ShieldAlert size={14} className="text-indigo-500" />
+          <ShieldAlert size={14} className="text-emerald-500" />
           <span>Guru & Mapel</span>
         </button>
         <button
           onClick={() => setActiveTab('identitas')}
           className={`px-3 py-2 md:py-2.5 font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center md:justify-start gap-1.5 rounded-lg md:rounded-b-none
             ${activeTab === 'identitas' 
-              ? 'border-indigo-600 bg-indigo-50/70 text-indigo-600 dark:bg-indigo-950/40 dark:border-indigo-400 dark:text-indigo-400 shadow-xs' 
+              ? 'border-emerald-600 bg-emerald-50/70 text-emerald-600 dark:bg-emerald-950/40 dark:border-emerald-400 dark:text-emerald-400 shadow-xs' 
               : 'border-transparent text-gray-500 hover:text-gray-700 bg-slate-50 dark:bg-slate-900 md:bg-transparent md:dark:bg-transparent'}`}
         >
           <Settings size={14} className="text-emerald-500" />
@@ -929,7 +929,7 @@ export default function DataImporter({
           onClick={() => setActiveTab('import-export')}
           className={`px-3 py-2 md:py-2.5 font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center md:justify-start gap-1.5 rounded-lg md:rounded-b-none
             ${activeTab === 'import-export' 
-              ? 'border-indigo-600 bg-indigo-50/70 text-indigo-600 dark:bg-indigo-950/40 dark:border-indigo-400 dark:text-indigo-400 shadow-xs' 
+              ? 'border-emerald-600 bg-emerald-50/70 text-emerald-600 dark:bg-emerald-950/40 dark:border-emerald-400 dark:text-emerald-400 shadow-xs' 
               : 'border-transparent text-gray-500 hover:text-gray-700 bg-slate-50 dark:bg-slate-900 md:bg-transparent md:dark:bg-transparent'}`}
         >
           <FileSpreadsheet size={14} className="text-emerald-500" />
@@ -945,7 +945,7 @@ export default function DataImporter({
           <div className="lg:col-span-4 bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm space-y-4">
             <h2 id="student-form-heading" className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
-                <UserPlus size={18} className="text-indigo-600" />
+                <UserPlus size={18} className="text-emerald-600" />
                 {editingStudent ? 'Edit Data Siswa' : 'Daftarkan Siswa Baru'}
               </span>
               {editingStudent && (
@@ -1136,7 +1136,7 @@ export default function DataImporter({
               <button
                 id="submit-student-btn"
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2.5 rounded-lg transition-colors cursor-pointer"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-lg transition-colors cursor-pointer"
               >
                 {editingStudent ? 'Simpan Perubahan Siswa' : 'Daftarkan & Generate Akun'}
               </button>
@@ -1175,7 +1175,7 @@ export default function DataImporter({
                         <p className="text-[10px] text-gray-400 font-mono mt-1">NIS: {student.id}</p>
                       </div>
                       <div className="flex flex-col items-end gap-1">
-                        <span className="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold px-2 py-0.5 rounded border border-indigo-100/50 dark:border-indigo-900/40">
+                        <span className="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-100/50 dark:border-emerald-900/40">
                           Kelas {student.className}
                         </span>
                         <span className="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-100/50 dark:border-emerald-900/40">
@@ -1194,7 +1194,7 @@ export default function DataImporter({
                       </div>
                       <div className="space-y-0.5">
                         <span className="text-gray-400 block text-[9px] uppercase font-bold tracking-wider">Kredensial CBT</span>
-                        <p className="font-mono text-[10px] text-indigo-600 dark:text-indigo-400 font-bold truncate">U: {student.usernameCbt}</p>
+                        <p className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold truncate">U: {student.usernameCbt}</p>
                         <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 truncate">P: {student.passwordCbt}</p>
                       </div>
                     </div>
@@ -1202,14 +1202,14 @@ export default function DataImporter({
                     <div className="flex justify-between items-center bg-white dark:bg-[#1f2030] p-2.5 rounded-lg border border-slate-100 dark:border-slate-800/80 text-[11px]">
                       <div className="space-y-0.5">
                         <span className="text-gray-400 text-[9px] uppercase font-bold tracking-wider block">Kredensial E-Learning</span>
-                        <p className="font-mono text-[10px] text-indigo-600 dark:text-indigo-400 font-bold truncate">U: {student.id}</p>
+                        <p className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold truncate">U: {student.id}</p>
                         <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 truncate">P: {student.dob.replace(/-/g, '')}</p>
                       </div>
                       
                       <div className="flex gap-1 shrink-0 pl-2">
                         <button
                           onClick={() => handleEditStudentClick(student)}
-                          className="p-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded dark:bg-indigo-950/40 dark:hover:bg-indigo-900/40 dark:text-indigo-400 cursor-pointer"
+                          className="p-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 dark:text-emerald-400 cursor-pointer"
                           title="Edit Data Siswa"
                         >
                           <Edit size={13} />
@@ -1252,7 +1252,7 @@ export default function DataImporter({
                     <tr key={student.id} className="hover:bg-gray-50/50 dark:hover:bg-[#232333]/30">
                       <td className="py-3 pr-2">
                         <span className="font-bold text-gray-800 dark:text-gray-100 block">{student.name}</span>
-                        <span className="text-[10px] text-gray-400 font-medium">Kelas: <span className="text-indigo-600 dark:text-indigo-400 font-bold">{student.className}</span></span>
+                        <span className="text-[10px] text-gray-400 font-medium">Kelas: <span className="text-emerald-600 dark:text-emerald-400 font-bold">{student.className}</span></span>
                         <span className="text-[10px] text-gray-400 font-medium block">Agama: <span className="text-emerald-600 dark:text-emerald-400 font-bold">{student.religion || 'Islam'}</span></span>
                         <span className="text-[10px] text-gray-400 font-medium block">JK: <span className="text-pink-600 dark:text-pink-400 font-bold">{student.gender || 'Laki-laki'}</span></span>
                       </td>
@@ -1282,7 +1282,7 @@ export default function DataImporter({
                         <div className="flex justify-center items-center gap-1">
                           <button
                             onClick={() => handleEditStudentClick(student)}
-                            className="p-1.5 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 rounded cursor-pointer"
+                            className="p-1.5 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 rounded cursor-pointer"
                             title="Edit data siswa"
                           >
                             <Edit size={13} />
@@ -1609,10 +1609,10 @@ export default function DataImporter({
 
             {editingParent ? (
               <form onSubmit={handleParentSubmit} className="space-y-3.5 text-xs">
-                <div className="p-3 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900 rounded-xl">
+                <div className="p-3 bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900 rounded-xl">
                   <p className="font-semibold text-[10px] text-gray-400">Siswa Terhubung:</p>
                   <p className="font-bold text-gray-800 dark:text-slate-100 mt-1">{editingParent.name}</p>
-                  <p className="text-[10px] text-indigo-600 dark:text-indigo-400 font-mono">NIS: {editingParent.id} • {editingParent.className}</p>
+                  <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">NIS: {editingParent.id} • {editingParent.className}</p>
                 </div>
 
                 <div>
@@ -1673,7 +1673,7 @@ export default function DataImporter({
                   Pilih salah satu baris Wali Murid di tabel kanan untuk melakukan perubahan no WhatsApp, nama wali, ataupun username & password login aplikasi.
                 </p>
                 <div className="p-3 bg-slate-50 dark:bg-[#1a1b2e] rounded-lg text-[11px] space-y-1 text-slate-600 dark:text-slate-400">
-                  <p className="font-bold text-indigo-600 dark:text-indigo-400">Simulasi WhatsApp Gateway:</p>
+                  <p className="font-bold text-emerald-600 dark:text-emerald-400">Simulasi WhatsApp Gateway:</p>
                   <p>Semua absensi barcode masuk & pulang akan otomatis dikirimkan ke nomor WhatsApp terdaftar ini.</p>
                 </div>
               </div>
@@ -1699,13 +1699,13 @@ export default function DataImporter({
                         <h4 className="font-bold text-gray-800 dark:text-gray-100 text-sm leading-tight">
                           {student.parentName || `Wali dari ${student.name}`}
                         </h4>
-                        <p className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 mt-1.5">
+                        <p className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 mt-1.5">
                           📞 {student.parentPhone}
                         </p>
                       </div>
                       <button
                         onClick={() => handleEditParentClick(student)}
-                        className="p-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded dark:bg-indigo-950/40 dark:hover:bg-indigo-900/40 dark:text-indigo-400 cursor-pointer"
+                        className="p-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 dark:text-emerald-400 cursor-pointer"
                         title="Edit Data Wali Murid"
                       >
                         <Edit size={13} />
@@ -1720,7 +1720,7 @@ export default function DataImporter({
                       </div>
                       <div className="space-y-0.5">
                         <span className="text-gray-400 block text-[9px] uppercase font-bold tracking-wider">Akun Login Ortu</span>
-                        <p className="font-mono text-[10px] text-slate-700 dark:text-slate-300">User: <span className="font-bold text-indigo-600 dark:text-indigo-400">{student.usernameParent}</span></p>
+                        <p className="font-mono text-[10px] text-slate-700 dark:text-slate-300">User: <span className="font-bold text-emerald-600 dark:text-emerald-400">{student.usernameParent}</span></p>
                         <p className="font-mono text-[10px] text-slate-500">Pass: {student.passwordParent}</p>
                       </div>
                     </div>
@@ -1747,7 +1747,7 @@ export default function DataImporter({
                       <td className="py-3">
                         <span className="font-bold text-gray-800 dark:text-gray-100 block">{student.parentName || `Wali dari ${student.name}`}</span>
                       </td>
-                      <td className="py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">
+                      <td className="py-3 font-mono font-bold text-emerald-600 dark:text-emerald-400">
                         {student.parentPhone}
                       </td>
                       <td className="py-3 font-mono text-[10px]">
@@ -1766,7 +1766,7 @@ export default function DataImporter({
                       <td className="py-3 text-center">
                         <button
                           onClick={() => handleEditParentClick(student)}
-                          className="p-1.5 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 rounded cursor-pointer inline-flex items-center"
+                          className="p-1.5 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 rounded cursor-pointer inline-flex items-center"
                           title="Edit Data Wali Murid"
                         >
                           <Edit size={13} />
@@ -1790,7 +1790,7 @@ export default function DataImporter({
           <div className="lg:col-span-4 bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm space-y-4">
             <h2 id="teacher-form-heading" className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
-                <UserPlus size={18} className="text-indigo-500" />
+                <UserPlus size={18} className="text-emerald-500" />
                 <span>{editingTeacher ? 'Edit Data Guru' : 'Daftarkan Guru Baru'}</span>
               </span>
               {editingTeacher && (
@@ -1853,7 +1853,7 @@ export default function DataImporter({
                               setSelectedSubjects(prev => [...prev, subject]);
                             }
                           }}
-                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                         />
                         <span className="text-gray-700 dark:text-gray-300">{subject}</span>
                       </label>
@@ -1891,7 +1891,7 @@ export default function DataImporter({
                         }}
                         className={`px-1.5 py-0.5 rounded text-[10px] font-medium border transition-all ${
                           isAssigned 
-                            ? 'bg-indigo-600 border-indigo-600 text-white' 
+                            ? 'bg-emerald-600 border-emerald-600 text-white' 
                             : 'bg-white border-slate-200 text-slate-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 hover:bg-slate-100'
                         }`}
                       >
@@ -1932,7 +1932,7 @@ export default function DataImporter({
 
               <button
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2.5 rounded-lg transition-colors cursor-pointer"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-lg transition-colors cursor-pointer"
               >
                 {editingTeacher ? 'Simpan Perubahan Guru' : 'Daftarkan Guru Baru'}
               </button>
@@ -1967,7 +1967,7 @@ export default function DataImporter({
                       NIP: <span className="font-bold text-gray-600 dark:text-slate-300">{teacher.id}</span>
                     </p>
                     <div className="flex flex-wrap gap-2 pt-1">
-                      <span className="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 text-[10px] font-extrabold px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900/40">
+                      <span className="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[10px] font-extrabold px-2 py-0.5 rounded border border-emerald-100 dark:border-emerald-900/40">
                         Mapel: {teacher.subject}
                       </span>
                       {teacher.classesTaught && (
@@ -1979,7 +1979,7 @@ export default function DataImporter({
                   </div>
                   <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-800">
                     <div className="text-[10px] bg-white dark:bg-[#2b2c40] p-2 border rounded-lg font-mono text-slate-700 dark:text-slate-300">
-                      <p>User: <span className="font-bold text-indigo-600 dark:text-indigo-400">{teacher.username}</span></p>
+                      <p>User: <span className="font-bold text-emerald-600 dark:text-emerald-400">{teacher.username}</span></p>
                       <p>Pass: <span className="text-gray-400">{teacher.password}</span></p>
                     </div>
                     <div className="flex gap-1">
@@ -1992,7 +1992,7 @@ export default function DataImporter({
                       </button>
                       <button
                         onClick={() => handleEditTeacherClick(teacher)}
-                        className="p-1.5 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 rounded cursor-pointer"
+                        className="p-1.5 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 rounded cursor-pointer"
                         title="Edit data guru"
                       >
                         <Edit size={14} />
@@ -2025,8 +2025,8 @@ export default function DataImporter({
                   <span className="text-[10px] text-slate-400">Peran: Kepala Sekolah</span>
                 </div>
                 <div className="font-mono text-[10px] text-slate-600 dark:text-slate-400 text-right">
-                  <p>User: <span className="font-bold text-indigo-600">kepsek123</span></p>
-                  <p>Pass: <span className="font-bold text-indigo-600">kepsek123</span></p>
+                  <p>User: <span className="font-bold text-emerald-600">kepsek123</span></p>
+                  <p>Pass: <span className="font-bold text-emerald-600">kepsek123</span></p>
                 </div>
               </div>
             </div>
@@ -2120,7 +2120,7 @@ export default function DataImporter({
                     />
                     <label
                       htmlFor="logo-image-file"
-                      className="flex items-center gap-1.5 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg cursor-pointer text-xs font-semibold select-none transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg cursor-pointer text-xs font-semibold select-none transition-colors"
                     >
                       <Upload size={14} />
                       <span>Upload Gambar Logo Kustom</span>
@@ -2139,10 +2139,10 @@ export default function DataImporter({
               </div>
             </div>
 
-            <div className="p-4 bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100/30 dark:border-indigo-900/30 rounded-2xl space-y-2">
-              <span className="font-bold text-indigo-600 dark:text-indigo-400 block">Preview Cap Kartu Digital:</span>
+            <div className="p-4 bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-100/30 dark:border-emerald-900/30 rounded-2xl space-y-2">
+              <span className="font-bold text-emerald-600 dark:text-emerald-400 block">Preview Cap Kartu Digital:</span>
               <div className="flex items-center gap-3 bg-white dark:bg-slate-900/50 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
-                <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-indigo-100 dark:border-indigo-950">
+                <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-emerald-100 dark:border-emerald-950">
                   {scLogo.startsWith('data:image') || scLogo.startsWith('http') ? (
                     <img src={scLogo} alt="Logo" className="w-full h-full object-cover" />
                   ) : (
@@ -2163,7 +2163,7 @@ export default function DataImporter({
               <button
                 type="button"
                 onClick={() => setSelectedStaffForCard({ id: scKepsekNip, name: scKepsekName, role: 'Kepala Sekolah', username: scKepsekEmail, password: scKepsekPassword })}
-                className="text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 hover:bg-indigo-100 transition-colors cursor-pointer"
+                className="text-xs bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 hover:bg-emerald-100 transition-colors cursor-pointer"
               >
                 <Printer size={14} /> Cetak ID Card Kepsek
               </button>
@@ -2216,7 +2216,7 @@ export default function DataImporter({
               <button
                 type="button"
                 onClick={() => setSelectedStaffForCard({ id: 'ADMIN-1', name: 'Administrator', role: 'Admin Utama', username: scAdminEmail, password: scAdminPassword })}
-                className="text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 hover:bg-indigo-100 transition-colors cursor-pointer"
+                className="text-xs bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 hover:bg-emerald-100 transition-colors cursor-pointer"
               >
                 <Printer size={14} /> Cetak ID Card Admin
               </button>
@@ -2265,7 +2265,7 @@ export default function DataImporter({
               <button
                 id="export-siswa-btn"
                 onClick={() => exportToExcel('siswa')}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
               >
                 <Download size={14} />
                 <span>Ekspor Excel Siswa</span>
@@ -2273,7 +2273,7 @@ export default function DataImporter({
               <button
                 id="export-guru-btn"
                 onClick={() => exportToExcel('guru')}
-                className="border border-indigo-200 dark:border-indigo-900 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50/50 text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 font-bold transition-all cursor-pointer"
+                className="border border-emerald-200 dark:border-emerald-900 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50/50 text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 font-bold transition-all cursor-pointer"
               >
                 <Download size={14} />
                 <span>Ekspor Excel Guru</span>
@@ -2284,7 +2284,7 @@ export default function DataImporter({
           {/* --- NEW SECTION: DOWNLOAD EXCEL TEMPLATES --- */}
           <div className="border-t dark:border-[#3e405b]/40 pt-5 space-y-4">
             <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5">
-              <Download size={16} className="text-indigo-600" />
+              <Download size={16} className="text-emerald-600" />
               Unduh Template Entri Data Excel (.xlsx)
             </h3>
             <p className="text-xs text-gray-500 dark:text-slate-400">
@@ -2296,15 +2296,15 @@ export default function DataImporter({
               <button
                 type="button"
                 onClick={downloadStudentTemplate}
-                className="p-4 bg-slate-50 hover:bg-indigo-50/50 dark:bg-[#202134] dark:hover:bg-indigo-950/20 rounded-xl border border-gray-150 dark:border-[#3e405b] text-left flex items-start gap-3 transition-all cursor-pointer group"
+                className="p-4 bg-slate-50 hover:bg-emerald-50/50 dark:bg-[#202134] dark:hover:bg-emerald-950/20 rounded-xl border border-gray-150 dark:border-[#3e405b] text-left flex items-start gap-3 transition-all cursor-pointer group"
               >
-                <div className="p-2.5 bg-indigo-500 text-white rounded-lg shrink-0 group-hover:scale-105 transition-transform shadow-sm">
+                <div className="p-2.5 bg-emerald-500 text-white rounded-lg shrink-0 group-hover:scale-105 transition-transform shadow-sm">
                   <FileSpreadsheet size={18} />
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-xs font-bold text-gray-800 dark:text-white">Template Data Siswa</h4>
                   <p className="text-[10px] text-gray-400">NIS, Nama Lengkap, Tempat Lahir, Tanggal Lahir, Kelas, Agama, Jenis Kelamin, Wali Murid, No HP</p>
-                  <span className="inline-block text-[9px] text-indigo-600 dark:text-indigo-400 font-semibold mt-1">Unduh Berkas 📥</span>
+                  <span className="inline-block text-[9px] text-emerald-600 dark:text-emerald-400 font-semibold mt-1">Unduh Berkas 📥</span>
                 </div>
               </button>
 
@@ -2312,7 +2312,7 @@ export default function DataImporter({
               <button
                 type="button"
                 onClick={downloadTeacherTemplate}
-                className="p-4 bg-slate-50 hover:bg-indigo-50/50 dark:bg-[#202134] dark:hover:bg-indigo-950/20 rounded-xl border border-gray-150 dark:border-[#3e405b] text-left flex items-start gap-3 transition-all cursor-pointer group"
+                className="p-4 bg-slate-50 hover:bg-emerald-50/50 dark:bg-[#202134] dark:hover:bg-emerald-950/20 rounded-xl border border-gray-150 dark:border-[#3e405b] text-left flex items-start gap-3 transition-all cursor-pointer group"
               >
                 <div className="p-2.5 bg-emerald-500 text-white rounded-lg shrink-0 group-hover:scale-105 transition-transform shadow-sm">
                   <FileSpreadsheet size={18} />
@@ -2328,7 +2328,7 @@ export default function DataImporter({
               <button
                 type="button"
                 onClick={downloadSubjectTemplate}
-                className="p-4 bg-slate-50 hover:bg-indigo-50/50 dark:bg-[#202134] dark:hover:bg-indigo-950/20 rounded-xl border border-gray-150 dark:border-[#3e405b] text-left flex items-start gap-3 transition-all cursor-pointer group"
+                className="p-4 bg-slate-50 hover:bg-emerald-50/50 dark:bg-[#202134] dark:hover:bg-emerald-950/20 rounded-xl border border-gray-150 dark:border-[#3e405b] text-left flex items-start gap-3 transition-all cursor-pointer group"
               >
                 <div className="p-2.5 bg-amber-500 text-white rounded-lg shrink-0 group-hover:scale-105 transition-transform shadow-sm">
                   <FileSpreadsheet size={18} />
@@ -2344,7 +2344,7 @@ export default function DataImporter({
 
           <div className="border-t dark:border-[#3e405b]/40 pt-5 space-y-4">
             <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5">
-              <Upload size={16} className="text-indigo-600" />
+              <Upload size={16} className="text-emerald-600" />
               Unggah Berkas Spreadsheet Excel (.xlsx / .xls)
             </h3>
 
@@ -2363,7 +2363,7 @@ export default function DataImporter({
             )}
 
             {/* Premium File Uploader with Drag & Drop styling */}
-            <div className="border-2 border-dashed border-indigo-200 dark:border-slate-700 rounded-xl p-8 text-center bg-slate-50/50 dark:bg-[#090d16]/30 hover:bg-indigo-50/30 dark:hover:bg-[#090d16]/50 transition-all relative">
+            <div className="border-2 border-dashed border-emerald-200 dark:border-slate-700 rounded-xl p-8 text-center bg-slate-50/50 dark:bg-[#090d16]/30 hover:bg-emerald-50/30 dark:hover:bg-[#090d16]/50 transition-all relative">
               <input
                 type="file"
                 accept=".xlsx, .xls, .csv"
@@ -2371,7 +2371,7 @@ export default function DataImporter({
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
               />
               <div className="space-y-3 pointer-events-none">
-                <div className="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center mx-auto text-indigo-600 dark:text-indigo-400">
+                <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center mx-auto text-emerald-600 dark:text-emerald-400">
                   <FileSpreadsheet size={24} />
                 </div>
                 <div>
@@ -2439,7 +2439,7 @@ export default function DataImporter({
             {/* Modal Header */}
             <div className="flex justify-between items-start">
               <div>
-                <span className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-400 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">
+                <span className="bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">
                   KARTU IDENTITAS DIGITAL
                 </span>
                 <h3 className="text-xl font-bold text-slate-800 dark:text-white mt-2">
@@ -2463,7 +2463,7 @@ export default function DataImporter({
               
               {/* Left Side: Student Portrait ID Card mockup */}
               <div className="flex flex-col items-center justify-center bg-slate-50 dark:bg-[#11121e]/50 p-6 rounded-2xl border border-slate-100/50 dark:border-slate-800/40">
-                <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest mb-4">
+                <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-4">
                   Desain Kartu Portrait Modern
                 </p>
                 <StudentIdCard student={selectedStudentForCard} schoolIdentity={schoolIdentity} />
@@ -2471,18 +2471,18 @@ export default function DataImporter({
 
               {/* Right Side: Separate QR Code Downloader & Instructions */}
               <div className="space-y-6">
-                <div className="p-4 bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100/30 dark:border-indigo-900/30 rounded-2xl space-y-3">
-                  <h4 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                <div className="p-4 bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-100/30 dark:border-emerald-900/30 rounded-2xl space-y-3">
+                  <h4 className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
                     Informasi QR Code NIS Siswa
                   </h4>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Siswa atas nama <strong className="text-slate-800 dark:text-white">{selectedStudentForCard.name}</strong> memiliki Nomor Induk Siswa (NIS) <strong className="font-mono text-indigo-600 dark:text-indigo-400">{selectedStudentForCard.id}</strong>. QR Code di bawah ini telah di-encode dengan NIS tersebut dan langsung terintegrasi dengan mesin scanner absensi di gerbang sekolah.
+                    Siswa atas nama <strong className="text-slate-800 dark:text-white">{selectedStudentForCard.name}</strong> memiliki Nomor Induk Siswa (NIS) <strong className="font-mono text-emerald-600 dark:text-emerald-400">{selectedStudentForCard.id}</strong>. QR Code di bawah ini telah di-encode dengan NIS tersebut dan langsung terintegrasi dengan mesin scanner absensi di gerbang sekolah.
                   </p>
                 </div>
 
                 {/* Pure QR Code Renderer Component */}
                 <div className="bg-slate-50 dark:bg-[#11121e]/50 p-6 rounded-2xl border border-slate-100/50 dark:border-[#3e405b]/40 flex flex-col items-center justify-center space-y-4">
-                  <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">
+                  <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">
                     Unduh QR Code PNG Terpisah
                   </p>
                   <StudentBarcode value={selectedStudentForCard.id} showText={true} />

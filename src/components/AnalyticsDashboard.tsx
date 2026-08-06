@@ -116,7 +116,7 @@ export default function AnalyticsDashboard({
 
         {/* Card 2: Total Active Students */}
         <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-4 border border-gray-100 dark:border-[#3e405b] shadow-xs flex items-center gap-3">
-          <div className="p-3 bg-indigo-50 text-indigo-600 dark:bg-indigo-950/20 dark:text-indigo-400 rounded-lg">
+          <div className="p-3 bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 rounded-lg">
             <Users size={20} />
           </div>
           <div>
@@ -154,16 +154,16 @@ export default function AnalyticsDashboard({
 
       {/* GUIDELINES/FLOW CHART FOR DATA FILLING - SNEAT INSPIRED MODERN CARD */}
       {activeRole === 'admin' && (
-        <div className="bg-[#e0e7ff] dark:bg-[#1e1b4b]/40 rounded-xl p-5 border border-indigo-150 dark:border-[#3e405b] shadow-sm">
+        <div className="bg-[#e0e7ff] dark:bg-[#1e1b4b]/40 rounded-xl p-5 border border-emerald-150 dark:border-[#3e405b] shadow-sm">
           <div className="flex items-start gap-3">
-            <div className="p-2.5 bg-indigo-600 text-white rounded-lg shadow-md shrink-0">
+            <div className="p-2.5 bg-emerald-600 text-white rounded-lg shadow-md shrink-0">
               <Sparkles size={20} className="animate-pulse" />
             </div>
             <div className="space-y-1">
-              <h2 className="text-sm font-bold text-indigo-900 dark:text-indigo-200">
+              <h2 className="text-sm font-bold text-emerald-900 dark:text-emerald-200">
                 Panduan Urutan Pengisian Data Sekolah (Alur Kerja Lancar)
               </h2>
-              <p className="text-xs text-indigo-700/80 dark:text-indigo-300/80">
+              <p className="text-xs text-emerald-700/80 dark:text-emerald-300/80">
                 Ikuti urutan langkah di bawah ini untuk mengonfigurasi data awal sekolah Anda agar seluruh menu e-learning, CBT, presensi QR Code, dan notifikasi WhatsApp berjalan otomatis tanpa hambatan:
               </p>
             </div>
@@ -173,23 +173,23 @@ export default function AnalyticsDashboard({
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-5 relative">
             
             {/* Step 1: Subjects */}
-            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
+            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-emerald-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
               <div className="flex justify-between items-center">
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">1</span>
-                <BookOpen size={16} className="text-indigo-500" />
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">1</span>
+                <BookOpen size={16} className="text-emerald-500" />
               </div>
               <div>
                 <h4 className="text-xs font-bold text-gray-800 dark:text-white">Mata Pelajaran</h4>
                 <p className="text-[11px] text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  Isi/impor daftar Mata Pelajaran di menu <span className="font-semibold text-indigo-600 dark:text-indigo-400">Data Master & Impor</span> terlebih dahulu agar siap dihubungkan dengan jadwal guru.
+                  Isi/impor daftar Mata Pelajaran di menu <span className="font-semibold text-emerald-600 dark:text-emerald-400">Data Master & Impor</span> terlebih dahulu agar siap dihubungkan dengan jadwal guru.
                 </p>
               </div>
             </div>
 
             {/* Step 2: Teachers */}
-            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
+            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-emerald-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
               <div className="flex justify-between items-center">
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">2</span>
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">2</span>
                 <GraduationCap size={16} className="text-emerald-500" />
               </div>
               <div>
@@ -201,9 +201,9 @@ export default function AnalyticsDashboard({
             </div>
 
             {/* Step 3: Students & QR Code Generation */}
-            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
+            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-emerald-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
               <div className="flex justify-between items-center">
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">3</span>
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">3</span>
                 <Users size={16} className="text-amber-500" />
               </div>
               <div>
@@ -215,28 +215,28 @@ export default function AnalyticsDashboard({
             </div>
 
             {/* Step 4: WhatsApp Integration */}
-            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
+            <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-emerald-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
               <div className="flex justify-between items-center">
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">4</span>
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">4</span>
                 <MessageSquare size={16} className="text-rose-500" />
               </div>
               <div>
                 <h4 className="text-xs font-bold text-gray-800 dark:text-white">Notifikasi WhatsApp</h4>
                 <p className="text-[11px] text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  Hubungkan Token Fonnte Anda di menu <span className="font-semibold text-indigo-600 dark:text-indigo-400">Log Notifikasi WhatsApp</span> untuk mengaktifkan pengiriman SMS WA otomatis.
+                  Hubungkan Token Fonnte Anda di menu <span className="font-semibold text-emerald-600 dark:text-emerald-400">Log Notifikasi WhatsApp</span> untuk mengaktifkan pengiriman SMS WA otomatis.
                 </p>
               </div>
             </div>
 
             {/* Step 5: Start Scanning & Activities */}
-            <div className="bg-indigo-600 text-white p-4 rounded-xl border border-indigo-500 space-y-3 relative hover:scale-[1.01] transition-all shadow-md">
+            <div className="bg-emerald-600 text-white p-4 rounded-xl border border-emerald-500 space-y-3 relative hover:scale-[1.01] transition-all shadow-md">
               <div className="flex justify-between items-center">
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-indigo-700 text-xs font-bold font-mono">5</span>
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-emerald-700 text-xs font-bold font-mono">5</span>
                 <QrCode size={16} className="text-yellow-300 animate-pulse" />
               </div>
               <div>
                 <h4 className="text-xs font-bold text-white">Siap Presensi QR &amp; CBT</h4>
-                <p className="text-[11px] text-indigo-100 mt-1 leading-relaxed">
+                <p className="text-[11px] text-emerald-100 mt-1 leading-relaxed">
                   Masuk ke menu <span className="font-semibold text-yellow-300">Presensi QR Code</span> untuk memindai kehadiran secara riil. Guru juga bisa mulai mengisi jurnal &amp; meng-upload nilai CBT dengan lancar!
                 </p>
               </div>
@@ -255,7 +255,7 @@ export default function AnalyticsDashboard({
           {/* Attendance breakdown map */}
           <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
             <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5 mb-1">
-              <Activity size={18} className="text-indigo-600 dark:text-indigo-400" />
+              <Activity size={18} className="text-emerald-600 dark:text-emerald-400" />
               Grafik Kehadiran per Rombongan Belajar (Kelas)
             </h2>
             <p className="text-xs text-gray-400 mb-5">Distribusi persentase kehadiran murid hari ini berdasarkan absensi barcode.</p>
@@ -263,7 +263,7 @@ export default function AnalyticsDashboard({
             {/* Custom high-fidelity visual bars showing progress for each class */}
             <div className="space-y-4">
               {Array.from(new Set(students.map(s => s.className))).map((className, index) => {
-                const cls = { name: className, color: index % 2 === 0 ? 'bg-indigo-500' : 'bg-emerald-500' };
+                const cls = { name: className, color: index % 2 === 0 ? 'bg-emerald-500' : 'bg-emerald-500' };
                 const classPresent = attendance.filter(a => a.className === cls.name && a.date === todayStr && a.status === 'hadir').length;
                 const classTotal = students.filter(s => s.className === cls.name).length;
                 const classRate = classTotal > 0 ? Math.round((classPresent / classTotal) * 100) : 0;
@@ -272,7 +272,7 @@ export default function AnalyticsDashboard({
                   <div key={cls.name} className="space-y-1.5 text-xs">
                     <div className="flex justify-between font-bold">
                       <span className="text-gray-700 dark:text-gray-200">{cls.name}</span>
-                      <span className="text-indigo-600 dark:text-indigo-400">{classRate}% Kehadiran ({classPresent} dari {classTotal} siswa)</span>
+                      <span className="text-emerald-600 dark:text-emerald-400">{classRate}% Kehadiran ({classPresent} dari {classTotal} siswa)</span>
                     </div>
                     <div className="w-full h-3 bg-gray-100 dark:bg-[#232333] rounded-full overflow-hidden">
                       <div 
@@ -295,8 +295,8 @@ export default function AnalyticsDashboard({
                 <span className="block text-amber-600 dark:text-amber-400 font-bold text-sm">{sickCount}</span>
                 <span className="text-gray-400 font-medium">Sakit</span>
               </div>
-              <div className="p-2 bg-indigo-50/50 dark:bg-indigo-950/20 rounded">
-                <span className="block text-indigo-600 dark:text-indigo-400 font-bold text-sm">{permissionCount}</span>
+              <div className="p-2 bg-emerald-50/50 dark:bg-emerald-950/20 rounded">
+                <span className="block text-emerald-600 dark:text-emerald-400 font-bold text-sm">{permissionCount}</span>
                 <span className="text-gray-400 font-medium">Izin</span>
               </div>
               <div className="p-2 bg-rose-50/50 dark:bg-rose-950/20 rounded">
@@ -309,7 +309,7 @@ export default function AnalyticsDashboard({
           {/* Teacher Performance & Journals Logs */}
           <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
             <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5 mb-1">
-              <ClipboardList size={18} className="text-indigo-600 dark:text-indigo-400" />
+              <ClipboardList size={18} className="text-emerald-600 dark:text-emerald-400" />
               Progres Jurnal & Pelaksanaan E-Learning Guru
             </h2>
             <p className="text-xs text-gray-400 mb-4">Sejauh mana setiap guru telah mengisi jurnal harian dan merilis media e-learning.</p>
@@ -328,14 +328,14 @@ export default function AnalyticsDashboard({
                         <h4 className="font-bold text-gray-800 dark:text-gray-100 text-xs">{t.name}</h4>
                         <p className="text-[10px] text-gray-400">NIP: {t.id} • Mata Pelajaran: {t.subject}</p>
                       </div>
-                      <span className="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-full font-mono text-[9px] font-bold">
+                      <span className="px-2 py-0.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-full font-mono text-[9px] font-bold">
                         Aktif Mengajar
                       </span>
                     </div>
 
                     <div className="grid grid-cols-3 gap-2 text-center">
                       <div className="p-2 bg-white dark:bg-[#1e2030] rounded-lg border dark:border-[#3e405b]/40">
-                        <span className="block text-xs font-black text-indigo-600 dark:text-indigo-400">{teacherJournalsCount}</span>
+                        <span className="block text-xs font-black text-emerald-600 dark:text-emerald-400">{teacherJournalsCount}</span>
                         <span className="text-[9px] text-slate-400 uppercase font-medium">Jurnal Harian</span>
                       </div>
                       <div className="p-2 bg-white dark:bg-[#1e2030] rounded-lg border dark:border-[#3e405b]/40">
@@ -349,8 +349,8 @@ export default function AnalyticsDashboard({
                     </div>
 
                     {teacherJournalsCount > 0 && (
-                      <div className="text-[10px] bg-indigo-50/30 dark:bg-indigo-950/20 p-2 rounded border border-indigo-100/20">
-                        <span className="font-bold text-indigo-700 dark:text-indigo-300">Topik Terakhir:</span>{" "}
+                      <div className="text-[10px] bg-emerald-50/30 dark:bg-emerald-950/20 p-2 rounded border border-emerald-100/20">
+                        <span className="font-bold text-emerald-700 dark:text-emerald-300">Topik Terakhir:</span>{" "}
                         <span className="text-slate-600 dark:text-slate-300 italic">"{teacherJournals[teacherJournals.length - 1].topic}"</span>
                       </div>
                     )}
@@ -423,7 +423,7 @@ export default function AnalyticsDashboard({
           {/* Teacher Feedback list */}
           <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
             <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5 mb-1">
-              <MessageSquare size={18} className="text-indigo-600" />
+              <MessageSquare size={18} className="text-emerald-600" />
               Catatan Kinerja Kepala Sekolah (Terintegrasi)
             </h2>
             <p className="text-xs text-gray-400 mb-3">Tanggapan tertulis kepala sekolah terhadap ketercapaian guru.</p>

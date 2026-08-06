@@ -221,7 +221,7 @@ export default function CalendarScheduler({
   const getEventTypeStyle = (type: string) => {
     switch (type) {
       case 'cbt': 
-        return 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-900/50';
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-900/50';
       case 'holiday': 
         return 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-900/50';
       case 'meeting': 
@@ -267,7 +267,7 @@ export default function CalendarScheduler({
               setShowAddForm(true);
               setEvtType('cbt');
             }}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl flex items-center gap-2 cursor-pointer shadow-md shadow-indigo-500/10 transition-all active:scale-95"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl flex items-center gap-2 cursor-pointer shadow-md shadow-emerald-500/10 transition-all active:scale-95"
           >
             <Plus size={16} />
             <span>Buat Agenda / Tugas Baru</span>
@@ -286,13 +286,13 @@ export default function CalendarScheduler({
       <div className="flex flex-wrap gap-2 p-1.5 bg-slate-100/80 dark:bg-[#1b1c30]/40 border dark:border-slate-800 rounded-2xl">
         <button
           onClick={() => setActiveFilter('all')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all ${activeFilter === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-slate-800 dark:hover:text-white'}`}
+          className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all ${activeFilter === 'all' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-400 hover:text-slate-800 dark:hover:text-white'}`}
         >
           🔍 Semua Agenda
         </button>
         <button
           onClick={() => setActiveFilter('cbt')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all ${activeFilter === 'cbt' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : 'text-slate-400 hover:text-indigo-400'}`}
+          className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all ${activeFilter === 'cbt' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'text-slate-400 hover:text-emerald-400'}`}
         >
           📝 Ujian CBT
         </button>
@@ -330,7 +330,7 @@ export default function CalendarScheduler({
           {/* Header Month / Year controls */}
           <div className="flex justify-between items-center mb-5 pb-3 border-b dark:border-[#3e405b]/40">
             <span className="text-sm font-black text-gray-800 dark:text-white flex items-center gap-2">
-              <CalendarIcon size={18} className="text-indigo-600" />
+              <CalendarIcon size={18} className="text-emerald-600" />
               {monthNames[currentMonth]} {currentYear}
             </span>
             <div className="flex gap-1.5">
@@ -386,7 +386,7 @@ export default function CalendarScheduler({
                 if (dayItems.some(e => e.type === 'holiday')) {
                   cellEventStyles = 'border-rose-300 dark:border-rose-900 bg-rose-500/5';
                 } else if (dayItems.some(e => e.type === 'cbt')) {
-                  cellEventStyles = 'border-indigo-300 dark:border-indigo-900 bg-indigo-500/5';
+                  cellEventStyles = 'border-emerald-300 dark:border-emerald-900 bg-emerald-500/5';
                 } else if (dayItems.some(e => e.type === 'task')) {
                   cellEventStyles = 'border-sky-300 dark:border-sky-900 bg-sky-500/5';
                 } else {
@@ -400,7 +400,7 @@ export default function CalendarScheduler({
                   onClick={() => setSelectedDay(day)}
                   className={`h-14 border rounded-xl flex flex-col justify-between p-2 transition-all cursor-pointer relative
                     ${isSelected 
-                      ? 'bg-indigo-600 text-white border-indigo-600 font-bold shadow-md scale-[1.03]' 
+                      ? 'bg-emerald-600 text-white border-emerald-600 font-bold shadow-md scale-[1.03]' 
                       : `hover:bg-slate-50 dark:hover:bg-[#232333]/80 ${cellEventStyles}`}`}
                 >
                   <span className="font-mono text-xs font-bold self-start">{day}</span>
@@ -413,7 +413,7 @@ export default function CalendarScheduler({
                           key={item.id} 
                           className={`w-1.5 h-1.5 rounded-full
                             ${isSelected ? 'bg-white' : 
-                             item.type === 'cbt' ? 'bg-indigo-500' : 
+                             item.type === 'cbt' ? 'bg-emerald-500' : 
                              item.type === 'task' ? 'bg-sky-500' : 
                              item.type === 'holiday' ? 'bg-rose-500' : 'bg-emerald-500'}`} 
                         />
@@ -435,10 +435,10 @@ export default function CalendarScheduler({
               <div>
                 <h2 className="text-sm font-black text-gray-700 dark:text-gray-200 border-b dark:border-[#3e405b]/40 pb-3 mb-3 flex justify-between items-center">
                   <span className="flex items-center gap-1.5">
-                    <CalendarDays size={18} className="text-indigo-500" />
+                    <CalendarDays size={18} className="text-emerald-500" />
                     Agenda Hari: {selectedDay} {monthNames[currentMonth]} {currentYear}
                   </span>
-                  <span className="text-[10px] bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 font-mono font-extrabold px-2.5 py-0.5 rounded-full">
+                  <span className="text-[10px] bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-mono font-extrabold px-2.5 py-0.5 rounded-full">
                     {selectedDayItems.length} Agenda
                   </span>
                 </h2>
@@ -480,7 +480,7 @@ export default function CalendarScheduler({
                             <button
                               type="button"
                               onClick={() => handlePushImmediateAnnouncement(item)}
-                              className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-bold transition-all flex items-center gap-1 cursor-pointer"
+                              className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-bold transition-all flex items-center gap-1 cursor-pointer"
                               title="Kirim Pesan Pengingat ke Seluruh Siswa/Wali"
                             >
                               <Bell size={10} />
@@ -498,7 +498,7 @@ export default function CalendarScheduler({
 
           {/* Quick inline Event creator */}
           {showAddForm && selectedDay && (
-            <div id="add-event-form" className="bg-white dark:bg-[#2b2c40] rounded-2xl p-6 border border-indigo-500/30 shadow-xl animate-scale-up space-y-4">
+            <div id="add-event-form" className="bg-white dark:bg-[#2b2c40] rounded-2xl p-6 border border-emerald-500/30 shadow-xl animate-scale-up space-y-4">
               <div className="flex justify-between items-center border-b dark:border-slate-800 pb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-lg">📅</span>
@@ -524,7 +524,7 @@ export default function CalendarScheduler({
                     value={evtTitle}
                     onChange={(e) => setEvtTitle(e.target.value)}
                     required
-                    className="w-full text-xs px-3.5 py-2.5 rounded-xl border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold"
+                    className="w-full text-xs px-3.5 py-2.5 rounded-xl border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 font-semibold"
                   />
                 </div>
 
@@ -611,7 +611,7 @@ export default function CalendarScheduler({
                     placeholder="Tulis deskripsi acara atau instruksi tugas secara detail..."
                     value={evtDesc}
                     onChange={(e) => setEvtDesc(e.target.value)}
-                    className="w-full text-xs p-3 rounded-xl border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold leading-relaxed"
+                    className="w-full text-xs p-3 rounded-xl border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 font-semibold leading-relaxed"
                   />
                 </div>
 
@@ -626,7 +626,7 @@ export default function CalendarScheduler({
                   <button
                     id="submit-event-btn"
                     type="submit"
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl cursor-pointer text-xs shadow-md shadow-indigo-500/10 transition-all flex items-center justify-center gap-1.5"
+                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl cursor-pointer text-xs shadow-md shadow-emerald-500/10 transition-all flex items-center justify-center gap-1.5"
                   >
                     <span>💾 Simpan & Sinkron</span>
                   </button>

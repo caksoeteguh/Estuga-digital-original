@@ -110,7 +110,7 @@ export default function AttendanceRecap({ students, attendance }: AttendanceReca
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-2xl font-black text-slate-800 dark:text-white flex items-center gap-2">
-            <CalendarIcon className="text-indigo-600" size={28} />
+            <CalendarIcon className="text-emerald-600" size={28} />
             Rekap Presensi Siswa
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1">Pantau jumlah kehadiran, izin, dan sakit siswa secara berkala.</p>
@@ -133,20 +133,20 @@ export default function AttendanceRecap({ students, attendance }: AttendanceReca
               placeholder="Cari nama atau NIS siswa..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+              className="w-full pl-10 pr-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none"
             />
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
               <button
                 onClick={() => setViewMode('weekly')}
-                className={`px-3 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'weekly' ? 'bg-white dark:bg-slate-800 text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                className={`px-3 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'weekly' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
               >
                 7 Hari Terakhir
               </button>
               <button
                 onClick={() => setViewMode('monthly')}
-                className={`px-3 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'monthly' ? 'bg-white dark:bg-slate-800 text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                className={`px-3 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'monthly' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
               >
                 Bulanan
               </button>
@@ -166,7 +166,7 @@ export default function AttendanceRecap({ students, attendance }: AttendanceReca
               <select
                 value={filterClass}
                 onChange={(e) => setFilterClass(e.target.value)}
-                className="pl-9 pr-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white appearance-none min-w-[140px] focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="pl-9 pr-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white appearance-none min-w-[140px] focus:ring-2 focus:ring-emerald-500 outline-none"
               >
                 <option value="all">Semua Kelas</option>
                 {classes.map(c => (
@@ -201,7 +201,7 @@ export default function AttendanceRecap({ students, attendance }: AttendanceReca
                       <div className="text-xs text-slate-400 font-normal">NIS: {student.id || '-'}</div>
                     </td>
                     <td className="p-4">
-                      <span className="inline-block px-2.5 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 rounded-md text-xs font-bold">
+                      <span className="inline-block px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-md text-xs font-bold">
                         {student.className || '-'}
                       </span>
                     </td>

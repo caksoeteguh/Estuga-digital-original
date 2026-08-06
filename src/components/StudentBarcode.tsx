@@ -72,7 +72,7 @@ export default function StudentBarcode({
       <button
         onClick={downloadQrPng}
         type="button"
-        className="text-[10px] font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-600 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/60 dark:text-indigo-400 px-3 py-1.5 rounded-md flex items-center gap-1 transition-all"
+        className="text-[10px] font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-600 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 dark:text-emerald-400 px-3 py-1.5 rounded-md flex items-center gap-1 transition-all"
         title="Download QR Code as PNG"
       >
         <Download size={10} />

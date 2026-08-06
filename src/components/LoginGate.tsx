@@ -199,7 +199,7 @@ export default function LoginGate({
     >
       {/* Decorative gradient glow in dark mode */}
       {isDark && (
-        <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] rounded-full bg-indigo-900/10 blur-[120px] pointer-events-none" />
+        <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] rounded-full bg-emerald-900/10 blur-[120px] pointer-events-none" />
       )}
       {isDark && (
         <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] rounded-full bg-emerald-900/10 blur-[120px] pointer-events-none" />
@@ -209,16 +209,16 @@ export default function LoginGate({
         
         {/* Left column: Beautiful branding with high contrast, elegant typography */}
         <div className="md:col-span-6 space-y-4 md:space-y-8 text-center md:text-left select-none">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-bold text-xs rounded-full uppercase tracking-wider font-mono">
-            <Sparkles size={14} className="animate-spin text-indigo-500" style={{ animationDuration: '4s' }} />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs rounded-full uppercase tracking-wider font-mono">
+            <Sparkles size={14} className="animate-spin text-emerald-500" style={{ animationDuration: '4s' }} />
             Sistem Informasi Akademik Sekolah
           </div>
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none text-slate-800 dark:text-white">
-              Portal Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500 dark:from-indigo-400 dark:to-violet-400">EstugaDigital</span>
+              Portal Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-violet-500 dark:from-emerald-400 dark:to-violet-400">EstugaDigital</span>
             </h1>
             <p className="hidden md:block text-sm md:text-base text-slate-500 dark:text-slate-400 leading-relaxed max-w-lg">
-              Platform penunjang pendidikan modern yang mengintegrasikan <span className="font-semibold text-indigo-600 dark:text-indigo-400">Wali Kelas</span>, <span className="font-semibold text-indigo-600 dark:text-indigo-400">Guru</span>, <span className="font-semibold text-indigo-600 dark:text-indigo-400">Kepala Sekolah</span>, dan <span className="font-semibold text-indigo-600 dark:text-indigo-400">Wali Murid</span> secara langsung dan real-time.
+              Platform penunjang pendidikan modern yang mengintegrasikan <span className="font-semibold text-emerald-600 dark:text-emerald-400">Wali Kelas</span>, <span className="font-semibold text-emerald-600 dark:text-emerald-400">Guru</span>, <span className="font-semibold text-emerald-600 dark:text-emerald-400">Kepala Sekolah</span>, dan <span className="font-semibold text-emerald-600 dark:text-emerald-400">Wali Murid</span> secara langsung dan real-time.
             </p>
           </div>
 
@@ -281,7 +281,7 @@ export default function LoginGate({
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                    className="w-full text-xs pl-10.5 pr-4 py-3 rounded-xl border bg-slate-50/50 text-slate-800 dark:bg-[#090d16]/60 dark:border-slate-800 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 transition-all"
+                    className="w-full text-xs pl-10.5 pr-4 py-3 rounded-xl border bg-slate-50/50 text-slate-800 dark:bg-[#090d16]/60 dark:border-slate-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all"
                   />
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function LoginGate({
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full text-xs pl-10.5 pr-10 py-3 rounded-xl border bg-slate-50/50 text-slate-800 dark:bg-[#090d16]/60 dark:border-slate-800 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 transition-all"
+                    className="w-full text-xs pl-10.5 pr-10 py-3 rounded-xl border bg-slate-50/50 text-slate-800 dark:bg-[#090d16]/60 dark:border-slate-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all"
                   />
                   <button
                     type="button"
@@ -318,7 +318,7 @@ export default function LoginGate({
               <button
                 id="login-submit-btn"
                 type="submit"
-                className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-xs py-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/10 active:scale-[0.99]"
+                className="w-full bg-gradient-to-r from-emerald-600 to-violet-600 hover:from-emerald-700 hover:to-violet-700 text-white font-bold text-xs py-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10 active:scale-[0.99]"
               >
                 <span>Masuk Sekarang</span>
                 <ArrowRight size={14} />
@@ -329,7 +329,7 @@ export default function LoginGate({
               <button
                 type="button"
                 onClick={() => setShowDemoAccounts(!showDemoAccounts)}
-                className="inline-flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold hover:underline cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer"
               >
                 <HelpCircle size={14} />
                 <span>Lihat Panduan Akun Demo & Uji Coba</span>
@@ -345,61 +345,61 @@ export default function LoginGate({
                     {/* Admin */}
                     <button 
                       onClick={() => handleQuickDemoLogin(adminEmail, adminPassword)}
-                      className="w-full py-2.5 flex justify-between items-center hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 px-2 rounded-lg text-left transition-colors"
+                      className="w-full py-2.5 flex justify-between items-center hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 px-2 rounded-lg text-left transition-colors"
                     >
                       <div>
                         <span className="font-bold text-slate-800 dark:text-slate-200 block">👩‍🏫 Admin Utama</span>
-                        <span className="text-[10px] text-slate-400">User: <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{adminEmail}</span> | Pass: <span className="font-mono">{adminPassword}</span></span>
+                        <span className="text-[10px] text-slate-400">User: <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{adminEmail}</span> | Pass: <span className="font-mono">{adminPassword}</span></span>
                       </div>
-                      <span className="text-[9px] bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-400 px-2 py-0.5 rounded-md font-mono font-bold border border-indigo-100 dark:border-indigo-900/30">Pilih</span>
+                      <span className="text-[9px] bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-md font-mono font-bold border border-emerald-100 dark:border-emerald-900/30">Pilih</span>
                     </button>
 
                     {/* Guru */}
                     <button 
                       onClick={() => handleQuickDemoLogin('abdillah_math', 'guru123')}
-                      className="w-full py-2.5 flex justify-between items-center hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 px-2 rounded-lg text-left transition-colors"
+                      className="w-full py-2.5 flex justify-between items-center hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 px-2 rounded-lg text-left transition-colors"
                     >
                       <div>
                         <span className="font-bold text-slate-800 dark:text-slate-200 block">👨‍🏫 Guru Matematika (Abdillah Putra)</span>
-                        <span className="text-[10px] text-slate-400">User: <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">abdillah_math</span> | Pass: <span className="font-mono">guru123</span></span>
+                        <span className="text-[10px] text-slate-400">User: <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">abdillah_math</span> | Pass: <span className="font-mono">guru123</span></span>
                       </div>
-                      <span className="text-[9px] bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-400 px-2 py-0.5 rounded-md font-mono font-bold border border-indigo-100 dark:border-indigo-900/30">Pilih</span>
+                      <span className="text-[9px] bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-md font-mono font-bold border border-emerald-100 dark:border-emerald-900/30">Pilih</span>
                     </button>
 
                     {/* Kepsek */}
                     <button 
                       onClick={() => handleQuickDemoLogin(kepsekEmail, kepsekPassword)}
-                      className="w-full py-2.5 flex justify-between items-center hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 px-2 rounded-lg text-left transition-colors"
+                      className="w-full py-2.5 flex justify-between items-center hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 px-2 rounded-lg text-left transition-colors"
                     >
                       <div>
                         <span className="font-bold text-slate-800 dark:text-slate-200 block">👨‍💼 Kepala Sekolah ({schoolIdentity?.kepsekName || 'Bapak/Ibu Kepala Sekolah'})</span>
-                        <span className="text-[10px] text-gray-400">User: <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{kepsekEmail}</span> | Pass: <span className="font-mono">{kepsekPassword}</span></span>
+                        <span className="text-[10px] text-gray-400">User: <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{kepsekEmail}</span> | Pass: <span className="font-mono">{kepsekPassword}</span></span>
                       </div>
-                      <span className="text-[9px] bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-400 px-2 py-0.5 rounded-md font-mono font-bold border border-indigo-100 dark:border-indigo-900/30">Pilih</span>
+                      <span className="text-[9px] bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-md font-mono font-bold border border-emerald-100 dark:border-emerald-900/30">Pilih</span>
                     </button>
 
                     {/* Walimurid */}
                     <button 
                       onClick={() => handleQuickDemoLogin('parent_ahmad', 'parent123')}
-                      className="w-full py-2.5 flex justify-between items-center hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 px-2 rounded-lg text-left transition-colors"
+                      className="w-full py-2.5 flex justify-between items-center hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 px-2 rounded-lg text-left transition-colors"
                     >
                       <div>
                         <span className="font-bold text-slate-800 dark:text-slate-200 block">👪 Orang Tua Murid (Ahmad Fauzi's parent)</span>
-                        <span className="text-[10px] text-gray-400">User: <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">parent_ahmad</span> | Pass: <span className="font-mono">parent123</span></span>
+                        <span className="text-[10px] text-gray-400">User: <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">parent_ahmad</span> | Pass: <span className="font-mono">parent123</span></span>
                       </div>
-                      <span className="text-[9px] bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-400 px-2 py-0.5 rounded-md font-mono font-bold border border-indigo-100 dark:border-indigo-900/30">Pilih</span>
+                      <span className="text-[9px] bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-md font-mono font-bold border border-emerald-100 dark:border-emerald-900/30">Pilih</span>
                     </button>
 
                     {/* Siswa */}
                     <button 
                       onClick={() => handleQuickDemoLogin('ahmad1024', 'cbt123')}
-                      className="w-full py-2.5 flex justify-between items-center hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 px-2 rounded-lg text-left transition-colors"
+                      className="w-full py-2.5 flex justify-between items-center hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 px-2 rounded-lg text-left transition-colors"
                     >
                       <div>
                         <span className="font-bold text-slate-800 dark:text-slate-200 block">🎓 Siswa / Murid (Ahmad Fauzi)</span>
-                        <span className="text-[10px] text-gray-400">User: <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">ahmad1024</span> | Pass: <span className="font-mono">cbt123</span></span>
+                        <span className="text-[10px] text-gray-400">User: <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">ahmad1024</span> | Pass: <span className="font-mono">cbt123</span></span>
                       </div>
-                      <span className="text-[9px] bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-400 px-2 py-0.5 rounded-md font-mono font-bold border border-indigo-100 dark:border-indigo-900/30">Pilih</span>
+                      <span className="text-[9px] bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-md font-mono font-bold border border-emerald-100 dark:border-emerald-900/30">Pilih</span>
                     </button>
 
                   </div>

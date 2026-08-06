@@ -817,7 +817,7 @@ export default function CBTManager({
                 onClick={() => { setCbtTab('cbt-list'); setSimulatingExam(null); }}
                 className={`px-4 py-2.5 font-semibold text-xs border-b-2 transition-all cursor-pointer
                   ${cbtTab === 'cbt-list' 
-                    ? 'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400' 
+                    ? 'border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400' 
                     : 'border-transparent text-gray-500 hover:text-gray-700'}`}
               >
                 Daftar Ujian CBT
@@ -828,7 +828,7 @@ export default function CBTManager({
                 onClick={() => { setCbtTab('create-exam'); setSimulatingExam(null); }}
                 className={`px-4 py-2.5 font-semibold text-xs border-b-2 transition-all cursor-pointer
                   ${cbtTab === 'create-exam' 
-                    ? 'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400' 
+                    ? 'border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400' 
                     : 'border-transparent text-gray-500 hover:text-gray-700'}`}
               >
                 + Buat Ujian Baru
@@ -839,7 +839,7 @@ export default function CBTManager({
                 onClick={() => { setCbtTab('elearning'); setSimulatingExam(null); }}
                 className={`px-4 py-2.5 font-semibold text-xs border-b-2 transition-all cursor-pointer
                   ${cbtTab === 'elearning' 
-                    ? 'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400' 
+                    ? 'border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400' 
                     : 'border-transparent text-gray-500 hover:text-gray-700'}`}
               >
                 E-Learning Portal
@@ -852,7 +852,7 @@ export default function CBTManager({
             onClick={() => { setCbtTab('student-simulator'); }}
             className={`px-4 py-2.5 font-semibold text-xs border-b-2 transition-all cursor-pointer flex items-center gap-1.5
               ${cbtTab === 'student-simulator' 
-                ? 'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold' 
+                ? 'border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400 font-bold' 
                 : 'border-transparent text-gray-500 hover:text-gray-700'}`}
           >
             <Play size={12} className="text-emerald-500 animate-pulse" />
@@ -880,7 +880,7 @@ export default function CBTManager({
               >
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold px-2.5 py-0.5 rounded">
+                    <span className="text-[10px] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-bold px-2.5 py-0.5 rounded">
                       {exam.className}
                     </span>
                     <span className="text-xs font-bold text-gray-800 dark:text-gray-200">{exam.title}</span>
@@ -889,7 +889,7 @@ export default function CBTManager({
                     <Clock size={12} />
                     <span>{exam.durationMinutes} Menit</span>
                     {exam.isRandomized && (
-                      <span className="flex items-center gap-1 text-indigo-500 bg-indigo-50 dark:bg-indigo-950 px-1.5 py-0.5 rounded">
+                      <span className="flex items-center gap-1 text-emerald-500 bg-emerald-50 dark:bg-emerald-950 px-1.5 py-0.5 rounded">
                         <Shuffle size={10} /> Diacak
                       </span>
                     )}
@@ -901,7 +901,7 @@ export default function CBTManager({
                   Jumlah Soal: <span className="font-semibold text-gray-700 dark:text-gray-200">{exam.totalQuestions} Soal</span> (Pilihan Ganda, Isian, Kompleks, Menjodohkan, B/S, Uraian)
                 </p>
                 {(exam.date || exam.startTime || exam.endTime) && (
-                  <p className="text-[11px] text-indigo-500 mt-1 font-medium">
+                  <p className="text-[11px] text-emerald-500 mt-1 font-medium">
                     Jadwal Pelaksanaan: {exam.date ? formatIndonesianDate(exam.date) : ''} {exam.startTime ? `(${exam.startTime} - ${exam.endTime || 'Selesai'})` : ''}
                   </p>
                 )}
@@ -1071,7 +1071,7 @@ export default function CBTManager({
                              startExamSimulator(exam);
                           }
                         }}
-                        className="text-xs text-indigo-600 dark:text-indigo-400 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                        className="text-xs text-emerald-600 dark:text-emerald-400 font-bold hover:underline flex items-center gap-1 cursor-pointer"
                       >
                         {(activeRole === 'siswa' || activeRole === 'walimurid') ? 'Kerjakan Ujian' : 'Uji Coba CBT'} <ChevronRight size={14} />
                       </button>
@@ -1091,7 +1091,7 @@ export default function CBTManager({
                 <button
                   type="button"
                   onClick={() => window.dispatchEvent(new CustomEvent('data-updated'))}
-                  className="text-[9px] font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-600 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/60 dark:text-indigo-400 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
+                  className="text-[9px] font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-600 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 dark:text-emerald-400 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
                   title="Segarkan data hasil ujian"
                 >
                   🔄 Segarkan
@@ -1121,7 +1121,7 @@ export default function CBTManager({
                     </div>
                     <p className="text-[10px] text-gray-400 mt-0.5">{res.examTitle} ({res.subject})</p>
                     {res.teacherFeedback && (
-                      <p className="text-[10px] italic text-indigo-600 dark:text-indigo-400 mt-1">" {res.teacherFeedback} "</p>
+                      <p className="text-[10px] italic text-emerald-600 dark:text-emerald-400 mt-1">" {res.teacherFeedback} "</p>
                     )}
                   </div>
                 ))}
@@ -1178,7 +1178,7 @@ export default function CBTManager({
                           setExamClasses(prev => prev.filter(cls => cls !== c));
                         }
                       }}
-                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-[#1e1e2d]"
+                      className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 bg-white dark:bg-[#1e1e2d]"
                     />
                     <span className="text-xs text-gray-700 dark:text-gray-300">{c}</span>
                   </label>
@@ -1227,8 +1227,8 @@ export default function CBTManager({
             </div>
           </div>
           
-          <div className="flex items-center gap-2 mb-4 bg-indigo-50/50 dark:bg-indigo-950/20 p-3 rounded-lg border border-indigo-100/50 dark:border-indigo-900/30">
-            <Shuffle size={20} className="text-indigo-600" />
+          <div className="flex items-center gap-2 mb-4 bg-emerald-50/50 dark:bg-emerald-950/20 p-3 rounded-lg border border-emerald-100/50 dark:border-emerald-900/30">
+            <Shuffle size={20} className="text-emerald-600" />
             <div>
               <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-gray-700 dark:text-gray-300">
                 <input
@@ -1246,10 +1246,10 @@ export default function CBTManager({
           <div className="border rounded-xl p-4 bg-gray-50/50 dark:bg-[#232333]/40 dark:border-[#3e405b]">
             <div className="flex justify-between items-center mb-3">
               <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5">
-                <CheckSquare size={16} className="text-indigo-600" />
+                <CheckSquare size={16} className="text-emerald-600" />
                 Generator Butir Soal (Mendukung 6 Model Soal)
               </h3>
-              <a href="https://generator-soal.ai.studio" target="_blank" rel="noopener noreferrer" className="text-[10px] bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2.5 py-1 rounded-md font-semibold hover:bg-indigo-200 transition-colors flex items-center gap-1">
+              <a href="https://generator-soal.ai.studio" target="_blank" rel="noopener noreferrer" className="text-[10px] bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-2.5 py-1 rounded-md font-semibold hover:bg-emerald-200 transition-colors flex items-center gap-1">
                 <span>✨ Buat Soal AI</span>
               </a>
             </div>
@@ -1279,7 +1279,7 @@ export default function CBTManager({
                     value={qStimulus}
                     onChange={(e) => setQStimulus(e.target.value)}
                     rows={2}
-                    className="w-full text-xs px-3 py-2 rounded-lg border bg-white dark:bg-[#2b2c40] text-gray-800 dark:text-white dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-indigo-500 mb-2"
+                    className="w-full text-xs px-3 py-2 rounded-lg border bg-white dark:bg-[#2b2c40] text-gray-800 dark:text-white dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-emerald-500 mb-2"
                   />
                   {qStimulusImage && (
                     <div className="relative inline-block mb-2">
@@ -1289,7 +1289,7 @@ export default function CBTManager({
                   )}
                   <div className="flex items-center gap-2 mb-4 border-b pb-3 dark:border-[#3e405b]/60">
                     <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-[#232333] dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg border dark:border-[#3e405b] text-[10px] font-semibold flex items-center gap-1.5 transition-colors">
-                      <ImageIcon size={14} className="text-indigo-600 dark:text-indigo-400" />
+                      <ImageIcon size={14} className="text-emerald-600 dark:text-emerald-400" />
                       <span>Upload Gambar Stimulus</span>
                       <input 
                         type="file" 
@@ -1309,14 +1309,14 @@ export default function CBTManager({
                     value={qText}
                     onChange={(e) => setQText(e.target.value)}
                     rows={2}
-                    className="w-full text-xs px-3 py-2 rounded-lg border bg-white dark:bg-[#2b2c40] text-gray-800 dark:text-white dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full text-xs px-3 py-2 rounded-lg border bg-white dark:bg-[#2b2c40] text-gray-800 dark:text-white dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-emerald-500"
                   />
                   
                   {/* Image uploader and Math helper inside this grid element */}
                   <div className="flex flex-wrap items-center justify-between gap-3 mt-2 border-t pt-2 dark:border-[#3e405b]/60">
                     <div className="flex items-center gap-2">
                       <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-[#232333] dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg border dark:border-[#3e405b] text-[10px] font-semibold flex items-center gap-1.5 transition-colors">
-                        <ImageIcon size={14} className="text-indigo-600 dark:text-indigo-400" />
+                        <ImageIcon size={14} className="text-emerald-600 dark:text-emerald-400" />
                         <span>Upload Gambar Soal</span>
                         <input 
                           type="file" 
@@ -1368,8 +1368,8 @@ export default function CBTManager({
 
                   {/* Live Render Preview */}
                   {(qText.trim() || qImage) && (
-                    <div className="mt-3 p-3 rounded-lg bg-indigo-50/10 dark:bg-slate-900/30 border border-dashed border-indigo-200 dark:border-[#3e405b] text-xs">
-                      <span className="font-bold text-[10px] text-indigo-500 uppercase block mb-1">Pratinjau Butir Soal (Live Preview)</span>
+                    <div className="mt-3 p-3 rounded-lg bg-emerald-50/10 dark:bg-slate-900/30 border border-dashed border-emerald-200 dark:border-[#3e405b] text-xs">
+                      <span className="font-bold text-[10px] text-emerald-500 uppercase block mb-1">Pratinjau Butir Soal (Live Preview)</span>
                       <div className="text-gray-800 dark:text-gray-200 mt-1 space-y-2">
                         <MathText text={qText || '...'} />
                         {qImage && (
@@ -1392,7 +1392,7 @@ export default function CBTManager({
                       <div key={idx} className="space-y-1.5 p-2.5 border rounded dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/10">
                         <div className="flex items-center justify-between">
                           <span className="text-[10px] font-bold text-gray-500">Opsi {String.fromCharCode(65 + idx)}</span>
-                          <label className="cursor-pointer text-[9px] text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                          <label className="cursor-pointer text-[9px] text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1">
                             <ImageIcon size={10} />
                             <span>{mcOptionImages[idx] ? 'Ganti Gambar' : 'Upload Gambar'}</span>
                             <input 
@@ -1421,7 +1421,7 @@ export default function CBTManager({
                             updated[idx] = e.target.value;
                             setMcOptions(updated);
                           }}
-                          className="w-full text-xs px-2.5 py-1.5 rounded border dark:bg-[#232333] dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                          className="w-full text-xs px-2.5 py-1.5 rounded border dark:bg-[#232333] dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-emerald-500"
                         />
                         <div className="flex flex-wrap gap-1 mt-1">
                           {MATH_SYMBOLS.map((sym, sIdx) => (
@@ -1459,7 +1459,7 @@ export default function CBTManager({
                         )}
                         {/* Live Option Math Preview */}
                         {opt.trim() && (opt.includes('$')) && (
-                          <div className="text-[10px] text-slate-500 dark:text-slate-400 pl-1 border-l border-indigo-200">
+                          <div className="text-[10px] text-slate-500 dark:text-slate-400 pl-1 border-l border-emerald-200">
                             Pratinjau Rumus: <MathText text={opt} />
                           </div>
                         )}
@@ -1501,11 +1501,11 @@ export default function CBTManager({
                                   setComplexCorrect(complexCorrect.filter(c => c !== char));
                                 }
                               }}
-                              className="rounded text-indigo-600 focus:ring-indigo-500"
+                              className="rounded text-emerald-600 focus:ring-emerald-500"
                             />
                             <span>Opsi {String.fromCharCode(65 + idx)} {complexCorrect.includes(String.fromCharCode(65 + idx)) ? '(KUNCI)' : ''}</span>
                           </label>
-                          <label className="cursor-pointer text-[9px] text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                          <label className="cursor-pointer text-[9px] text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1">
                             <ImageIcon size={10} />
                             <span>{mcOptionImages[idx] ? 'Ganti Gambar' : 'Upload Gambar'}</span>
                             <input 
@@ -1534,7 +1534,7 @@ export default function CBTManager({
                             updated[idx] = e.target.value;
                             setMcOptions(updated);
                           }}
-                          className="w-full text-xs px-2.5 py-1.5 rounded border dark:bg-[#232333] dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                          className="w-full text-xs px-2.5 py-1.5 rounded border dark:bg-[#232333] dark:border-[#3e405b] focus:outline-none focus:ring-1 focus:ring-emerald-500"
                         />
                         <div className="flex flex-wrap gap-1 mt-1">
                           {MATH_SYMBOLS.map((sym, sIdx) => (
@@ -1572,7 +1572,7 @@ export default function CBTManager({
                         )}
                         {/* Live Option Math Preview */}
                         {opt.trim() && (opt.includes('$')) && (
-                          <div className="text-[10px] text-slate-500 dark:text-slate-400 pl-1 border-l border-indigo-200">
+                          <div className="text-[10px] text-slate-500 dark:text-slate-400 pl-1 border-l border-emerald-200">
                             Pratinjau Rumus: <MathText text={opt} />
                           </div>
                         )}
@@ -1632,7 +1632,7 @@ export default function CBTManager({
                         <div className="flex-1 space-y-1">
                            <div className="flex justify-between items-center">
                              <span className="text-[9px] font-semibold text-gray-500">Kiri (Istilah)</span>
-                             <label className="cursor-pointer text-[9px] text-indigo-600 hover:underline flex items-center gap-1">
+                             <label className="cursor-pointer text-[9px] text-emerald-600 hover:underline flex items-center gap-1">
                                 <ImageIcon size={10} />
                                 <span>{pair.leftImage ? 'Ganti Gbr' : '+ Gbr'}</span>
                                 <input type="file" accept="image/*" className="hidden" onChange={(e) => {
@@ -1659,7 +1659,7 @@ export default function CBTManager({
                         <div className="flex-1 space-y-1">
                            <div className="flex justify-between items-center">
                              <span className="text-[9px] font-semibold text-gray-500">Kanan (Definisi Cocok)</span>
-                             <label className="cursor-pointer text-[9px] text-indigo-600 hover:underline flex items-center gap-1">
+                             <label className="cursor-pointer text-[9px] text-emerald-600 hover:underline flex items-center gap-1">
                                 <ImageIcon size={10} />
                                 <span>{pair.rightImage ? 'Ganti Gbr' : '+ Gbr'}</span>
                                 <input type="file" accept="image/*" className="hidden" onChange={(e) => {
@@ -1689,7 +1689,7 @@ export default function CBTManager({
                   <button
                     type="button"
                     onClick={() => setMatchPairs([...matchPairs, {left: '', right: '', leftImage: undefined, rightImage: undefined}])}
-                    className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold cursor-pointer"
+                    className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold cursor-pointer"
                   >
                     + Tambah Pasangan Cocok
                   </button>
@@ -1745,7 +1745,7 @@ export default function CBTManager({
                           alert('Gagal membuat file ZIP.');
                         }
                       }}
-                      className="text-[9px] font-bold bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/40 dark:hover:bg-indigo-800/60 text-indigo-700 dark:text-indigo-300 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
+                      className="text-[9px] font-bold bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-900/40 dark:hover:bg-emerald-800/60 text-emerald-700 dark:text-emerald-300 px-2 py-1 rounded transition-colors flex items-center gap-1 cursor-pointer"
                     >
                       ⬇️ Unduh ZIP
                     </button>
@@ -1753,7 +1753,7 @@ export default function CBTManager({
                   <div className="flex flex-wrap gap-3">
                     {qImage && (
                       <div className="flex flex-col items-center gap-1">
-                        <span className="text-[9px] font-semibold text-indigo-600 dark:text-indigo-400">Gambar Soal</span>
+                        <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400">Gambar Soal</span>
                         <div className="h-20 w-20 rounded border dark:border-[#3e405b] bg-white dark:bg-slate-900 flex items-center justify-center overflow-hidden p-1">
                           <img src={qImage} alt="Soal" className="max-h-full max-w-full object-contain" referrerPolicy="no-referrer" />
                         </div>
@@ -1797,7 +1797,7 @@ export default function CBTManager({
                     type="button"
                     id="add-question-btn"
                     onClick={handleAddQuestionToDraft}
-                    className="bg-indigo-600 text-white font-bold text-xs px-4 py-2 rounded-lg hover:bg-indigo-700 cursor-pointer"
+                    className="bg-emerald-600 text-white font-bold text-xs px-4 py-2 rounded-lg hover:bg-emerald-700 cursor-pointer"
                   >
                     Tambahkan Soal ke Draft
                   </button>
@@ -1843,7 +1843,7 @@ export default function CBTManager({
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 pt-2 border-t dark:border-[#3e405b]/30">
                         {q.options.map(o => (
                           <div key={o.id} className="p-1.5 rounded bg-white dark:bg-[#2b2c40] border dark:border-[#3e405b]/50">
-                            <span className="font-semibold text-indigo-600">{o.id}. </span>
+                            <span className="font-semibold text-emerald-600">{o.id}. </span>
                             <MathText text={o.text} />
                             {o.image && (
                               <div className="mt-1 max-w-[80px] rounded border dark:border-[#3e405b] overflow-hidden p-0.5 bg-white">
@@ -1881,7 +1881,7 @@ export default function CBTManager({
               type="submit"
               disabled={questions.length === 0}
               className={`text-xs font-bold px-5 py-2.5 rounded-lg text-white cursor-pointer
-                ${questions.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 shadow'}`}
+                ${questions.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 shadow'}`}
             >
               Simpan & Publikasikan Ujian CBT
             </button>
@@ -1897,7 +1897,7 @@ export default function CBTManager({
           {!simulatingExam ? (
             <div className="max-w-md mx-auto space-y-4 py-6">
               <div className="text-center space-y-2">
-                <GraduationCap size={44} className="text-indigo-600 dark:text-indigo-400 mx-auto" />
+                <GraduationCap size={44} className="text-emerald-600 dark:text-emerald-400 mx-auto" />
                 <h2 className="text-lg font-bold text-gray-800 dark:text-white">Gerbang Masuk Ujian CBT</h2>
                 <p className="text-xs text-gray-500">
                   {(activeRole === 'siswa' || activeRole === 'walimurid') 
@@ -1935,7 +1935,7 @@ export default function CBTManager({
                           <span className="font-bold text-gray-800 dark:text-gray-200">{exam.title}</span>
                           <p className="text-[10px] text-gray-400 mt-0.5">{exam.subject} • {exam.durationMinutes} Menit</p>
                           {(exam.date || exam.startTime || exam.endTime) && (
-                            <p className="text-[10px] text-indigo-500 mt-0.5">
+                            <p className="text-[10px] text-emerald-500 mt-0.5">
                               Jadwal: {exam.date ? formatIndonesianDate(exam.date) : ''} {exam.startTime ? `(${exam.startTime} - ${exam.endTime || 'Selesai'})` : ''}
                             </p>
                           )}
@@ -1949,7 +1949,7 @@ export default function CBTManager({
                             onClick={() => startExamSimulator(exam)}
                             disabled={!simulatingStudentId}
                             className={`text-xs px-3.5 py-1.5 rounded-lg font-bold text-white cursor-pointer transition-colors
-                              ${simulatingStudentId ? 'bg-indigo-600 hover:bg-indigo-700 shadow-sm' : 'bg-gray-400 cursor-not-allowed'}`}
+                              ${simulatingStudentId ? 'bg-emerald-600 hover:bg-emerald-700 shadow-sm' : 'bg-gray-400 cursor-not-allowed'}`}
                           >
                             Mulai Ujian
                           </button>
@@ -2021,7 +2021,7 @@ export default function CBTManager({
                 <div>
                   <span className="text-[10px] font-mono uppercase text-gray-400">Ujian Berlangsung</span>
                   <h2 className="text-md font-bold text-gray-800 dark:text-white">{simulatingExam.title}</h2>
-                  <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5">Siswa: {students.find(s => s.id === simulatingStudentId)?.name} (NIS: {simulatingStudentId})</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">Siswa: {students.find(s => s.id === simulatingStudentId)?.name} (NIS: {simulatingStudentId})</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="flex items-center gap-2 bg-rose-50 text-rose-800 dark:bg-rose-950/20 dark:text-rose-400 px-3 py-1.5 rounded-lg border border-rose-200 dark:border-rose-900/40 text-xs font-bold font-mono">
@@ -2044,7 +2044,7 @@ export default function CBTManager({
                   
                   <div className="p-4 bg-white dark:bg-[#2b2c40] rounded-xl border dark:border-[#3e405b]">
                     <span className="text-xs text-gray-400 block uppercase">Skor Pencapaian</span>
-                    <span className="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 font-mono block mt-1">{testSubmitted.score} <span className="text-xs text-gray-400 font-normal">/ 100</span></span>
+                    <span className="text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono block mt-1">{testSubmitted.score} <span className="text-xs text-gray-400 font-normal">/ 100</span></span>
                     
                     <div className="mt-3 text-xs border-t dark:border-[#3e405b]/60 pt-2 text-left">
                       <p className="font-semibold">Subjek: {testSubmitted.subject}</p>
@@ -2054,7 +2054,7 @@ export default function CBTManager({
 
                   <button
                     onClick={() => setSimulatingExam(null)}
-                    className="text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg cursor-pointer transition-colors"
+                    className="text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg cursor-pointer transition-colors"
                   >
                     Selesai & Kembali ke Portal
                   </button>
@@ -2113,7 +2113,7 @@ export default function CBTManager({
                                 key={opt.id} 
                                 className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-[#232333]
                                   ${answers[shuffledQuestions[currentQuestionIndex].id] === opt.id 
-                                    ? 'border-indigo-600 bg-indigo-50/20 dark:border-indigo-500' 
+                                    ? 'border-emerald-600 bg-emerald-50/20 dark:border-emerald-500' 
                                     : 'dark:border-[#3e405b]/60'}`}
                               >
                                 <input
@@ -2127,7 +2127,7 @@ export default function CBTManager({
                                   })}
                                   className="mt-0.5"
                                 />
-                                <span className="font-bold text-indigo-600">{opt.id}.</span>
+                                <span className="font-bold text-emerald-600">{opt.id}.</span>
                                 <div className="flex-1 flex flex-col gap-2">
                                   <MathText text={opt.text} />
                                   {opt.image && (
@@ -2158,7 +2158,7 @@ export default function CBTManager({
                                   key={opt.id} 
                                   className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-[#232333]
                                     ${isChecked 
-                                      ? 'border-indigo-600 bg-indigo-50/20 dark:border-indigo-500' 
+                                      ? 'border-emerald-600 bg-emerald-50/20 dark:border-emerald-500' 
                                       : 'dark:border-[#3e405b]/60'}`}
                                 >
                                   <input
@@ -2178,7 +2178,7 @@ export default function CBTManager({
                                     }}
                                     className="mt-0.5"
                                   />
-                                  <span className="font-bold text-indigo-600">{opt.id}.</span>
+                                  <span className="font-bold text-emerald-600">{opt.id}.</span>
                                   <div className="flex-1 flex flex-col gap-2">
                                     <MathText text={opt.text} />
                                     {opt.image && (
@@ -2206,7 +2206,7 @@ export default function CBTManager({
                                 key={val}
                                 className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-[#232333]
                                   ${answers[shuffledQuestions[currentQuestionIndex].id] === val 
-                                    ? 'border-indigo-600 bg-indigo-50/20 dark:border-indigo-500 font-bold' 
+                                    ? 'border-emerald-600 bg-emerald-50/20 dark:border-emerald-500 font-bold' 
                                     : 'dark:border-[#3e405b]/60'}`}
                               >
                                 <input
@@ -2263,7 +2263,7 @@ export default function CBTManager({
                               return (
                                 <div key={idx} className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3 bg-white dark:bg-[#2b2c40] rounded border dark:border-[#3e405b]/60">
                                   <div className="flex items-start gap-3">
-                                    <span className="w-6 h-6 mt-0.5 bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center rounded text-[11px] font-bold">{idx+1}</span>
+                                    <span className="w-6 h-6 mt-0.5 bg-emerald-600 text-white flex-shrink-0 flex items-center justify-center rounded text-[11px] font-bold">{idx+1}</span>
                                     <div>
                                       {pair.leftImage && <img src={pair.leftImage} className="h-16 object-contain mb-1 rounded" />}
                                       <span className="font-semibold text-gray-700 dark:text-gray-200 leading-tight">{pair.leftText}</span>
@@ -2280,7 +2280,7 @@ export default function CBTManager({
                                           [shuffledQuestions[currentQuestionIndex].id]: updatedMatch
                                         });
                                       }}
-                                      className="px-2 py-1.5 w-full md:w-auto border rounded text-xs dark:bg-[#232333] dark:border-[#3e405b] focus:ring-1 focus:ring-indigo-500"
+                                      className="px-2 py-1.5 w-full md:w-auto border rounded text-xs dark:bg-[#232333] dark:border-[#3e405b] focus:ring-1 focus:ring-emerald-500"
                                     >
                                       <option value="">-- Pilih Jawaban --</option>
                                       {shuffledQuestions[currentQuestionIndex].matchingPairs?.map((rightOpt, rightIdx) => (
@@ -2324,7 +2324,7 @@ export default function CBTManager({
                       {currentQuestionIndex < shuffledQuestions.length - 1 ? (
                         <button
                           onClick={() => setCurrentQuestionIndex(prev => prev + 1)}
-                          className="text-xs px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg cursor-pointer"
+                          className="text-xs px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg cursor-pointer"
                         >
                           Lanjut Soal
                         </button>
@@ -2356,7 +2356,7 @@ export default function CBTManager({
                               onClick={() => setCurrentQuestionIndex(idx)}
                               className={`h-9 font-mono font-bold text-xs rounded-md transition-all flex items-center justify-center cursor-pointer
                                 ${isActive 
-                                  ? 'ring-2 ring-indigo-500 bg-indigo-600 text-white' 
+                                  ? 'ring-2 ring-emerald-500 bg-emerald-600 text-white' 
                                   : isAnswered 
                                     ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/20 dark:text-emerald-400' 
                                     : 'bg-gray-100 text-gray-500 dark:bg-[#232333] dark:text-gray-400 border dark:border-[#3e405b]/40'}`}
@@ -2369,7 +2369,7 @@ export default function CBTManager({
 
                       <div className="mt-4 pt-4 border-t dark:border-[#3e405b]/60 space-y-2 text-[10px] text-gray-400">
                         <div className="flex items-center gap-2">
-                          <span className="w-3 h-3 bg-indigo-600 rounded" />
+                          <span className="w-3 h-3 bg-emerald-600 rounded" />
                           <span>Soal Aktif</span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -2400,7 +2400,7 @@ export default function CBTManager({
             <div className="lg:col-span-5 bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm space-y-4">
               <div className="flex items-center justify-between mb-2">
                 <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5">
-                  <BookOpen size={18} className="text-indigo-600" />
+                  <BookOpen size={18} className="text-emerald-600" />
                   {matIdToEdit ? 'Edit Materi E-Learning' : 'Posting Materi E-Learning Baru'}
                 </h2>
                 {matIdToEdit && (
@@ -2449,7 +2449,7 @@ export default function CBTManager({
                                 setMatClasses(prev => prev.filter(cls => cls !== c));
                               }
                             }}
-                            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-[#1e1e2d]"
+                            className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 bg-white dark:bg-[#1e1e2d]"
                           />
                           <span className="text-xs text-gray-700 dark:text-gray-300">{c}</span>
                         </label>
@@ -2491,7 +2491,7 @@ export default function CBTManager({
                           }}
                           className={`flex flex-col items-center justify-center p-2 rounded-xl border text-[10px] font-bold transition-all gap-1 cursor-pointer
                             ${isActive 
-                              ? 'border-indigo-600 ring-2 ring-indigo-600/20 text-indigo-600 dark:text-indigo-400 dark:border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30' 
+                              ? 'border-emerald-600 ring-2 ring-emerald-600/20 text-emerald-600 dark:text-emerald-400 dark:border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30' 
                               : 'border-slate-200 dark:border-[#3e405b] text-slate-500 hover:bg-slate-50 dark:hover:bg-[#232333]'}`}
                         >
                           <IconComponent size={16} className={btn.color.split(' ')[0]} />
@@ -2512,7 +2512,7 @@ export default function CBTManager({
                       value={matContent}
                       onChange={(e) => setMatContent(e.target.value)}
                       required
-                      className="w-full text-xs px-3 py-2.5 rounded-lg border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      className="w-full text-xs px-3 py-2.5 rounded-lg border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                     />
                     <p className="text-[10px] text-gray-400 mt-1 leading-relaxed">
                       💡 Tautan video YouTube ini akan langsung membuka tab baru di browser siswa (luar aplikasi) agar sangat hemat memori perangkat.
@@ -2523,7 +2523,7 @@ export default function CBTManager({
                 {matType === 'pdf' && (
                   <div>
                     <label className="block text-[10px] font-semibold text-gray-400 mb-1">Unggah Dokumen PDF</label>
-                    <div className="border-2 border-dashed border-slate-200 dark:border-[#3e405b] rounded-xl p-4 text-center hover:border-indigo-500 dark:hover:border-indigo-500/50 transition-all bg-gray-50/50 dark:bg-[#1f2030] relative group">
+                    <div className="border-2 border-dashed border-slate-200 dark:border-[#3e405b] rounded-xl p-4 text-center hover:border-emerald-500 dark:hover:border-emerald-500/50 transition-all bg-gray-50/50 dark:bg-[#1f2030] relative group">
                       <input
                         type="file"
                         accept=".pdf"
@@ -2573,7 +2573,7 @@ export default function CBTManager({
                 {matType === 'png' && (
                   <div>
                     <label className="block text-[10px] font-semibold text-gray-400 mb-1">Unggah Gambar PNG</label>
-                    <div className="border-2 border-dashed border-slate-200 dark:border-[#3e405b] rounded-xl p-4 text-center hover:border-indigo-500 dark:hover:border-indigo-500/50 transition-all bg-gray-50/50 dark:bg-[#1f2030] relative group">
+                    <div className="border-2 border-dashed border-slate-200 dark:border-[#3e405b] rounded-xl p-4 text-center hover:border-emerald-500 dark:hover:border-emerald-500/50 transition-all bg-gray-50/50 dark:bg-[#1f2030] relative group">
                       <input
                         type="file"
                         accept="image/png"
@@ -2626,7 +2626,7 @@ export default function CBTManager({
                       value={matContent}
                       onChange={(e) => setMatContent(e.target.value)}
                       required
-                      className="w-full text-xs px-3 py-2.5 rounded-lg border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      className="w-full text-xs px-3 py-2.5 rounded-lg border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                     />
                   </div>
                 )}
@@ -2640,7 +2640,7 @@ export default function CBTManager({
                       value={matContent}
                       onChange={(e) => setMatContent(e.target.value)}
                       required
-                      className="w-full text-xs p-3 rounded-lg border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      className="w-full text-xs p-3 rounded-lg border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                     />
                   </div>
                 )}
@@ -2664,7 +2664,7 @@ export default function CBTManager({
                             setMatStartDate(now.toISOString().slice(0, 16));
                           }
                         }}
-                        className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-[#1e1e2d] h-4 w-4 cursor-pointer"
+                        className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 bg-white dark:bg-[#1e1e2d] h-4 w-4 cursor-pointer"
                       />
                     </div>
                     {matHasStartDate && (
@@ -2674,7 +2674,7 @@ export default function CBTManager({
                           value={matStartDate}
                           onChange={(e) => setMatStartDate(e.target.value)}
                           required={matHasStartDate}
-                          className="w-full text-xs px-3.5 py-2.5 rounded-lg border bg-white text-gray-800 dark:bg-[#1e1e2d] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                          className="w-full text-xs px-3.5 py-2.5 rounded-lg border bg-white text-gray-800 dark:bg-[#1e1e2d] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                         />
                       </div>
                     )}
@@ -2698,7 +2698,7 @@ export default function CBTManager({
                             setMatExpiryDate(tomorrow.toISOString().slice(0, 16));
                           }
                         }}
-                        className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-[#1e1e2d] h-4 w-4 cursor-pointer"
+                        className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 bg-white dark:bg-[#1e1e2d] h-4 w-4 cursor-pointer"
                       />
                     </div>
 
@@ -2709,7 +2709,7 @@ export default function CBTManager({
                           value={matExpiryDate}
                           onChange={(e) => setMatExpiryDate(e.target.value)}
                           required={matHasExpiry}
-                          className="w-full text-xs px-3.5 py-2.5 rounded-lg border bg-white text-gray-800 dark:bg-[#1e1e2d] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                          className="w-full text-xs px-3.5 py-2.5 rounded-lg border bg-white text-gray-800 dark:bg-[#1e1e2d] dark:border-[#3e405b] dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                         />
                         <p className="text-[10px] text-amber-600 dark:text-amber-400 bg-amber-50/50 dark:bg-amber-950/20 p-2.5 rounded-lg flex items-start gap-1.5 leading-relaxed mt-2">
                           <AlertTriangle size={12} className="shrink-0 mt-0.5" />
@@ -2724,7 +2724,7 @@ export default function CBTManager({
                   <button
                     id="submit-elearning-btn"
                     type="submit"
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer"
                   >
                     {matIdToEdit ? 'Simpan Perubahan' : 'Bagikan Materi E-Learning'}
                   </button>
@@ -2746,7 +2746,7 @@ export default function CBTManager({
                   <div key={mat.id} className="bg-white dark:bg-[#2b2c40] rounded-xl p-4.5 border border-gray-100 dark:border-[#3e405b] shadow-xs hover:shadow-sm transition-all text-xs flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between mb-2.5">
-                        <span className="text-[9px] bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded font-bold font-mono uppercase">
+                        <span className="text-[9px] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded font-bold font-mono uppercase">
                           {mat.className}
                         </span>
                         <span className="text-[10px] text-gray-400 font-mono">
@@ -2772,7 +2772,7 @@ export default function CBTManager({
                         {mat.type === 'pdf' ? <FileText size={14} className="text-rose-500" /> : 
                          mat.type === 'video' ? <Youtube size={14} className="text-red-500" /> : 
                          mat.type === 'png' ? <ImageIcon size={14} className="text-emerald-500" /> :
-                         mat.type === 'link' ? <LinkIcon size={14} className="text-indigo-500" /> :
+                         mat.type === 'link' ? <LinkIcon size={14} className="text-emerald-500" /> :
                          <BookOpen size={14} className="text-amber-500" />}
                         <span className="truncate">{mat.title}</span>
                       </h4>
@@ -2856,13 +2856,13 @@ export default function CBTManager({
 
                       {/* General External Link */}
                       {mat.type === 'link' && (
-                        <div className="mt-2 p-3 bg-indigo-50/40 dark:bg-indigo-950/10 rounded-lg border border-indigo-100/40 dark:border-indigo-900/20">
+                        <div className="mt-2 p-3 bg-emerald-50/40 dark:bg-emerald-950/10 rounded-lg border border-emerald-100/40 dark:border-emerald-900/20">
                           <p className="text-[10px] text-slate-400 mb-1.5 font-semibold">🔗 Link Google Drive / Referensi:</p>
                           <a
                             href={mat.content}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-1.5 w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors text-xs text-center"
+                            className="flex items-center justify-center gap-1.5 w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors text-xs text-center"
                           >
                             <LinkIcon size={13} />
                             <span>Buka Tautan Materi ↗</span>
@@ -2886,7 +2886,7 @@ export default function CBTManager({
                     </div>
                     {activeRole === 'guru' && (
                       <div className="flex gap-2 mt-2 pt-2 border-t dark:border-[#3e405b]/20 justify-end">
-                        <button type="button" onClick={() => handleEditMaterial(mat)} className="text-[10px] font-bold text-indigo-500 hover:text-indigo-600 bg-indigo-50 dark:bg-indigo-950/30 px-2.5 py-1 rounded">Edit</button>
+                        <button type="button" onClick={() => handleEditMaterial(mat)} className="text-[10px] font-bold text-emerald-500 hover:text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-2.5 py-1 rounded">Edit</button>
                         <button type="button" onClick={() => handleDeleteMaterial(mat.id)} className="text-[10px] font-bold text-rose-500 hover:text-rose-600 bg-rose-50 dark:bg-rose-950/30 px-2.5 py-1 rounded">Hapus</button>
                       </div>
                     )}

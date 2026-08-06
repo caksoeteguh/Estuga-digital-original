@@ -90,7 +90,7 @@ export const CARD_THEMES: CardTheme[] = [
     htmlBadgeBg: 'bg-blue-800/80',
     htmlPillsClass: 'bg-blue-600/30 text-blue-100 border-blue-500/50',
     htmlCircle1Color: 'bg-blue-500/20',
-    htmlCircle2Color: 'bg-indigo-500/20',
+    htmlCircle2Color: 'bg-emerald-500/20',
     htmlColorHex: '#1e3a8a'
   },
   {
@@ -251,10 +251,10 @@ export default function StudentIdCard({ student, isDark = false, schoolIdentity,
       <div className="w-full max-w-sm bg-white dark:bg-[#1a1b2e] border border-slate-200/60 dark:border-[#3e405b]/40 rounded-2xl p-3.5 shadow-xs space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <Palette size={14} className="text-indigo-500" />
+            <Palette size={14} className="text-emerald-500" />
             <span className="text-xs font-bold text-gray-700 dark:text-slate-200">Gaya &amp; Warna Kartu Kelas 🎨</span>
           </div>
-          <span className="text-[10px] bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-extrabold px-2 py-0.5 rounded-lg flex items-center gap-1">
+          <span className="text-[10px] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-extrabold px-2 py-0.5 rounded-lg flex items-center gap-1">
             <Sparkles size={10} />
             Saran Otomatis
           </span>
@@ -289,7 +289,7 @@ export default function StudentIdCard({ student, isDark = false, schoolIdentity,
           })}
         </div>
         <p className="text-[10.5px] text-gray-400 dark:text-slate-500 leading-tight">
-          Mendeteksi siswa <span className="font-bold text-indigo-500">{student.className}</span> dan merekomendasikan tema <strong className="text-gray-700 dark:text-slate-300">{currentTheme.name}</strong>. Anda bebas menggantinya sesuka hati!
+          Mendeteksi siswa <span className="font-bold text-emerald-500">{student.className}</span> dan merekomendasikan tema <strong className="text-gray-700 dark:text-slate-300">{currentTheme.name}</strong>. Anda bebas menggantinya sesuka hati!
         </p>
       </div>
 
@@ -439,7 +439,7 @@ export default function StudentIdCard({ student, isDark = false, schoolIdentity,
           className={`flex items-center justify-center gap-1.5 text-xs font-bold px-3 py-2.5 rounded-xl transition-all cursor-pointer shadow-sm flex-1
             ${downloadSuccess
               ? 'bg-emerald-600 text-white shadow-emerald-500/20'
-              : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/10 hover:scale-[1.02]'}`}
+              : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/10 hover:scale-[1.02]'}`}
         >
           {downloadSuccess ? <Check size={14} /> : <Download size={14} />}
           <span>{downloading ? 'Unduh...' : downloadSuccess ? 'Selesai!' : 'Download PNG'}</span>

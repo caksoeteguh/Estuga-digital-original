@@ -62,7 +62,7 @@ export default function SholatDhuhurWidget({ prayerAttendance, students }: Shola
           </h2>
           <p className="text-[10px] text-slate-400 mt-1">Data hari ini ({new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })})</p>
         </div>
-        <div className="text-[10px] bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 px-2 py-1 rounded font-bold border border-indigo-100 dark:border-indigo-800/30">
+        <div className="text-[10px] bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded font-bold border border-emerald-100 dark:border-emerald-800/30">
           Wajib Sholat: {totalWajib} Siswa
         </div>
       </div>

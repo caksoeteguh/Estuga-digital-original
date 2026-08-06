@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Student, Attendance, WA_NotificationSim, PrayerAttendance } from '../types';
+import { Student, Attendance, PrayerAttendance } from '../types';
 import { Html5Qrcode } from 'html5-qrcode';
 import { 
   Scan, 
@@ -23,7 +23,7 @@ interface BarcodeScannerProps {
   onAddAttendance: (att: Attendance) => void;
   onUpdateAttendance: (att: Attendance) => void;
   onAddPrayerAttendance: (att: PrayerAttendance) => void;
-  onAddWaNotification: (notif: WA_NotificationSim) => void;
+  
   isOnline: boolean;
   addOfflineQueue: (action: string, payload: any) => void;
 }
@@ -35,7 +35,7 @@ export default function BarcodeScanner({
   onAddAttendance,
   onUpdateAttendance,
   onAddPrayerAttendance,
-  onAddWaNotification,
+  
   isOnline,
   addOfflineQueue
 }: BarcodeScannerProps) {
@@ -207,17 +207,8 @@ export default function BarcodeScanner({
       if (online) {
         onAddAttendance(newAtt);
         // Generate WhatsApp Notification message
-        const waMessage = `Presensi Masuk: Yth. Bapak/Ibu ${student.parentName}, dengan hormat kami menginfokan bahwa putra/putri Anda atas nama *${student.name}* (NIS: *${student.id}*, Kelas: *${student.className}*) telah melakukan presensi masuk sekolah dengan memindai kartu identitas pada pukul *${timeNowStr}* WIB. Semoga Ananda dapat mengikuti proses belajar hari ini dengan lancar. Salam hangat, EstugaDigital.`;
         
-        const waNotif: WA_NotificationSim = {
-          id: `wa_${Date.now()}`,
-          timestamp: `${todayStr} ${timeNowStr}`,
-          recipient: `${student.parentName} (Orangtua ${student.name})`,
-          phone: student.parentPhone,
-          message: waMessage,
-          type: 'masuk'
-        };
-        onAddWaNotification(waNotif);
+        
       } else {
         // Queue offline
         addOfflineQueue('addAttendance', newAtt);
@@ -271,17 +262,8 @@ export default function BarcodeScanner({
       if (online) {
         onUpdateAttendance(updatedAtt);
         // WhatsApp notify
-        const waMessage = `Presensi Pulang: Yth. Bapak/Ibu ${student.parentName}, dengan hormat kami sampaikan bahwa putra/putri Anda atas nama *${student.name}* (NIS: *${student.id}*, Kelas: *${student.className}*) telah melakukan presensi pulang sekolah dengan memindai kartu identitas pada pukul *${timeNowStr}* WIB. Terima kasih atas kerja samanya. Salam hangat, EstugaDigital.`;
         
-        const waNotif: WA_NotificationSim = {
-          id: `wa_${Date.now()}`,
-          timestamp: `${todayStr} ${timeNowStr}`,
-          recipient: `${student.parentName} (Orangtua ${student.name})`,
-          phone: student.parentPhone,
-          message: waMessage,
-          type: 'pulang'
-        };
-        onAddWaNotification(waNotif);
+        
       } else {
         addOfflineQueue('updateAttendance', updatedAtt);
         onUpdateAttendance(updatedAtt);
@@ -650,16 +632,7 @@ export default function BarcodeScanner({
       }
       // Send WhatsApp WA notification
       const statusIndo = permStatus === 'sakit' ? 'Sakit' : 'Izin Keperluan Lain';
-      const waMessage = `Keterangan Kehadiran: Yth. Bapak/Ibu ${student.parentName}, kami telah menerima surat keterangan tertulis dan mencatat kehadiran putra/putri Anda atas nama *${student.name}* (NIS: *${student.id}*) sebagai *${statusIndo}* pada hari ini tanggal *${todayStr}* dengan keterangan: "${permNotes}". Semoga lekas sembuh/urusan berjalan lancar. Terima kasih. EstugaDigital.`;
       
-      onAddWaNotification({
-        id: `wa_${Date.now()}`,
-        timestamp: `${todayStr} ${timeNowStr}`,
-        recipient: `${student.parentName} (Orangtua ${student.name})`,
-        phone: student.parentPhone,
-        message: waMessage,
-        type: 'sakit'
-      });
     } else {
       addOfflineQueue(existingAtt ? 'updateAttendance' : 'addAttendance', newAtt);
       if (existingAtt) {
@@ -706,7 +679,7 @@ export default function BarcodeScanner({
           <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <span className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200">
-                <Scan size={18} className={`text-indigo-600 dark:text-indigo-400 ${isCameraActive && !cameraError ? 'animate-pulse' : ''}`} />
+                <Scan size={18} className={`text-emerald-600 dark:text-emerald-400 ${isCameraActive && !cameraError ? 'animate-pulse' : ''}`} />
                 Kamera / Scanner Status: <span className={`${isCameraActive && !cameraError ? 'text-emerald-500' : 'text-rose-500'} flex items-center gap-1 font-semibold`}>● {isCameraActive && !cameraError ? 'Siap Memindai' : 'Kamera Nonaktif'}</span>
               </span>
               <div className="flex bg-gray-100 dark:bg-[#232333] p-1 rounded-lg">
@@ -715,7 +688,7 @@ export default function BarcodeScanner({
                   onClick={() => setScanMode('masuk')}
                   className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors cursor-pointer
                     ${scanMode === 'masuk' 
-                      ? 'bg-indigo-600 text-white' 
+                      ? 'bg-emerald-600 text-white' 
                       : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}
                 >
                   Masuk (06.00-07.15)
@@ -725,7 +698,7 @@ export default function BarcodeScanner({
                   onClick={() => setScanMode('pulang')}
                   className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors cursor-pointer
                     ${scanMode === 'pulang' 
-                      ? 'bg-indigo-600 text-white' 
+                      ? 'bg-emerald-600 text-white' 
                       : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}
                 >
                   Pulang
@@ -755,15 +728,15 @@ export default function BarcodeScanner({
  
             {/* Camera Selector Dropdown */}
             {isCameraActive && cameras.length > 0 && (
-              <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3.5 bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100/40 dark:border-indigo-900/30 rounded-xl">
-                <span className="text-xs font-semibold text-indigo-950 dark:text-indigo-300 flex items-center gap-1.5 shrink-0">
+              <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3.5 bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-100/40 dark:border-emerald-900/30 rounded-xl">
+                <span className="text-xs font-semibold text-emerald-950 dark:text-emerald-300 flex items-center gap-1.5 shrink-0">
                   📷 Pilih Kamera Aktif:
                 </span>
                 <select
                   id="camera-select"
                   value={selectedCameraId}
                   onChange={(e) => setSelectedCameraId(e.target.value)}
-                  className="text-xs font-bold px-3 py-2 rounded-lg border border-slate-200 dark:border-[#3e405b] bg-white dark:bg-[#1a1b2e] text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto min-w-[220px]"
+                  className="text-xs font-bold px-3 py-2 rounded-lg border border-slate-200 dark:border-[#3e405b] bg-white dark:bg-[#1a1b2e] text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full sm:w-auto min-w-[220px]"
                 >
                   {cameras.map((cam) => (
                     <option key={cam.id} value={cam.id}>
@@ -775,14 +748,14 @@ export default function BarcodeScanner({
             )}
 
             {/* Real Camera QR Code Scanner */}
-            <div className="relative bg-[#0b0c15] rounded-xl overflow-hidden border border-indigo-500/30 flex flex-col items-center justify-center min-h-[300px] shadow-inner mb-4">
+            <div className="relative bg-[#0b0c15] rounded-xl overflow-hidden border border-emerald-500/30 flex flex-col items-center justify-center min-h-[300px] shadow-inner mb-4">
               {isCameraActive ? (
                 <div className="w-full relative py-4">
                   {/* html5-qrcode video container */}
-                  <div id="qr-video-reader" className="w-full max-w-[420px] bg-black mx-auto overflow-hidden rounded-lg shadow-lg border border-indigo-500/15" />
+                  <div id="qr-video-reader" className="w-full max-w-[420px] bg-black mx-auto overflow-hidden rounded-lg shadow-lg border border-emerald-500/15" />
                   
                   {/* Overlay decorative scanned laser frame */}
-                  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-indigo-500 opacity-60 pointer-events-none shadow-[0_0_8px_#6366f1] animate-pulse" />
+                  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-emerald-500 opacity-60 pointer-events-none shadow-[0_0_8px_#6366f1] animate-pulse" />
                   
                   {cameraError && (
                     <div className="absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center text-center p-6 z-20">
@@ -796,7 +769,7 @@ export default function BarcodeScanner({
                           setIsCameraActive(false);
                           setTimeout(() => setIsCameraActive(true), 150);
                         }}
-                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow-md transition-all cursor-pointer hover:scale-105"
+                        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow-md transition-all cursor-pointer hover:scale-105"
                       >
                         Buka Ulang Kamera
                       </button>
@@ -805,7 +778,7 @@ export default function BarcodeScanner({
                 </div>
               ) : (
                 <div className="p-8 text-center space-y-3 z-10">
-                  <div className="p-3.5 bg-slate-900 border border-slate-800 text-indigo-400 rounded-full w-fit mx-auto">
+                  <div className="p-3.5 bg-slate-900 border border-slate-800 text-emerald-400 rounded-full w-fit mx-auto">
                     <Scan size={36} className="animate-pulse" />
                   </div>
                   <div className="space-y-1">
@@ -815,7 +788,7 @@ export default function BarcodeScanner({
                   <button
                     type="button"
                     onClick={() => setIsCameraActive(true)}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow-md transition-all cursor-pointer hover:scale-105"
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow-md transition-all cursor-pointer hover:scale-105"
                   >
                     Nyalakan Kamera Sekarang
                   </button>
@@ -855,13 +828,13 @@ export default function BarcodeScanner({
                   placeholder="Ketik NIS Siswa (contoh: 102401) lalu tekan Enter..."
                   value={scanInput}
                   onChange={(e) => setScanInput(e.target.value)}
-                  className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white"
+                  className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white"
                 />
               </div>
               <button
                 id="submit-barcode-btn"
                 type="submit"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-2"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors cursor-pointer flex items-center gap-2"
               >
                 <UserCheck size={16} />
                 <span>Scan</span>
@@ -897,7 +870,7 @@ export default function BarcodeScanner({
                   
                   {recentScan.status === 'success' && (
                     <div className="mt-2.5 p-2 bg-white dark:bg-[#232333] border rounded flex items-center gap-2">
-                      <MessageSquareShare size={14} className="text-indigo-500" />
+                      <MessageSquareShare size={14} className="text-emerald-500" />
                       <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono italic">
                         Notifikasi Terkirim ke WA Ortu: {recentScan.student.parentPhone}
                       </span>
@@ -911,12 +884,12 @@ export default function BarcodeScanner({
           {/* HELP GUIDE: SUCCESSFUL SCAN TIPS FOR MOBILE AND LAPTOP */}
           <div className="bg-slate-50 dark:bg-[#232333]/50 rounded-xl p-5 border border-slate-150 dark:border-[#3e405b]/40 shadow-sm space-y-3.5">
             <h3 className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-              <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               💡 Panduan & Tips Sukses Scan via HP / Laptop
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-slate-600 dark:text-slate-400">
               <div className="space-y-1.5">
-                <p className="font-bold text-indigo-600 dark:text-indigo-400">📱 Panduan Memindai via HP (Android/iPhone):</p>
+                <p className="font-bold text-emerald-600 dark:text-emerald-400">📱 Panduan Memindai via HP (Android/iPhone):</p>
                 <ul className="list-disc pl-4 space-y-1 leading-relaxed">
                   <li><strong>Izin Kamera:</strong> Saat pertama kali membuka menu ini, pilih <strong>"Allow/Izinkan"</strong> pada pop-up peramban Anda.</li>
                   <li><strong>Gunakan Kamera Belakang:</strong> Jika HP Anda memiliki banyak kamera, gunakan dropdown <strong>"Pilih Kamera Aktif"</strong> di atas untuk berganti ke lensa utama belakang agar mendapat fokus makro terbaik.</li>
@@ -1014,29 +987,29 @@ export default function BarcodeScanner({
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm">
             <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2 mb-2">
-              <HelpCircle size={18} className="text-indigo-500" />
+              <HelpCircle size={18} className="text-emerald-500" />
               Pintas Simulasi Kartu QR Code
             </h2>
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-              Untuk menguji scan tanpa device fisik, klik tombol <span className="font-semibold text-indigo-600">Pindai</span> di bawah. Ini akan meniru pembacaan QR Code dan memutar audio bip asli!
+              Untuk menguji scan tanpa device fisik, klik tombol <span className="font-semibold text-emerald-600">Pindai</span> di bawah. Ini akan meniru pembacaan QR Code dan memutar audio bip asli!
             </p>
 
             {/* Continuous Multi-Scan Demonstration Box */}
-            <div className="mb-4 p-3.5 bg-indigo-50/70 dark:bg-indigo-950/20 border border-indigo-150/40 dark:border-indigo-900/30 rounded-xl space-y-2.5">
+            <div className="mb-4 p-3.5 bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-150/40 dark:border-emerald-900/30 rounded-xl space-y-2.5">
               <div className="flex items-center gap-2">
                 <span className="flex h-2 w-2 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                 </span>
-                <span className="text-xs font-bold text-indigo-900 dark:text-indigo-300">Fitur Multi-Scan Cepat Aktif ⚡</span>
+                <span className="text-xs font-bold text-emerald-900 dark:text-emerald-300">Fitur Multi-Scan Cepat Aktif ⚡</span>
               </div>
-              <p className="text-[11px] text-indigo-750/90 dark:text-indigo-300/80 leading-relaxed">
+              <p className="text-[11px] text-emerald-750/90 dark:text-emerald-300/80 leading-relaxed">
                 Kamera dan simulator Anda mendukung **pembacaan massal tanpa henti**. Anda dapat memindai kartu siswa satu per satu secara langsung tanpa perlu menutup kamera atau berpindah halaman!
               </p>
               <button
                 type="button"
                 onClick={runMultiScanSimulation}
-                className="w-full py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer hover:scale-[1.02]"
+                className="w-full py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer hover:scale-[1.02]"
               >
                 <span>Simulasi Multi-Scan (Pindai Massal 3 Siswa)</span>
                 <ArrowRight size={14} />
@@ -1077,7 +1050,7 @@ export default function BarcodeScanner({
                         )}
 
                         {todayAtt?.timeOut && (
-                          <span className="text-[9px] px-1.5 py-0.5 bg-indigo-50 text-indigo-600 dark:bg-indigo-950/20 dark:text-indigo-400 rounded font-semibold uppercase">
+                          <span className="text-[9px] px-1.5 py-0.5 bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 rounded font-semibold uppercase">
                             Pulang {todayAtt.timeOut}
                           </span>
                         )}
@@ -1092,7 +1065,7 @@ export default function BarcodeScanner({
                           ? 'opacity-40 cursor-not-allowed bg-gray-100 border-gray-200 text-gray-400'
                           : scanMode === 'pulang' && (!isPresent || isOut)
                             ? 'opacity-40 cursor-not-allowed bg-gray-100 border-gray-200 text-gray-400'
-                            : 'bg-indigo-600 text-white hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 font-semibold shadow-sm'}`}
+                            : 'bg-emerald-600 text-white hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 font-semibold shadow-sm'}`}
                     >
                       <span>Pindai</span>
                       <ArrowRight size={12} />

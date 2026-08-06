@@ -477,13 +477,13 @@ Aplikasi Anda sudah online dan siap digunakan!
         {/* INFO GUIDES PANEL (4 cols) */}
         <div className="lg:col-span-4 bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm space-y-4">
           <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5">
-            <Server size={18} className="text-indigo-600 dark:text-indigo-400" />
+            <Server size={18} className="text-emerald-600 dark:text-emerald-400" />
             Panduan Deploy Hosting
           </h2>
 
           <div className="space-y-3.5 text-xs text-gray-600 dark:text-gray-300">
-            <div className="p-3 bg-indigo-50/50 dark:bg-indigo-950/20 border rounded-lg">
-              <h3 className="font-bold text-indigo-700 dark:text-indigo-400">1. Import SQL</h3>
+            <div className="p-3 bg-emerald-50/50 dark:bg-emerald-950/20 border rounded-lg">
+              <h3 className="font-bold text-emerald-700 dark:text-emerald-400">1. Import SQL</h3>
               <p className="mt-1 leading-relaxed">Salin tab <span className="font-semibold font-mono">estugadigital_v7.sql</span> lalu impor di phpMyAdmin MySQL/MariaDB server Anda.</p>
             </div>
 
@@ -505,7 +505,7 @@ Aplikasi Anda sudah online dan siap digunakan!
                 onClick={() => setActiveCodeTab('sql')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1.5
                   ${activeCodeTab === 'sql' 
-                    ? 'bg-indigo-600 text-white' 
+                    ? 'bg-emerald-600 text-white' 
                     : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'}`}
               >
                 <Database size={12} />
@@ -516,7 +516,7 @@ Aplikasi Anda sudah online dan siap digunakan!
                 onClick={() => setActiveCodeTab('db')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1.5
                   ${activeCodeTab === 'db' 
-                    ? 'bg-indigo-600 text-white' 
+                    ? 'bg-emerald-600 text-white' 
                     : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'}`}
               >
                 <FileCode size={12} />
@@ -527,7 +527,7 @@ Aplikasi Anda sudah online dan siap digunakan!
                 onClick={() => setActiveCodeTab('absen')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1.5
                   ${activeCodeTab === 'absen' 
-                    ? 'bg-indigo-600 text-white' 
+                    ? 'bg-emerald-600 text-white' 
                     : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'}`}
               >
                 <FileCode size={12} />
@@ -547,7 +547,7 @@ Aplikasi Anda sudah online dan siap digunakan!
               </button>
               <button
                 onClick={() => handleDownloadPackage('xampp')}
-                className="p-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors flex items-center gap-1 text-[11px] font-semibold cursor-pointer shadow-sm"
+                className="p-1.5 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors flex items-center gap-1 text-[11px] font-semibold cursor-pointer shadow-sm"
               >
                 <Download size={14} />
                 <span>Unduh Paket XAMPP</span>
@@ -555,7 +555,7 @@ Aplikasi Anda sudah online dan siap digunakan!
               <button
                 onClick={handleDownloadCode}
 
-                className="p-1.5 bg-white dark:bg-[#2b2c40] border dark:border-[#3e405b] text-gray-500 rounded hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1 text-[11px] font-semibold cursor-pointer"
+                className="p-1.5 bg-white dark:bg-[#2b2c40] border dark:border-[#3e405b] text-gray-500 rounded hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-1 text-[11px] font-semibold cursor-pointer"
               >
                 <Download size={14} />
                 <span>Unduh File</span>

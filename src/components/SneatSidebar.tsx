@@ -148,8 +148,8 @@ export default function SneatSidebar({
           >
             {!collapsed && (
               <div className="flex items-center justify-between w-full">
-                <div className="flex items-center gap-2.5 font-bold text-lg text-indigo-600 dark:text-indigo-400">
-                  <span className="p-1.5 bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/10">
+                <div className="flex items-center gap-2.5 font-bold text-lg text-emerald-600 dark:text-emerald-400">
+                  <span className="p-1.5 bg-gradient-to-tr from-emerald-600 to-violet-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-emerald-500/10">
                     <GraduationCap size={20} />
                   </span>
                   <span id="sidebar-logo-text" className="tracking-tight font-extrabold font-sans bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-950 dark:from-white dark:to-slate-300">EstugaDigital</span>
@@ -166,7 +166,7 @@ export default function SneatSidebar({
               </div>
             )}
             {collapsed && (
-              <span className="p-1.5 bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/10">
+              <span className="p-1.5 bg-gradient-to-tr from-emerald-600 to-violet-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-emerald-500/10">
                 <GraduationCap size={18} />
               </span>
             )}
@@ -194,16 +194,16 @@ export default function SneatSidebar({
                 onClick={() => setCurrentTab(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all cursor-pointer
                   ${isActive 
-                    ? 'bg-indigo-50/80 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-400' 
+                    ? 'bg-emerald-50/80 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400' 
                     : isDark 
                       ? 'hover:bg-[#1c2438] hover:text-slate-100' 
                       : 'hover:bg-slate-50 hover:text-slate-800'}`}
                 title={collapsed ? item.label : undefined}
               >
-                <IconComponent size={18} className={isActive ? 'text-indigo-600 dark:text-indigo-400' : 'opacity-70'} />
+                <IconComponent size={18} className={isActive ? 'text-emerald-600 dark:text-emerald-400' : 'opacity-70'} />
                 {!collapsed && <span className="truncate">{item.label}</span>}
                 {isActive && !collapsed && (
-                  <div className="ml-auto w-1 h-4 bg-indigo-600 dark:bg-indigo-400 rounded-full" />
+                  <div className="ml-auto w-1 h-4 bg-emerald-600 dark:bg-emerald-400 rounded-full" />
                 )}
               </button>
             );

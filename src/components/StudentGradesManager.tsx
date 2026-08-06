@@ -200,7 +200,7 @@ export default function StudentGradesManager({
       {/* Filter and Status Panel */}
       <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-3.5 w-full sm:w-auto">
-          <div className="flex items-center gap-1.5 text-xs text-indigo-600 font-bold">
+          <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-bold">
             <Filter size={14} />
             <span>Filter Data:</span>
           </div>
@@ -250,7 +250,7 @@ export default function StudentGradesManager({
           <span className="text-xs font-bold text-slate-700 dark:text-slate-200">
             Daftar Nilai {selectedSubject} - {selectedClass} ({classStudents.length} Siswa)
           </span>
-          <span className="text-[10px] text-indigo-500 font-mono font-bold bg-indigo-50 dark:bg-indigo-950/30 px-2 py-1 rounded">
+          <span className="text-[10px] text-emerald-500 font-mono font-bold bg-emerald-50 dark:bg-emerald-950/30 px-2 py-1 rounded">
             SD ONLY MODE
           </span>
         </div>
@@ -270,7 +270,7 @@ export default function StudentGradesManager({
                   
                   {/* Tugas 1-10 Header */}
                   {Array.from({ length: 10 }).map((_, i) => (
-                    <th key={`tg-h-${i}`} className="p-2 text-center text-[10px] font-mono bg-indigo-50/30 dark:bg-indigo-950/10 text-indigo-600 dark:text-indigo-400">Tugas {i+1}</th>
+                    <th key={`tg-h-${i}`} className="p-2 text-center text-[10px] font-mono bg-emerald-50/30 dark:bg-emerald-950/10 text-emerald-600 dark:text-emerald-400">Tugas {i+1}</th>
                   ))}
 
                   {/* Ulangan 1-8 Header */}
@@ -301,7 +301,7 @@ export default function StudentGradesManager({
                       {Array.from({ length: 10 }).map((_, i) => {
                         const val = rec.tugas[i];
                         return (
-                          <td key={`tg-i-${i}`} className="p-1.5 text-center bg-indigo-50/10 dark:bg-indigo-950/5">
+                          <td key={`tg-i-${i}`} className="p-1.5 text-center bg-emerald-50/10 dark:bg-emerald-950/5">
                             <input
                               type="number"
                               min="0"
@@ -309,7 +309,7 @@ export default function StudentGradesManager({
                               placeholder="-"
                               value={val === undefined || val === null ? "" : val}
                               onChange={(e) => handleGradeChange(st.id, st.name, st.className, 'tugas', i, e.target.value)}
-                              className="w-11 text-center py-1 rounded border border-slate-200 dark:border-slate-800/80 bg-white dark:bg-[#1a2035] text-xs font-mono dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                              className="w-11 text-center py-1 rounded border border-slate-200 dark:border-slate-800/80 bg-white dark:bg-[#1a2035] text-xs font-mono dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                             />
                           </td>
                         );
