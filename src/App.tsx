@@ -16,7 +16,7 @@ const StudentGradesManager = lazy(() => import('./components/StudentGradesManage
 const PrayerAttendanceManager = lazy(() => import('./components/PrayerAttendanceManager'));
 const SholatDhuhurWidget = lazy(() => import('./components/SholatDhuhurWidget'));
 
-import { setupAttendanceSync, addAttendanceToFirestore, setupPrayerAttendanceSync, addPrayerAttendanceToFirestore } from "./sync";
+import { setupGenericSync, addGenericToFirestore, deleteGenericFromFirestore } from "./sync";
 import { UserRole, Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial, AppNotification, AssignmentTask, AssignmentSubmission, StudentGradeRecord } from './types';
 import { 
   INITIAL_STUDENTS, 
@@ -128,13 +128,17 @@ export default function App() {
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
 
   // Academic Database States
+  const HOSTINGER_BASE = window.location.hostname === 'localhost' || window.location.hostname.includes('run.app') ? 'https://estugadigital.online' : '';
   const [students, setStudents] = useState<Student[]>(() => loadFromStorage<Student[]>('students', INITIAL_STUDENTS));
-  
-  // Fetch from MySQL PHP API if available
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('students', students, setStudents);
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const fetchStudentsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_students.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_students.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -142,11 +146,14 @@ export default function App() {
           }
         }
       } catch (error) {
-        console.log('API fetch failed, falling back to local storage', error);
+        console.log('API fetch failed for students, falling back to local storage', error);
       }
     };
     fetchStudentsFromMySQL();
   }, []);
+  
+  // Fetch from MySQL PHP API if available
+  
 
   const [teachers, setTeachers] = useState<Teacher[]>(() => {
     let t = loadFromStorage<Teacher[]>('teachers', INITIAL_TEACHERS);
@@ -168,28 +175,18 @@ export default function App() {
     return t;
   });
 
-  useEffect(() => {
-    const fetchTeachersFromMySQL = async () => {
-      try {
-        const response = await fetch('/api/get_teachers.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setTeachers(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for teachers, falling back to local storage', error);
-      }
-    };
-    fetchTeachersFromMySQL();
-  }, []);
+  
 
   const [attendance, setAttendance] = useState<Attendance[]>(() => loadFromStorage<Attendance[]>('attendance', INITIAL_ATTENDANCE));
   useEffect(() => {
+    const unsubscribe = setupGenericSync('attendance', attendance, setAttendance);
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const fetchAttendanceFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_attendance.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_attendance.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -202,19 +199,35 @@ export default function App() {
     };
     fetchAttendanceFromMySQL();
   }, []);
+
   useEffect(() => {
-    const unsubscribe = setupAttendanceSync(attendance, setAttendance);
-    return () => unsubscribe();
+    const fetchTeachersFromMySQL = async () => {
+      try {
+        const response = await fetch(HOSTINGER_BASE + '/api/get_teachers.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setTeachers(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for teachers, falling back to local storage', error);
+      }
+    };
+    fetchTeachersFromMySQL();
   }, []);
+  
+  
   const [prayerAttendance, setPrayerAttendance] = useState<PrayerAttendance[]>(() => loadFromStorage<PrayerAttendance[]>('prayer_attendance', INITIAL_PRAYER_ATTENDANCE));
   useEffect(() => {
-    const unsubscribe = setupPrayerAttendanceSync(prayerAttendance, setPrayerAttendance);
+    const unsubscribe = setupGenericSync('prayerAttendance', prayerAttendance, setPrayerAttendance);
     return () => unsubscribe();
   }, []);
+
   useEffect(() => {
     const fetchPrayerAttendanceFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_prayer_attendance.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_prayer_attendance.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -222,16 +235,23 @@ export default function App() {
           }
         }
       } catch (error) {
-        console.log('API fetch failed for prayer attendance, falling back to local storage', error);
+        console.log('API fetch failed for prayerAttendance, falling back to local storage', error);
       }
     };
     fetchPrayerAttendanceFromMySQL();
   }, []);
+  
+  
   const [journals, setJournals] = useState<ClassJournal[]>(() => loadFromStorage<ClassJournal[]>('journals', INITIAL_JOURNALS));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('journals', journals, setJournals);
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const fetchJournalsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_journals.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_journals.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -244,11 +264,17 @@ export default function App() {
     };
     fetchJournalsFromMySQL();
   }, []);
+  
   const [exams, setExams] = useState<CBTExam[]>(() => loadFromStorage<CBTExam[]>('exams', INITIAL_EXAMS));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('exams', exams, setExams);
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const fetchExamsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_exams.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_exams.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -261,11 +287,17 @@ export default function App() {
     };
     fetchExamsFromMySQL();
   }, []);
+  
   const [results, setResults] = useState<StudentCBTResult[]>(() => loadFromStorage<StudentCBTResult[]>('results', INITIAL_CBT_RESULTS));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('results', results, setResults);
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const fetchResultsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_results.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_results.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -278,11 +310,17 @@ export default function App() {
     };
     fetchResultsFromMySQL();
   }, []);
+  
   const [events, setEvents] = useState<AcademicEvent[]>(() => loadFromStorage<AcademicEvent[]>('events', INITIAL_EVENTS));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('events', events, setEvents);
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const fetchEventsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_events.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_events.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -295,12 +333,22 @@ export default function App() {
     };
     fetchEventsFromMySQL();
   }, []);
+  
   const [feedbacks, setFeedbacks] = useState<TeacherFeedback[]>(() => loadFromStorage<TeacherFeedback[]>('feedbacks', INITIAL_FEEDBACKS));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('feedbacks', feedbacks, setFeedbacks);
+    return () => unsubscribe();
+  }, []);
   const [materials, setMaterials] = useState<ELearningMaterial[]>(() => loadFromStorage<ELearningMaterial[]>('materials', INITIAL_MATERIALS));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('materials', materials, setMaterials);
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const fetchMaterialsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_materials.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_materials.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -313,13 +361,19 @@ export default function App() {
     };
     fetchMaterialsFromMySQL();
   }, []);
+  
   const [virtualMeets, setVirtualMeets] = useState<any[]>(() => loadFromStorage<any[]>('virtual_meets', []));
   
   const [assignments, setAssignments] = useState<AssignmentTask[]>(() => loadFromStorage<AssignmentTask[]>('assignments', INITIAL_ASSIGNMENTS));
   useEffect(() => {
+    const unsubscribe = setupGenericSync('assignments', assignments, setAssignments);
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const fetchAssignmentsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_assignments.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_assignments.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -332,11 +386,17 @@ export default function App() {
     };
     fetchAssignmentsFromMySQL();
   }, []);
+  
   const [submissions, setSubmissions] = useState<AssignmentSubmission[]>(() => loadFromStorage<AssignmentSubmission[]>('submissions', INITIAL_SUBMISSIONS));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('submissions', submissions, setSubmissions);
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const fetchSubmissionsFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_submissions.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_submissions.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -349,6 +409,7 @@ export default function App() {
     };
     fetchSubmissionsFromMySQL();
   }, []);
+  
   const [grades, setGrades] = useState<StudentGradeRecord[]>(() => {
     const saved = loadFromStorage<StudentGradeRecord[]>('student_grades', []);
     if (saved && saved.length > 0) return saved;
@@ -361,11 +422,15 @@ export default function App() {
       "Pendidikan Pancasila"
     ]);
   });
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('student_grades', grades, setGrades);
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchGradesFromMySQL = async () => {
       try {
-        const response = await fetch('/api/get_grades.php');
+        const response = await fetch(HOSTINGER_BASE + '/api/get_grades.php');
         if (response.ok) {
           const result = await response.json();
           if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
@@ -378,6 +443,8 @@ export default function App() {
     };
     fetchGradesFromMySQL();
   }, []);
+
+  
   const [elearningSubTab, setElearningSubTab] = useState<'materials' | 'meet' | 'assignments'>('materials');
 
   // Real-time Push Toaster & Sound States
@@ -960,7 +1027,7 @@ export default function App() {
       // Process pending queue actions
       syncQueue.forEach(item => {
         if (item.action === 'addAttendance') {
-          const attPayload = { ...item.payload, notifiedIn: true }; addAttendanceToFirestore(attPayload);
+          const attPayload = { ...item.payload, notifiedIn: true }; addGenericToFirestore('attendance', attPayload);
           // ensure notifiedIn is set true upon upload
           const payload = { ...item.payload, notifiedIn: true };
           setAttendance(prev => {
@@ -973,14 +1040,14 @@ export default function App() {
             return [...prev, { ...payload }];
           });
         } else if (item.action === 'updateAttendance') {
-          const attPayload = { ...item.payload, notifiedOut: true }; addAttendanceToFirestore(attPayload);
+          const attPayload = { ...item.payload, notifiedOut: true }; addGenericToFirestore('attendance', attPayload);
           const payload = { ...item.payload, notifiedOut: true };
           setAttendance(prev => prev.map(a => a.id === payload.id ? { ...payload } : a));
         } else if (item.action === 'addPrayerAttendance') {
           const payload = { ...item.payload };
           setPrayerAttendance(prev => {
             if (prev.some(p => p.id === payload.id)) return prev;
-            addPrayerAttendanceToFirestore(payload);
+            addGenericToFirestore('prayerAttendance', payload);
             return [...prev, payload];
           });
         }
@@ -1041,7 +1108,7 @@ export default function App() {
             prayerAttendance={s_prayerAttendance}
             onAddAttendance={(att) => {
               setAttendance(prev => [...prev, { ...att }]);
-              addAttendanceToFirestore(att);
+              addGenericToFirestore('attendance', att);
               addNotification(`Presensi masuk berhasil dicatat: ${att.studentName}`, 'system');
               const student = students.find(s => s.id === att.studentId);
               if (student && student.usernameParent) {
@@ -1050,7 +1117,7 @@ export default function App() {
             }}
             onUpdateAttendance={(att) => {
               setAttendance(prev => prev.map(a => a.id === att.id ? att : a));
-              addAttendanceToFirestore(att);
+              addGenericToFirestore('attendance', att);
               addNotification(`Presensi pulang berhasil dicatat: ${att.studentName}`, 'system');
               const student = students.find(s => s.id === att.studentId);
               if (student && student.usernameParent) {
@@ -1059,7 +1126,7 @@ export default function App() {
             }}
             onAddPrayerAttendance={(att) => {
               setPrayerAttendance(prev => [...prev, { ...att }]);
-              addPrayerAttendanceToFirestore(att);
+              addGenericToFirestore('prayerAttendance', att);
               addNotification(`Presensi Sholat Dhuhur berhasil dicatat: ${att.studentName}`);
             }}
             isOnline={isOnline}
@@ -1080,12 +1147,12 @@ export default function App() {
             prayerAttendance={s_prayerAttendance}
             onAddPrayerAttendance={(att) => {
               setPrayerAttendance(prev => [...prev, { ...att }]);
-              addPrayerAttendanceToFirestore(att);
+              addGenericToFirestore('prayerAttendance', att);
               addNotification(`Kehadiran sholat dicatat: ${att.studentName}`);
             }}
             onUpdatePrayerAttendance={(att) => {
               setPrayerAttendance(prev => prev.map(a => a.id === att.id ? att : a));
-              addPrayerAttendanceToFirestore(att);
+              addGenericToFirestore('prayerAttendance', att);
               addNotification(`Kehadiran sholat diperbarui: ${att.studentName}`);
             }}
           />
@@ -1096,6 +1163,7 @@ export default function App() {
             journals={s_journals}
             onAddJournal={(journal) => {
               setJournals(prev => [{ ...journal }, ...prev]);
+              addGenericToFirestore('journals', journal);
               addNotification(`Jurnal pembelajaran baru dicatat untuk kelas ${journal.className}`);
             }}
             students={students}
@@ -1112,11 +1180,13 @@ export default function App() {
             exams={s_exams}
             onAddExam={(exam) => {
               setExams(prev => [{ ...exam }, ...prev]);
+              addGenericToFirestore('exams', exam);
               addNotification(`Ujian CBT baru dipublikasikan: ${exam.title}`);
             }}
             results={s_results}
             onAddResult={(res) => {
-              setResults(prev => [{ ...res }, ...prev]);
+                  setResults(prev => [{ ...res }, ...prev]);
+                  addGenericToFirestore('results', res);
               const student = students.find(s => s.id === res.studentId);
               if (student) {
                 addNotification(`Nilai ulangan CBT Anda keluar: ${res.score} untuk pelajaran ${res.subject}`, 'grade', student.usernameCbt);
@@ -1128,13 +1198,16 @@ export default function App() {
             materials={s_materials}
             onAddMaterial={(mat) => {
               setMaterials(prev => [{ ...mat }, ...prev]);
+              addGenericToFirestore('materials', mat);
               addNotification(`Materi e-learning baru ditambahkan: ${mat.title}`);
             }}
             onUpdateMaterial={(id, updated) => {
+              const m = materials.find(x => x.id === id); if(m) addGenericToFirestore('materials', { ...m, ...updated });
               setMaterials(prev => prev.map(m => m.id === id ? { ...m, ...updated } : m));
               addNotification(`Materi e-learning berhasil diperbarui`);
             }}
             onDeleteMaterial={(id) => {
+              deleteGenericFromFirestore('materials', id);
               setMaterials(prev => prev.filter(m => m.id !== id));
               addNotification(`Materi e-learning berhasil dihapus`);
             }}
@@ -1188,6 +1261,7 @@ export default function App() {
                 results={s_results}
                 onAddResult={(res) => {
                   setResults(prev => [{ ...res }, ...prev]);
+                  addGenericToFirestore('results', res);
                   const student = students.find(s => s.id === res.studentId);
                   if (student) {
                     addNotification(`Nilai ulangan CBT Anda keluar: ${res.score} untuk pelajaran ${res.subject}`, 'grade', student.usernameCbt);
@@ -1198,15 +1272,18 @@ export default function App() {
                 }}
                 materials={s_materials}
                 onAddMaterial={(mat) => {
-                  setMaterials(prev => [{ ...mat }, ...prev]);
+              setMaterials(prev => [{ ...mat }, ...prev]);
+              addGenericToFirestore('materials', mat);
                   addNotification(`Materi e-learning baru ditambahkan: ${mat.title}`);
                 }}
                 onUpdateMaterial={(id, updated) => {
-                  setMaterials(prev => prev.map(m => m.id === id ? { ...m, ...updated } : m));
+              const m = materials.find(x => x.id === id); if(m) addGenericToFirestore('materials', { ...m, ...updated });
+              setMaterials(prev => prev.map(m => m.id === id ? { ...m, ...updated } : m));
                   addNotification(`Materi e-learning berhasil diperbarui`);
                 }}
                 onDeleteMaterial={(id) => {
-                  setMaterials(prev => prev.filter(m => m.id !== id));
+              deleteGenericFromFirestore('materials', id);
+              setMaterials(prev => prev.filter(m => m.id !== id));
                   addNotification(`Materi e-learning berhasil dihapus`);
                 }}
                 students={students}
@@ -1232,19 +1309,23 @@ export default function App() {
                 setVirtualMeets={setVirtualMeets}
                 onUpdateAssignment={(updated) => {
                   setAssignments(prev => prev.map(a => a.id === updated.id ? updated : a));
+                  addGenericToFirestore('assignments', updated);
                   addNotification(`Tugas e-learning diupdate: ${updated.title}`);
                 }}
                 onDeleteAssignment={(id) => {
                   setAssignments(prev => prev.filter(a => a.id !== id));
+                  deleteGenericFromFirestore('assignments', id);
                   addNotification(`Tugas e-learning dihapus`);
                 }}
                 onAddAssignment={(assignment) => {
                   setAssignments(prev => [...prev, { ...assignment }]);
+                  addGenericToFirestore('assignments', assignment);
                   addNotification(`Tugas e-learning baru ditambahkan: ${assignment.title}`);
                 }}
                 submissions={s_submissions}
                 onAddSubmission={(sub) => {
                   setSubmissions(prev => [...prev, { ...sub }]);
+                  addGenericToFirestore('submissions', sub);
                   const student = students.find(s => s.id === sub.studentId);
                   const task = s_assignments.find(a => a.id === sub.assignmentId);
                   if (student && task) {
@@ -1363,7 +1444,8 @@ export default function App() {
             schoolClasses={schoolClasses}
             assignments={s_assignments}
             onAddAssignment={(assignment) => {
-              setAssignments(prev => [...prev, { ...assignment }]);
+                  setAssignments(prev => [...prev, { ...assignment }]);
+                  addGenericToFirestore('assignments', assignment);
             }}
             schoolSubjects={schoolSubjects}
             onTriggerPushNotification={(text, type) => addNotification(text, type)}

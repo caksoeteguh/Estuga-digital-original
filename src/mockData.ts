@@ -1,3 +1,4 @@
+import { syncArrayToFirestore } from './utils/diffSync';
 import { Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial } from './types';
 
 // Mock Data Arrays
@@ -931,6 +932,7 @@ export const loadFromStorage = <T>(key: string, defaultValue: T): T => {
   }
 };
 
+const HOSTINGER_BASE = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname.includes('run.app')) ? 'https://estugadigital.online' : '';
 const API_URL = 'https://estugadigital.online/api/sync.php';
 
 export const saveToStorage = async <T>(key: string, value: T): Promise<void> => {
@@ -981,33 +983,31 @@ export const saveToStorage = async <T>(key: string, value: T): Promise<void> => 
       }
       
       try { storage.setItem(`adminguruku_v2_${key}`, stringified); } catch(e) { console.warn("QuotaExceededError for " + key, e); }
+      // Sync via Firebase diffSync
+      const collectionsMap: Record<string, string> = {
+        'students': 'students',
+        'teachers': 'teachers',
+        'attendance': 'attendance',
+        'prayer_attendance': 'prayerAttendance',
+        'journals': 'journals',
+        'exams': 'exams',
+        'results': 'results',
+        'events': 'events',
+        'feedbacks': 'feedbacks',
+        'materials': 'materials',
+        'assignments': 'assignments',
+        'submissions': 'submissions',
+        'student_grades': 'student_grades'
+      };
       
-      // Sync to PHP API on Hostinger
-      try {
-         await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-               doc_id: key,
-               doc_data: payloadToSync
-            })
-         });
-         
-         // ALSO sync to Relational DB if it's one of the supported tables
-         const relationalTables = ['students', 'teachers', 'attendance', 'prayer_attendance', 'journals', 'exams', 'results', 'events', 'materials', 'assignments', 'submissions', 'student_grades'];
-         if (relationalTables.includes(key)) {
-             await fetch('/api/save_relational.php', {
-                 method: 'POST',
-                 headers: { 'Content-Type': 'application/json' },
-                 body: JSON.stringify({
-                     table: key,
-                     data: value
-                 })
-             });
-         }
-      } catch (e) {
-         console.warn("Failed to sync to API. Data saved locally.", e);
+      if (collectionsMap[key] && Array.isArray(value)) {
+        syncArrayToFirestore(collectionsMap[key], value);
       }
+
+      
+      // Sync to PHP API on Hostinger is DISABLED in real-time to prevent 100-student traffic spikes.
+      // Data is safely stored in Firebase Firestore and LocalStorage.
+      // It can be exported manually or via a nightly cron job on Hostinger.
       
     } catch (e) {
       console.error("Storage error:", e);
