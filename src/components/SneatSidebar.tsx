@@ -112,12 +112,6 @@ export default function SneatSidebar({
       roles: ['admin', 'guru', 'kepsek', 'siswa', 'walimurid']
     },
     {
-      id: 'wa-logs',
-      label: 'Notifikasi WA',
-      icon: MessageSquare,
-      roles: ['admin']
-    },
-    {
       id: 'php-export',
       label: 'Ekspor PHP & MySQL',
       icon: Database,

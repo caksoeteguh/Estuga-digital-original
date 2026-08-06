@@ -17,7 +17,7 @@ const PrayerAttendanceManager = lazy(() => import('./components/PrayerAttendance
 const SholatDhuhurWidget = lazy(() => import('./components/SholatDhuhurWidget'));
 
 import { setupAttendanceSync, addAttendanceToFirestore, setupPrayerAttendanceSync, addPrayerAttendanceToFirestore } from "./sync";
-import { UserRole, Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial, WA_NotificationSim, AppNotification, AssignmentTask, AssignmentSubmission, StudentGradeRecord } from './types';
+import { UserRole, Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial, AppNotification, AssignmentTask, AssignmentSubmission, StudentGradeRecord } from './types';
 import { 
   INITIAL_STUDENTS, 
   INITIAL_TEACHERS, 
@@ -29,7 +29,6 @@ import {
   INITIAL_EVENTS, 
   INITIAL_FEEDBACKS, 
   INITIAL_MATERIALS, 
-  INITIAL_WA_NOTIFS,
   INITIAL_ASSIGNMENTS,
   INITIAL_SUBMISSIONS,
   loadFromStorage, 
@@ -91,7 +90,7 @@ const generateInitialGrades = (studentsList: Student[], subjectsList: string[]):
 };
 
 export const ALLOWED_TABS: Record<UserRole, string[]> = {
-  admin: ['dashboard', 'barcode-scan', 'jurnal-harian', 'data-master', 'calendar', 'wa-logs', 'php-export', 'daftar-nilai', 'rekap-sholat', 'rekap-presensi'],
+  admin: ['dashboard', 'barcode-scan', 'jurnal-harian', 'data-master', 'calendar', 'php-export', 'daftar-nilai', 'rekap-sholat', 'rekap-presensi'],
   guru: ['dashboard', 'barcode-scan', 'jurnal-harian', 'cbt-exam', 'e-learning', 'calendar', 'daftar-nilai', 'rekap-sholat', 'rekap-presensi'],
   kepsek: ['dashboard', 'jurnal-harian', 'kepsek-overview', 'calendar', 'rekap-sholat', 'rekap-presensi'],
   walimurid: ['parent-realtime'],
@@ -315,11 +314,7 @@ export default function App() {
     fetchMaterialsFromMySQL();
   }, []);
   const [virtualMeets, setVirtualMeets] = useState<any[]>(() => loadFromStorage<any[]>('virtual_meets', []));
-  const [waNotifs, setWaNotifs] = useState<WA_NotificationSim[]>(() => loadFromStorage<WA_NotificationSim[]>('wa_notifs', INITIAL_WA_NOTIFS));
-  const [fonnteToken, setFonnteToken] = useState<string>(() => loadFromStorage<string>('fonnte_token', ''));
   
-  
-  useEffect(() => { saveToStorage('fonnte_token', fonnteToken); }, [fonnteToken]);
   const [assignments, setAssignments] = useState<AssignmentTask[]>(() => loadFromStorage<AssignmentTask[]>('assignments', INITIAL_ASSIGNMENTS));
   useEffect(() => {
     const fetchAssignmentsFromMySQL = async () => {
@@ -506,7 +501,6 @@ export default function App() {
       saveToStorage('feedbacks', feedbacks);
       saveToStorage('materials', materials);
       saveToStorage('virtual_meets', virtualMeets);
-      saveToStorage('wa_notifs', waNotifs);
       saveToStorage('assignments', assignments);
       saveToStorage('submissions', submissions);
       saveToStorage('student_grades', grades);
@@ -518,7 +512,7 @@ export default function App() {
     return () => window.removeEventListener('force-save-local', handleForceSave);
   }, [
     students, teachers, attendance, prayerAttendance, journals, exams, results,
-    events, feedbacks, materials, virtualMeets, waNotifs, assignments, submissions, grades,
+    events, feedbacks, materials, virtualMeets, assignments, submissions, grades,
     schoolIdentity, schoolClasses, schoolSubjects
   ]);
 
@@ -570,7 +564,6 @@ export default function App() {
         setFeedbacks(m.loadFromStorage('feedbacks', INITIAL_FEEDBACKS));
         setMaterials(m.loadFromStorage('materials', INITIAL_MATERIALS));
         setVirtualMeets(m.loadFromStorage('virtual_meets', []));
-        setWaNotifs(m.loadFromStorage('wa_notifs', INITIAL_WA_NOTIFS));
         setAssignments(m.loadFromStorage('assignments', INITIAL_ASSIGNMENTS));
         setSubmissions(m.loadFromStorage('submissions', INITIAL_SUBMISSIONS));
         setGrades(m.loadFromStorage('student_grades', []));
@@ -702,7 +695,6 @@ export default function App() {
   }, []);
 
   useEffect(() => { saveToStorage('virtual_meets', virtualMeets); }, [virtualMeets]);
-  useEffect(() => { saveToStorage('wa_notifs', waNotifs); }, [waNotifs]);
   useEffect(() => { saveToStorage('assignments', assignments); }, [assignments]);
   useEffect(() => { saveToStorage('submissions', submissions); }, [submissions]);
   useEffect(() => { saveToStorage('student_grades', grades); }, [grades]);
@@ -750,7 +742,6 @@ export default function App() {
     setEvents([]);
     setFeedbacks([]);
     setMaterials([]);
-    setWaNotifs([]);
     setAssignments([]);
     setSubmissions([]);
     setGrades([]);
@@ -841,7 +832,6 @@ export default function App() {
     setEvents([]);
     setFeedbacks([]);
     setMaterials([]);
-    setWaNotifs([]);
     setAssignments([]);
     setSubmissions([]);
     setGrades([]);
@@ -921,42 +911,6 @@ export default function App() {
       return () => clearInterval(interval);
     }
   }, [activeToasts]);
-
-  const handleAddWaNotification = (notif: WA_NotificationSim) => {
-    setWaNotifs(prev => [notif, ...prev]);
-
-    // Real-time Fonnte API dispatch
-    if (fonnteToken && fonnteToken.trim() !== '') {
-      const cleanPhone = notif.phone.replace(/[^0-9]/g, '');
-      const formattedPhone = cleanPhone.startsWith('0') ? '62' + cleanPhone.slice(1) : cleanPhone;
-
-      const formData = new FormData();
-      formData.append('target', formattedPhone);
-      formData.append('message', notif.message);
-      formData.append('countryCode', '62');
-
-      fetch('https://api.fonnte.com/send', {
-        method: 'POST',
-        headers: {
-          'Authorization': fonnteToken.trim()
-        },
-        body: formData
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log('Real WA Sent via Fonnte:', data);
-        if (data.status === true) {
-          addNotification(`📢 WhatsApp RIIL terkirim ke ${notif.phone} via Fonnte!`);
-        } else {
-          addNotification(`⚠️ Fonnte API Error: ${data.reason || 'Masalah kredensial token'}`);
-        }
-      })
-      .catch(err => {
-        console.error('Error sending WA via Fonnte:', err);
-        addNotification(`⚠️ Gagal menyambungkan ke API Fonnte. Periksa koneksi.`);
-      });
-    }
-  };
 
   const markAllNotificationsRead = () => {
     setNotifications(prev => {
@@ -1108,7 +1062,6 @@ export default function App() {
               addPrayerAttendanceToFirestore(att);
               addNotification(`Presensi Sholat Dhuhur berhasil dicatat: ${att.studentName}`);
             }}
-            onAddWaNotification={handleAddWaNotification}
             isOnline={isOnline}
             addOfflineQueue={addOfflineQueue}
           />
@@ -1416,8 +1369,6 @@ export default function App() {
             onTriggerPushNotification={(text, type) => addNotification(text, type)}
           />
         );
-      case 'wa-logs':
-        return renderWaNotificationLogs();
       case 'php-export':
         return <PhpExporter />;
       default:
@@ -2528,7 +2479,7 @@ export default function App() {
                   Panduan Urutan Pengisian Data Sekolah (Alur Kerja Lancar)
                 </h2>
                 <p className="text-xs text-indigo-700/80 dark:text-indigo-300/80">
-                  Ikuti urutan langkah di bawah ini untuk mengonfigurasi data awal sekolah Anda agar seluruh menu e-learning, CBT, presensi QR Code, dan notifikasi WhatsApp berjalan otomatis tanpa hambatan:
+                  Ikuti urutan langkah di bawah ini untuk mengonfigurasi data awal sekolah Anda agar seluruh menu e-learning, CBT dan presensi QR Code berjalan otomatis tanpa hambatan:
                 </p>
               </div>
             </div>
@@ -2578,24 +2529,11 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Step 4: WhatsApp Integration */}
-              <div className="bg-white dark:bg-[#202134] p-4 rounded-xl border border-indigo-100 dark:border-[#3e405b] space-y-3 relative hover:scale-[1.01] transition-all">
-                <div className="flex justify-between items-center">
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold font-mono">4</span>
-                  <MessageSquare size={16} className="text-rose-500" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-800 dark:text-white">Notifikasi WhatsApp</h4>
-                  <p className="text-[11px] text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">
-                    Hubungkan Token Fonnte Anda di menu <span className="font-semibold text-indigo-600 dark:text-indigo-400">Log Notifikasi WhatsApp</span> untuk mengaktifkan pengiriman SMS WA otomatis.
-                  </p>
-                </div>
-              </div>
 
-              {/* Step 5: Start Scanning & Activities */}
+              {/* Step 4: Start Scanning & Activities */}
               <div className="bg-indigo-600 text-white p-4 rounded-xl border border-indigo-500 space-y-3 relative hover:scale-[1.01] transition-all shadow-md">
                 <div className="flex justify-between items-center">
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-indigo-700 text-xs font-bold font-mono">5</span>
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-indigo-700 text-xs font-bold font-mono">4</span>
                   <QrCode size={16} className="text-yellow-300 animate-pulse" />
                 </div>
                 <div>
@@ -2610,66 +2548,6 @@ export default function App() {
           </div>
         )}
 
-        {/* SEED DATA & USER CORRELATION HUB FOR LAYMEN (AWAM) (Only for Admin) */}
-        {activeRole === 'admin' && session?.role === 'admin' && (
-          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-[#211f42]/60 dark:to-[#1a1733]/60 rounded-xl p-5 border border-indigo-150/40 dark:border-[#3e405b] shadow-xs space-y-4 animate-fade-in" id="admin-interactive-sim-card">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="p-1.5 bg-indigo-600 text-white rounded-lg">
-                    <span className="text-sm">💡</span>
-                  </span>
-                  <h2 className="text-sm font-bold text-indigo-900 dark:text-indigo-200">
-                    Pusat Simulasi Interaktif &amp; Koneksi Data Terpadu
-                  </h2>
-                </div>
-                <p className="text-xs text-indigo-750/90 dark:text-indigo-300/80 max-w-2xl">
-                  Gunakan menu di bawah ini untuk memuat data simulasi terhubung, atau me-reset/memulihkan seluruh database ke data riil **SDN TULUNGREJO 03 BATU** (129 siswa &amp; akun portal wali murid lengkap).
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 shrink-0 self-start lg:self-center">
-                <button
-                  type="button"
-                  onClick={resetToFullSimulationData}
-                  className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg shadow-sm transition-all cursor-pointer hover:scale-[1.02] flex items-center gap-2 font-bold"
-                >
-                  <span className="text-xs">🔄</span>
-                  <span>Muat Contoh Data Terhubung (Ahmad Fauzi)</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={resetToRealSchoolData}
-                  className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition-all cursor-pointer hover:scale-[1.02] flex items-center gap-2 font-bold"
-                >
-                  <span className="text-xs">🏫</span>
-                  <span>Reset &amp; Muat Data SDN Tulungrejo 03 Batu</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Live connections explanation mapping */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 border-t border-indigo-150/30 dark:border-[#3e405b]/40 pt-4 font-normal">
-              <div className="p-3.5 bg-white/75 dark:bg-[#1a1b2e]/60 rounded-xl border border-indigo-100/30 dark:border-indigo-950/20 space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">1. Alur Presensi &amp; WhatsApp</span>
-                <p className="text-[11px] text-gray-600 dark:text-slate-300 leading-relaxed">
-                  Pindai kartu <strong className="text-gray-900 dark:text-white">Ahmad Fauzi</strong> di menu Presensi ➔ Notifikasi WhatsApp otomatis terkirim &amp; tercatat ke Log obrolan HP orang tuanya (<strong className="text-gray-900 dark:text-white">Budi Santoso</strong>).
-                </p>
-              </div>
-              <div className="p-3.5 bg-white/75 dark:bg-[#1a1b2e]/60 rounded-xl border border-indigo-100/30 dark:border-indigo-950/20 space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">2. Alur Portal Wali Murid</span>
-                <p className="text-[11px] text-gray-600 dark:text-slate-300 leading-relaxed">
-                  Masuk sebagai <strong className="text-gray-900 dark:text-white">Wali Murid (Budi Santoso)</strong> ➔ Anda bisa langsung memantau kehadiran putranya hari ini, melihat rekap tugas e-learning, nilai Ujian CBT, dan riwayat pesan WhatsApp.
-                </p>
-              </div>
-              <div className="p-3.5 bg-white/75 dark:bg-[#1a1b2e]/60 rounded-xl border border-indigo-100/30 dark:border-indigo-950/20 space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">3. Alur Guru &amp; Siswa</span>
-                <p className="text-[11px] text-gray-600 dark:text-slate-300 leading-relaxed">
-                  Guru mengisi Jurnal Harian &amp; merilis Ujian CBT ➔ Siswa login mengerjakan ujian interaktif ➔ Hasil ujian langsung ternilai otomatis &amp; tersinkron ke rapor wali kelas!
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Sneat Quick Stats & Grid Panel */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
@@ -2717,16 +2595,6 @@ export default function App() {
                   >
                     <span className="block text-indigo-600 dark:text-indigo-400 text-lg mb-1">💾</span>
                     <span className="font-semibold block">Ekspor PHP/SQL</span>
-                  </button>
-                )}
-
-                {ALLOWED_TABS[activeRole].includes('wa-logs') && (
-                  <button 
-                    onClick={() => setCurrentTab('wa-logs')}
-                    className="p-3 border dark:border-[#3e405b] rounded-xl hover:bg-indigo-50/50 dark:hover:bg-[#232333]/40 cursor-pointer transition-colors"
-                  >
-                    <span className="block text-indigo-600 dark:text-indigo-400 text-lg mb-1">💬</span>
-                    <span className="font-semibold block">Logs WhatsApp</span>
                   </button>
                 )}
               </div>
@@ -3323,145 +3191,6 @@ export default function App() {
   };
 
   // List simulator logs of WA messages sent
-  const renderWaNotificationLogs = () => {
-    const formatToWhatsAppPhone = (phone: string): string => {
-      const clean = phone.replace(/[^0-9]/g, '');
-      return clean.startsWith('0') ? '62' + clean.slice(1) : clean;
-    };
-
-    return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold font-sans text-gray-800 dark:text-white">Pusat Notifikasi WhatsApp</h1>
-          <p className="text-sm text-gray-500 dark:text-[#a3a4cc]">
-            Konfigurasi gateway pengiriman pesan instan otomatis dan log riwayat notifikasi ke orang tua murid.
-          </p>
-        </div>
-
-        {/* GUIDELINES & TOKEN CONFIGURATION */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-7 bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm space-y-4">
-            <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
-              <span className="p-1 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded">🛠</span>
-              Langkah Konfigurasi WhatsApp Riil (Otomatis)
-            </h2>
-            
-            <div className="text-xs text-gray-600 dark:text-[#a3a4cc] space-y-3 leading-relaxed">
-              <p>
-                Aplikasi ini mendukung pengiriman pesan WhatsApp secara riil (otomatis) ke nomor handphone orang tua siswa menggunakan layanan pihak ketiga <strong>Fonnte</strong>. Silakan ikuti langkah-langkah di bawah ini:
-              </p>
-              <ol className="list-decimal list-inside space-y-2">
-                <li>Daftar akun gratis atau berbayar di website resmi <a href="https://fonnte.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 font-bold underline">Fonnte (fonnte.com)</a>.</li>
-                <li>Masuk ke Dashboard Fonnte Anda, lalu hubungkan nomor WhatsApp Anda dengan memindai kode QR yang muncul (seperti login WA Web).</li>
-                <li>Salin <strong>Token API (API Key)</strong> Anda yang tertera di menu pengaturan atau dashboard Fonnte.</li>
-                <li>Tempelkan Token API tersebut ke kolom konfigurasi di samping kanan panel ini.</li>
-                <li><strong>Selesai!</strong> Sekarang setiap kali Anda memindai kartu presensi QR Code, sistem akan langsung mengirimkan pesan konfirmasi WA riil ke orang tua siswa.</li>
-              </ol>
-              <div className="bg-yellow-50 dark:bg-yellow-950/20 p-3 rounded-lg border border-yellow-100 dark:border-yellow-900/50 text-yellow-800 dark:text-yellow-400 flex items-start gap-2">
-                <span className="text-sm">💡</span>
-                <p className="text-[11px]">
-                  <strong>Metode Gratis Tanpa Token:</strong> Jika Anda tidak memiliki Token Fonnte, Anda tetap dapat mengirimkan pesan secara manual dan riil dengan mengeklik tombol <span className="font-bold">"Kirim via WA Web"</span> pada baris log aktivitas di bawah.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5 bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm flex flex-col justify-between space-y-4">
-            <div>
-              <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2 mb-3">
-                <span className="p-1 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded">🔑</span>
-                Pengaturan Kredensial Gateway
-              </h2>
-              <div className="space-y-3 text-xs">
-                <div>
-                  <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Token API Fonnte</label>
-                  <input
-                    type="password"
-                    placeholder="Contoh: xY1z9A_BcdEFgHiJkLmN"
-                    value={fonnteToken}
-                    onChange={(e) => setFonnteToken(e.target.value)}
-                    className="w-full text-xs px-3 py-2 rounded-lg border bg-gray-50 text-gray-800 dark:bg-[#232333] dark:border-[#3e405b] dark:text-white font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                  <p className="text-[10px] text-gray-400 mt-1">
-                    Token disimpan aman di penyimpanan lokal peramban Anda.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-3 bg-emerald-50 dark:bg-emerald-950/10 rounded-lg border border-emerald-100 dark:border-emerald-900/40 text-[11px] text-emerald-800 dark:text-emerald-400">
-              <div className="font-bold flex items-center gap-1 mb-1">
-                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
-                Status Koneksi: {fonnteToken ? "Gateway Otomatis Aktif" : "Gateway Pasif (Manual)"}
-              </div>
-              <p className="opacity-80">
-                {fonnteToken 
-                  ? "Sistem siap mengirim notifikasi otomatis saat scan QR Code diselesaikan." 
-                  : "Notifikasi otomatis mati. Gunakan tombol kirim manual via WA Web di bawah."}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* LOG LIST */}
-        <div className="bg-white dark:bg-[#2b2c40] rounded-xl p-5 border border-gray-100 dark:border-[#3e405b] shadow-sm space-y-4">
-          <div className="flex justify-between items-center border-b dark:border-[#3e405b]/40 pb-3">
-            <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200">Log Pengiriman Notifikasi WhatsApp</h2>
-            <span className="text-xs text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50 dark:bg-indigo-950/20 px-2.5 py-1 rounded">
-              {waNotifs.length} Log Pesan
-            </span>
-          </div>
-
-          <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
-            {waNotifs.length === 0 ? (
-              <p className="text-xs text-gray-400 text-center py-8">Belum ada notifikasi WhatsApp yang dicatat.</p>
-            ) : (
-              waNotifs.map(notif => {
-                const waRedirectUrl = `https://api.whatsapp.com/send?phone=${formatToWhatsAppPhone(notif.phone)}&text=${encodeURIComponent(notif.message)}`;
-
-                return (
-                  <div key={notif.id} className="p-4 rounded-xl border border-gray-100 dark:border-[#3e405b]/60 bg-gray-50/50 dark:bg-[#232333]/30 text-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="space-y-2 flex-1">
-                      <div className="flex flex-wrap justify-between items-center gap-2 border-b dark:border-[#3e405b]/40 pb-2 text-gray-400">
-                        <span className="font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5">
-                          <MessageSquare size={14} className="text-indigo-600 dark:text-indigo-400" />
-                          {notif.recipient}
-                        </span>
-                        <span className="font-mono text-[10px]">{notif.timestamp}</span>
-                      </div>
-                      <p className="text-gray-700 dark:text-gray-300 italic font-sans whitespace-pre-wrap leading-relaxed">
-                        "{notif.message}"
-                      </p>
-                      <div className="text-[10px] text-gray-400">
-                        No WhatsApp Terdaftar: <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{notif.phone}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row md:flex-col gap-2 justify-center items-stretch shrink-0 md:w-48 text-center">
-                      <span className="text-center text-[10px] font-bold py-1 px-2.5 rounded bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 uppercase font-mono border border-emerald-100 dark:border-emerald-900/50 flex items-center justify-center gap-1">
-                        <span className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse" />
-                        Tercatat Sent ✔
-                      </span>
-
-                      <a 
-                        href={waRedirectUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] px-3 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer"
-                      >
-                        <Smartphone size={12} />
-                        <span>Kirim via WA Web</span>
-                      </a>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   if (!session) {
     return (

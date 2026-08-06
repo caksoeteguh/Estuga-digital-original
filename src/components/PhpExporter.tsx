@@ -3,7 +3,7 @@ import JSZip from 'jszip';
 import { Database, FileCode, CheckCircle, Copy, Download, Server } from 'lucide-react';
 
 export default function PhpExporter() {
-  const [activeCodeTab, setActiveCodeTab] = useState<'sql' | 'db' | 'absen' | 'wa'>('sql');
+  const [activeCodeTab, setActiveCodeTab] = useState<'sql' | 'db' | 'absen'>('sql');
   const [copied, setCopied] = useState(false);
 
   const sqlSchema = `-- ==========================================
@@ -52,8 +52,6 @@ CREATE TABLE IF NOT EXISTS absensi (
     jam_pulang TIME NULL,
     status ENUM('hadir', 'sakit', 'izin', 'alfa') DEFAULT 'hadir',
     keterangan_tertulis TEXT,
-    wa_notified_in TINYINT(1) DEFAULT 0,
-    wa_notified_out TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (student_id) REFERENCES siswa(nis) ON DELETE CASCADE,
     UNIQUE KEY unique_daily_attendance (student_id, tanggal)
@@ -145,7 +143,6 @@ try {
  * File: absen_scan.php
  */
 require_once 'db.php';
-require_once 'wa_notif.php';
 
 header('Content-Type: application/json');
 
@@ -186,7 +183,7 @@ if ($mode === 'masuk') {
     }
 
     // 3. Masukkan data presensi masuk
-    $insert_stmt = $db->prepare("INSERT INTO absensi (student_id, tanggal, jam_masuk, status, wa_notified_in) VALUES (?, ?, ?, 'hadir', 1)");
+    $insert_stmt = $db->prepare("INSERT INTO absensi (student_id, tanggal, jam_masuk, status) VALUES (?, ?, ?, 'hadir')");
     $insert_stmt->execute([$nis, $tanggal_hari_ini, $jam_sekarang]);
 
     // 4. Kirim Notifikasi WhatsApp Wali Murid (Simulasi API)
@@ -218,7 +215,7 @@ if ($mode === 'masuk') {
     }
 
     // Update jam pulang
-    $update_stmt = $db->prepare("UPDATE absensi SET jam_pulang = ?, wa_notified_out = 1 WHERE student_id = ? AND tanggal = ?");
+    $update_stmt = $db->prepare("UPDATE absensi SET jam_pulang = ? WHERE student_id = ? AND tanggal = ?");
     $update_stmt->execute([$jam_sekarang, $nis, $tanggal_hari_ini]);
 
     // Kirim notifikasi WA pulang
@@ -235,69 +232,12 @@ if ($mode === 'masuk') {
 }
 ?>`;
 
-  const phpWa = `<?php
-/**
- * EstugaDigital - Integrasi API Notifikasi WhatsApp Gateway
- * File: wa_notif.php
- */
-
-/**
- * Mengirimkan pesan notifikasi WhatsApp ke Wali Murid menggunakan cURL API
- * Kompatibel dengan penyedia WhatsApp Gateway lokal (Fonnte, Woo-WA, RuangWA, dll)
- */
-function kirim_notifikasi_wa($no_tujuan, $isi_pesan) {
-    // Format nomor HP agar standar internasional (+62 / 62)
-    $no_tujuan = preg_replace('/[^0-9]/', '', $no_tujuan);
-    if (substr($no_tujuan, 0, 1) === '0') {
-        $no_tujuan = '62' . substr($no_tujuan, 1);
-    }
-
-    // Silakan ganti URL endpoint & Token sesuai penyedia WhatsApp Gateway Anda
-    $api_url = "https://api.fonnte.com/send"; 
-    $token   = "YOUR_API_TOKEN_HERE";
-
-    $curl = curl_init();
-
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => $api_url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => array(
-            'target' => $no_tujuan,
-            'message' => $isi_pesan,
-            'countryCode' => '62', // kode negara Indonesia
-        ),
-        CURLOPT_HTTPHEADER => array(
-            "Authorization: " . $token // Masukkan API Key token di header
-        ),
-    ));
-
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
-
-    curl_close($curl);
-
-    if ($err) {
-        // Log error jika diperlukan
-        error_log("WA Gateway Error: " . $err);
-        return false;
-    } else {
-        return true;
-    }
-}
-?>`;
-
   const handleCopyCode = (text: string) => {
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  
   const handleDownloadPackage = async (type: 'xampp' | 'cpanel') => {
     try {
       const zip = new JSZip();
@@ -315,7 +255,6 @@ function kirim_notifikasi_wa($no_tujuan, $isi_pesan) {
         if(apiFolder) {
             apiFolder.file("db.php", phpDb);
             apiFolder.file("absen_scan.php", phpAbsen);
-            apiFolder.file("wa_notif.php", phpWa);
             
             // Generate .htaccess for Apache CORS & Clean URLs
             const htaccess = `<IfModule mod_headers.c>
@@ -337,7 +276,7 @@ header("Content-Type: application/json");
 echo json_encode(["status" => "success", "message" => "EstugaDigital API V7 is running properly on ${isCpanel ? 'cPanel' : 'XAMPP'}."]);
 ?>`;
             apiFolder.file("index.php", phpIndex.trim());
-            apiFolder.file("save_relational.php", "<?php\nheader(\"Access-Control-Allow-Origin: *\");\nheader(\"Access-Control-Allow-Methods: POST, OPTIONS\");\nheader(\"Access-Control-Allow-Headers: Content-Type\");\nheader(\"Content-Type: application/json; charset=UTF-8\");\n\nrequire_once 'db.php';\n\nif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {\n    exit(0);\n}\n\n$input = file_get_contents(\"php://input\");\n$request = json_decode($input, true);\n\nif (!$request || !isset($request['table']) || !isset($request['data'])) {\n    echo json_encode([\"status\" => \"error\", \"message\" => \"Payload tidak valid.\"]);\n    exit;\n}\n\n$frontend_table = $request['table'];\n$data = $request['data'];\n\n// ==== KONFIGURASI MAPPING TABEL ====\n$table_map = [\n    'students' => 'siswa',\n    'teachers' => 'guru',\n    'attendance' => 'absensi',\n    'journals' => 'jurnal_mengajar',\n    'exams' => 'cbt_ujian',\n    'results' => 'cbt_hasil'\n];\n\n// ==== KONFIGURASI MAPPING KOLOM ====\n$column_map = [\n    'siswa' => [\n        'id' => 'nis',\n        'name' => 'nama_lengkap',\n        'pob' => 'tempat_lahir',\n        'dob' => 'tanggal_lahir',\n        'className' => 'kelas',\n        'parentName' => 'nama_ortu',\n        'parentPhone' => 'phone_ortu',\n        'usernameCbt' => 'username_cbt',\n        'passwordCbt' => 'password_cbt',\n        'usernameParent' => 'username_parent',\n        'passwordParent' => 'password_parent'\n    ],\n    'guru' => [\n        'id' => 'nip',\n        'name' => 'nama_lengkap',\n        'subject' => 'mata_pelajaran',\n        'username' => 'username',\n        'password' => 'password'\n    ],\n    'absensi' => [\n        'id' => 'id',\n        'studentId' => 'student_id',\n        'date' => 'tanggal',\n        'timeIn' => 'jam_masuk',\n        'timeOut' => 'jam_pulang',\n        'status' => 'status',\n        'notes' => 'keterangan_tertulis',\n        'notifiedIn' => 'wa_notified_in',\n        'notifiedOut' => 'wa_notified_out'\n    ],\n    'jurnal_mengajar' => [\n        'id' => 'id',\n        'date' => 'tanggal',\n        'className' => 'kelas',\n        'subject' => 'subject_name',\n        'teacherName' => 'teacher_nip',\n        'topic' => 'topik_belajar',\n        'method' => 'metode_belajar',\n        'notes' => 'catatan_kelas'\n    ],\n    'cbt_ujian' => [\n        'id' => 'id',\n        'title' => 'judul',\n        'subject' => 'subject',\n        'className' => 'kelas',\n        'date' => 'tanggal',\n        'durationMinutes' => 'durasi_menit',\n        'isPublished' => 'is_published'\n    ],\n    'cbt_hasil' => [\n        'id' => 'id',\n        'examId' => 'ujian_id',\n        'studentId' => 'student_id',\n        'score' => 'nilai',\n        'submittedAt' => 'submitted_at',\n        'teacherFeedback' => 'catatan_guru'\n    ]\n];\n\n$mysql_table = isset($table_map[$frontend_table]) ? $table_map[$frontend_table] : $frontend_table;\n\ntry {\n    $db->exec(\"SET FOREIGN_KEY_CHECKS = 0;\");\n    \n    // Auto create generic tables if not mapped\n    if (!isset($table_map[$frontend_table]) && count($data) > 0) {\n        $columns = array_keys($data[0]);\n        $colDefs = [];\n        foreach ($columns as $col) {\n            $colDefs[] = \"`{$col}` LONGTEXT\";\n        }\n        $colDefString = implode(\", \", $colDefs);\n        $db->exec(\"CREATE TABLE IF NOT EXISTS `{$mysql_table}` ({$colDefString}) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;\");\n    }\n\n    $db->beginTransaction();\n    \n    if (isset($table_map[$frontend_table])) {\n        $db->exec(\"DELETE FROM `\" . $mysql_table . \"`\");\n    } else {\n        $db->exec(\"TRUNCATE TABLE `\" . $mysql_table . \"`\");\n    }\n    \n    if (count($data) > 0) {\n        if (isset($column_map[$mysql_table])) {\n            $current_map = $column_map[$mysql_table];\n            $mysql_columns = [];\n            foreach (array_keys($data[0]) as $frontend_col) {\n                if (isset($current_map[$frontend_col])) {\n                    $mysql_columns[] = $current_map[$frontend_col];\n                }\n            }\n        } else {\n            $mysql_columns = array_keys($data[0]);\n        }\n        \n        if (count($mysql_columns) > 0) {\n            $colNames = implode(\", \", array_map(function($c) { return \"`{$c}`\"; }, $mysql_columns));\n            $placeholders = implode(\", \", array_map(function($c) { return \":\".$c; }, $mysql_columns));\n            \n            $insertQuery = \"INSERT INTO `{$mysql_table}` ({$colNames}) VALUES ({$placeholders})\";\n            $stmtInsert = $db->prepare($insertQuery);\n            \n            foreach ($data as $row) {\n                $params = [];\n                foreach ($row as $frontend_col => $value) {\n                    $mysql_col = null;\n                    if (isset($column_map[$mysql_table][$frontend_col])) {\n                        $mysql_col = $column_map[$mysql_table][$frontend_col];\n                    } else if (!isset($column_map[$mysql_table])) {\n                        $mysql_col = $frontend_col;\n                    }\n                    \n                    if ($mysql_col) {\n                        if (is_array($value) || is_object($value)) {\n                            $params[\":\".$mysql_col] = json_encode($value);\n                        } else {\n                            $params[\":\".$mysql_col] = $value;\n                        }\n                    }\n                }\n                if (count($params) > 0) {\n                    $stmtInsert->execute($params);\n                }\n            }\n        }\n    }\n    \n    $db->commit();\n    $db->exec(\"SET FOREIGN_KEY_CHECKS = 1;\");\n    echo json_encode([\"status\" => \"success\", \"message\" => \"Data {$frontend_table} berhasil disinkronisasi.\"]);\n} catch (PDOException $e) {\n    if ($db->inTransaction()) {\n        $db->rollBack();\n    }\n    $db->exec(\"SET FOREIGN_KEY_CHECKS = 1;\");\n    echo json_encode([\"status\" => \"error\", \"message\" => \"Gagal sinkronisasi {$frontend_table}: \" . $e->getMessage()]);\n}\n?>");
+            apiFolder.file("save_relational.php", "<?php\nheader(\"Access-Control-Allow-Origin: *\");\nheader(\"Access-Control-Allow-Methods: POST, OPTIONS\");\nheader(\"Access-Control-Allow-Headers: Content-Type\");\nheader(\"Content-Type: application/json; charset=UTF-8\");\n\nrequire_once 'db.php';\n\nif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {\n    exit(0);\n}\n\n$input = file_get_contents(\"php://input\");\n$request = json_decode($input, true);\n\nif (!$request || !isset($request['table']) || !isset($request['data'])) {\n    echo json_encode([\"status\" => \"error\", \"message\" => \"Payload tidak valid.\"]);\n    exit;\n}\n\n$frontend_table = $request['table'];\n$data = $request['data'];\n\n// ==== KONFIGURASI MAPPING TABEL ====\n$table_map = [\n    'students' => 'siswa',\n    'teachers' => 'guru',\n    'attendance' => 'absensi',\n    'journals' => 'jurnal_mengajar',\n    'exams' => 'cbt_ujian',\n    'results' => 'cbt_hasil'\n];\n\n// ==== KONFIGURASI MAPPING KOLOM ====\n$column_map = [\n    'siswa' => [\n        'id' => 'nis',\n        'name' => 'nama_lengkap',\n        'pob' => 'tempat_lahir',\n        'dob' => 'tanggal_lahir',\n        'className' => 'kelas',\n        'parentName' => 'nama_ortu',\n        'parentPhone' => 'phone_ortu',\n        'usernameCbt' => 'username_cbt',\n        'passwordCbt' => 'password_cbt',\n        'usernameParent' => 'username_parent',\n        'passwordParent' => 'password_parent'\n    ],\n    'guru' => [\n        'id' => 'nip',\n        'name' => 'nama_lengkap',\n        'subject' => 'mata_pelajaran',\n        'username' => 'username',\n        'password' => 'password'\n    ],\n    'absensi' => [\n        'id' => 'id',\n        'studentId' => 'student_id',\n        'date' => 'tanggal',\n        'timeIn' => 'jam_masuk',\n        'timeOut' => 'jam_pulang',\n        'status' => 'status',\n        'notes' => 'keterangan_tertulis',\n\n\n    ],\n    'jurnal_mengajar' => [\n        'id' => 'id',\n        'date' => 'tanggal',\n        'className' => 'kelas',\n        'subject' => 'subject_name',\n        'teacherName' => 'teacher_nip',\n        'topic' => 'topik_belajar',\n        'method' => 'metode_belajar',\n        'notes' => 'catatan_kelas'\n    ],\n    'cbt_ujian' => [\n        'id' => 'id',\n        'title' => 'judul',\n        'subject' => 'subject',\n        'className' => 'kelas',\n        'date' => 'tanggal',\n        'durationMinutes' => 'durasi_menit',\n        'isPublished' => 'is_published'\n    ],\n    'cbt_hasil' => [\n        'id' => 'id',\n        'examId' => 'ujian_id',\n        'studentId' => 'student_id',\n        'score' => 'nilai',\n        'submittedAt' => 'submitted_at',\n        'teacherFeedback' => 'catatan_guru'\n    ]\n];\n\n$mysql_table = isset($table_map[$frontend_table]) ? $table_map[$frontend_table] : $frontend_table;\n\ntry {\n    $db->exec(\"SET FOREIGN_KEY_CHECKS = 0;\");\n    \n    // Auto create generic tables if not mapped\n    if (!isset($table_map[$frontend_table]) && count($data) > 0) {\n        $columns = array_keys($data[0]);\n        $colDefs = [];\n        foreach ($columns as $col) {\n            $colDefs[] = \"`{$col}` LONGTEXT\";\n        }\n        $colDefString = implode(\", \", $colDefs);\n        $db->exec(\"CREATE TABLE IF NOT EXISTS `{$mysql_table}` ({$colDefString}) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;\");\n    }\n\n    $db->beginTransaction();\n    \n    if (isset($table_map[$frontend_table])) {\n        $db->exec(\"DELETE FROM `\" . $mysql_table . \"`\");\n    } else {\n        $db->exec(\"TRUNCATE TABLE `\" . $mysql_table . \"`\");\n    }\n    \n    if (count($data) > 0) {\n        if (isset($column_map[$mysql_table])) {\n            $current_map = $column_map[$mysql_table];\n            $mysql_columns = [];\n            foreach (array_keys($data[0]) as $frontend_col) {\n                if (isset($current_map[$frontend_col])) {\n                    $mysql_columns[] = $current_map[$frontend_col];\n                }\n            }\n        } else {\n            $mysql_columns = array_keys($data[0]);\n        }\n        \n        if (count($mysql_columns) > 0) {\n            $colNames = implode(\", \", array_map(function($c) { return \"`{$c}`\"; }, $mysql_columns));\n            $placeholders = implode(\", \", array_map(function($c) { return \":\".$c; }, $mysql_columns));\n            \n            $insertQuery = \"INSERT INTO `{$mysql_table}` ({$colNames}) VALUES ({$placeholders})\";\n            $stmtInsert = $db->prepare($insertQuery);\n            \n            foreach ($data as $row) {\n                $params = [];\n                foreach ($row as $frontend_col => $value) {\n                    $mysql_col = null;\n                    if (isset($column_map[$mysql_table][$frontend_col])) {\n                        $mysql_col = $column_map[$mysql_table][$frontend_col];\n                    } else if (!isset($column_map[$mysql_table])) {\n                        $mysql_col = $frontend_col;\n                    }\n                    \n                    if ($mysql_col) {\n                        if (is_array($value) || is_object($value)) {\n                            $params[\":\".$mysql_col] = json_encode($value);\n                        } else {\n                            $params[\":\".$mysql_col] = $value;\n                        }\n                    }\n                }\n                if (count($params) > 0) {\n                    $stmtInsert->execute($params);\n                }\n            }\n        }\n    }\n    \n    $db->commit();\n    $db->exec(\"SET FOREIGN_KEY_CHECKS = 1;\");\n    echo json_encode([\"status\" => \"success\", \"message\" => \"Data {$frontend_table} berhasil disinkronisasi.\"]);\n} catch (PDOException $e) {\n    if ($db->inTransaction()) {\n        $db->rollBack();\n    }\n    $db->exec(\"SET FOREIGN_KEY_CHECKS = 1;\");\n    echo json_encode([\"status\" => \"error\", \"message\" => \"Gagal sinkronisasi {$frontend_table}: \" . $e->getMessage()]);\n}\n?>");
             apiFolder.file("sync.php", `<?php
 ini_set('memory_limit', '256M');
 header('Access-Control-Allow-Origin: *');
@@ -506,7 +445,7 @@ Aplikasi Anda sudah online dan siap digunakan!
   const handleDownloadCode = () => {
     const filename = activeCodeTab === 'sql' ? 'estugadigital_v7.sql' :
                      activeCodeTab === 'db' ? 'db.php' :
-                     activeCodeTab === 'absen' ? 'absen_scan.php' : 'wa_notif.php';
+                     'absen_scan.php';
     
     const element = document.createElement("a");
     const file = new Blob([activeCodeBlock], {type: 'text/plain'});
@@ -520,7 +459,7 @@ Aplikasi Anda sudah online dan siap digunakan!
   const activeCodeBlock = 
     activeCodeTab === 'sql' ? sqlSchema :
     activeCodeTab === 'db' ? phpDb :
-    activeCodeTab === 'absen' ? phpAbsen : phpWa;
+    phpAbsen;
 
   return (
     <div className="space-y-6">
@@ -553,10 +492,6 @@ Aplikasi Anda sudah online dan siap digunakan!
               <p className="mt-1 leading-relaxed">Ubah konstanta <span className="font-mono">DB_HOST, DB_USER, DB_PASS, DB_NAME</span> pada file <span className="font-mono font-semibold">db.php</span> sesuai hosting Anda.</p>
             </div>
 
-            <div className="p-3 bg-emerald-50/50 dark:bg-emerald-950/20 border rounded-lg">
-              <h3 className="font-bold text-emerald-700 dark:text-emerald-400">3. Setting WA Gateway</h3>
-              <p className="mt-1 leading-relaxed">Buka <span className="font-mono">wa_notif.php</span>, ganti token Fonnte dengan akun token milik Anda untuk memulai kirim WA notifikasi gratis!</p>
-            </div>
           </div>
         </div>
 
@@ -599,16 +534,6 @@ Aplikasi Anda sudah online dan siap digunakan!
                 <span>absen_scan.php</span>
               </button>
 
-              <button
-                onClick={() => setActiveCodeTab('wa')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1.5
-                  ${activeCodeTab === 'wa' 
-                    ? 'bg-indigo-600 text-white' 
-                    : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'}`}
-              >
-                <FileCode size={12} />
-                <span>wa_notif.php</span>
-              </button>
             </div>
 
             
