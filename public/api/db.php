@@ -5,9 +5,9 @@
  */
 
 define('DB_HOST', 'localhost');
-define('DB_USER', 'u263814864_kelas_user');
+define('DB_USER', 'u263814864_user');
 define('DB_PASS', 'ilham@ERNA092420');
-define('DB_NAME', 'u263814864_kelas6');
+define('DB_NAME', 'u263814864_estugadigital');
 
 try {
     $db = new PDO(

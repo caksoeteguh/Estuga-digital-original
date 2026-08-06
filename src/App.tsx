@@ -130,6 +130,25 @@ export default function App() {
 
   // Academic Database States
   const [students, setStudents] = useState<Student[]>(() => loadFromStorage<Student[]>('students', INITIAL_STUDENTS));
+  
+  // Fetch from MySQL PHP API if available
+  useEffect(() => {
+    const fetchStudentsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_students.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setStudents(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed, falling back to local storage', error);
+      }
+    };
+    fetchStudentsFromMySQL();
+  }, []);
+
   const [teachers, setTeachers] = useState<Teacher[]>(() => {
     let t = loadFromStorage<Teacher[]>('teachers', INITIAL_TEACHERS);
     let migrated = false;
@@ -150,7 +169,40 @@ export default function App() {
     return t;
   });
 
+  useEffect(() => {
+    const fetchTeachersFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_teachers.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setTeachers(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for teachers, falling back to local storage', error);
+      }
+    };
+    fetchTeachersFromMySQL();
+  }, []);
+
   const [attendance, setAttendance] = useState<Attendance[]>(() => loadFromStorage<Attendance[]>('attendance', INITIAL_ATTENDANCE));
+  useEffect(() => {
+    const fetchAttendanceFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_attendance.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setAttendance(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for attendance, falling back to local storage', error);
+      }
+    };
+    fetchAttendanceFromMySQL();
+  }, []);
   useEffect(() => {
     const unsubscribe = setupAttendanceSync(attendance, setAttendance);
     return () => unsubscribe();
@@ -160,12 +212,108 @@ export default function App() {
     const unsubscribe = setupPrayerAttendanceSync(prayerAttendance, setPrayerAttendance);
     return () => unsubscribe();
   }, []);
+  useEffect(() => {
+    const fetchPrayerAttendanceFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_prayer_attendance.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setPrayerAttendance(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for prayer attendance, falling back to local storage', error);
+      }
+    };
+    fetchPrayerAttendanceFromMySQL();
+  }, []);
   const [journals, setJournals] = useState<ClassJournal[]>(() => loadFromStorage<ClassJournal[]>('journals', INITIAL_JOURNALS));
+  useEffect(() => {
+    const fetchJournalsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_journals.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setJournals(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for journals, falling back to local storage', error);
+      }
+    };
+    fetchJournalsFromMySQL();
+  }, []);
   const [exams, setExams] = useState<CBTExam[]>(() => loadFromStorage<CBTExam[]>('exams', INITIAL_EXAMS));
+  useEffect(() => {
+    const fetchExamsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_exams.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setExams(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for exams, falling back to local storage', error);
+      }
+    };
+    fetchExamsFromMySQL();
+  }, []);
   const [results, setResults] = useState<StudentCBTResult[]>(() => loadFromStorage<StudentCBTResult[]>('results', INITIAL_CBT_RESULTS));
+  useEffect(() => {
+    const fetchResultsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_results.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setResults(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for results, falling back to local storage', error);
+      }
+    };
+    fetchResultsFromMySQL();
+  }, []);
   const [events, setEvents] = useState<AcademicEvent[]>(() => loadFromStorage<AcademicEvent[]>('events', INITIAL_EVENTS));
+  useEffect(() => {
+    const fetchEventsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_events.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setEvents(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for events, falling back to local storage', error);
+      }
+    };
+    fetchEventsFromMySQL();
+  }, []);
   const [feedbacks, setFeedbacks] = useState<TeacherFeedback[]>(() => loadFromStorage<TeacherFeedback[]>('feedbacks', INITIAL_FEEDBACKS));
   const [materials, setMaterials] = useState<ELearningMaterial[]>(() => loadFromStorage<ELearningMaterial[]>('materials', INITIAL_MATERIALS));
+  useEffect(() => {
+    const fetchMaterialsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_materials.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setMaterials(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for materials, falling back to local storage', error);
+      }
+    };
+    fetchMaterialsFromMySQL();
+  }, []);
   const [virtualMeets, setVirtualMeets] = useState<any[]>(() => loadFromStorage<any[]>('virtual_meets', []));
   const [waNotifs, setWaNotifs] = useState<WA_NotificationSim[]>(() => loadFromStorage<WA_NotificationSim[]>('wa_notifs', INITIAL_WA_NOTIFS));
   const [fonnteToken, setFonnteToken] = useState<string>(() => loadFromStorage<string>('fonnte_token', ''));
@@ -173,7 +321,39 @@ export default function App() {
   
   useEffect(() => { saveToStorage('fonnte_token', fonnteToken); }, [fonnteToken]);
   const [assignments, setAssignments] = useState<AssignmentTask[]>(() => loadFromStorage<AssignmentTask[]>('assignments', INITIAL_ASSIGNMENTS));
+  useEffect(() => {
+    const fetchAssignmentsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_assignments.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setAssignments(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for assignments, falling back to local storage', error);
+      }
+    };
+    fetchAssignmentsFromMySQL();
+  }, []);
   const [submissions, setSubmissions] = useState<AssignmentSubmission[]>(() => loadFromStorage<AssignmentSubmission[]>('submissions', INITIAL_SUBMISSIONS));
+  useEffect(() => {
+    const fetchSubmissionsFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_submissions.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setSubmissions(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for submissions, falling back to local storage', error);
+      }
+    };
+    fetchSubmissionsFromMySQL();
+  }, []);
   const [grades, setGrades] = useState<StudentGradeRecord[]>(() => {
     const saved = loadFromStorage<StudentGradeRecord[]>('student_grades', []);
     if (saved && saved.length > 0) return saved;
@@ -186,6 +366,23 @@ export default function App() {
       "Pendidikan Pancasila"
     ]);
   });
+
+  useEffect(() => {
+    const fetchGradesFromMySQL = async () => {
+      try {
+        const response = await fetch('/api/get_grades.php');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+            setGrades(result.data);
+          }
+        }
+      } catch (error) {
+        console.log('API fetch failed for grades, falling back to local storage', error);
+      }
+    };
+    fetchGradesFromMySQL();
+  }, []);
   const [elearningSubTab, setElearningSubTab] = useState<'materials' | 'meet' | 'assignments'>('materials');
 
   // Real-time Push Toaster & Sound States
