@@ -1,4 +1,6 @@
-<?php
+const fs = require('fs');
+
+const phpCode = `<?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -22,14 +24,16 @@ $frontend_table = $request['table'];
 $data = $request['data'];
 
 // ==== KONFIGURASI MAPPING TABEL ====
-// Ini menghubungkan nama dari React (kiri) ke nama tabel di MySQL Hostinger (kanan)
 $table_map = [
     'students' => 'siswa',
-    'teachers' => 'guru'
+    'teachers' => 'guru',
+    'attendance' => 'absensi',
+    'journals' => 'jurnal_mengajar',
+    'exams' => 'cbt_ujian',
+    'results' => 'cbt_hasil'
 ];
 
 // ==== KONFIGURASI MAPPING KOLOM ====
-// Menghubungkan field dari React ke kolom di MySQL
 $column_map = [
     'siswa' => [
         'id' => 'nis',
@@ -50,42 +54,73 @@ $column_map = [
         'subject' => 'mata_pelajaran',
         'username' => 'username',
         'password' => 'password'
+    ],
+    'absensi' => [
+        'id' => 'id',
+        'studentId' => 'student_id',
+        'date' => 'tanggal',
+        'timeIn' => 'jam_masuk',
+        'timeOut' => 'jam_pulang',
+        'status' => 'status',
+        'notes' => 'keterangan_tertulis',
+        'notifiedIn' => 'wa_notified_in',
+        'notifiedOut' => 'wa_notified_out'
+    ],
+    'jurnal_mengajar' => [
+        'id' => 'id',
+        'date' => 'tanggal',
+        'className' => 'kelas',
+        'subject' => 'subject_name',
+        'teacherName' => 'teacher_nip',
+        'topic' => 'topik_belajar',
+        'method' => 'metode_belajar',
+        'notes' => 'catatan_kelas'
+    ],
+    'cbt_ujian' => [
+        'id' => 'id',
+        'title' => 'judul',
+        'subject' => 'subject',
+        'className' => 'kelas',
+        'date' => 'tanggal',
+        'durationMinutes' => 'durasi_menit',
+        'isPublished' => 'is_published'
+    ],
+    'cbt_hasil' => [
+        'id' => 'id',
+        'examId' => 'ujian_id',
+        'studentId' => 'student_id',
+        'score' => 'nilai',
+        'submittedAt' => 'submitted_at',
+        'teacherFeedback' => 'catatan_guru'
     ]
 ];
 
-// Jika ada di mapping, gunakan nama MySQL. Jika tidak, tetap gunakan nama bahasa Inggris (otomatis buat tabel)
 $mysql_table = isset($table_map[$frontend_table]) ? $table_map[$frontend_table] : $frontend_table;
 
 try {
-    // 1. Matikan pengecekan foreign key sementara agar proses DELETE/REPLACE lancar
     $db->exec("SET FOREIGN_KEY_CHECKS = 0;");
     
-    // 2. Jika bukan 'siswa' atau 'guru', kita buat tabel dinamis otomatis agar tidak error
-    if ($mysql_table !== 'siswa' && $mysql_table !== 'guru' && count($data) > 0) {
+    // Auto create generic tables if not mapped
+    if (!isset($table_map[$frontend_table]) && count($data) > 0) {
         $columns = array_keys($data[0]);
         $colDefs = [];
         foreach ($columns as $col) {
-            $colDefs[] = "`{$col}` LONGTEXT";
+            $colDefs[] = "\`{$col}\` LONGTEXT";
         }
         $colDefString = implode(", ", $colDefs);
-        // Buat tabel jika belum ada dengan struktur dinamis berdasarkan data
-        $db->exec("CREATE TABLE IF NOT EXISTS `{$mysql_table}` ({$colDefString}) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+        $db->exec("CREATE TABLE IF NOT EXISTS \`{$mysql_table}\` ({$colDefString}) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
     }
 
     $db->beginTransaction();
     
-    // 3. Kosongkan tabel (TRUNCATE lebih cepat dan bersih)
-    // Untuk siswa & guru kita pakai DELETE untuk berjaga-jaga jika ada relasi yang terlewat
-    if ($mysql_table === 'siswa' || $mysql_table === 'guru') {
-        $db->exec("DELETE FROM `" . $mysql_table . "`");
+    if (isset($table_map[$frontend_table])) {
+        $db->exec("DELETE FROM \`" . $mysql_table . "\`");
     } else {
-        $db->exec("TRUNCATE TABLE `" . $mysql_table . "`");
+        $db->exec("TRUNCATE TABLE \`" . $mysql_table . "\`");
     }
     
     if (count($data) > 0) {
-        // 4. Siapkan kolom yang akan di-insert
         if (isset($column_map[$mysql_table])) {
-            // Gunakan mapping khusus untuk siswa & guru
             $current_map = $column_map[$mysql_table];
             $mysql_columns = [];
             foreach (array_keys($data[0]) as $frontend_col) {
@@ -94,31 +129,26 @@ try {
                 }
             }
         } else {
-            // Gunakan kolom asli untuk tabel lainnya
             $mysql_columns = array_keys($data[0]);
         }
         
         if (count($mysql_columns) > 0) {
-            $colNames = implode(", ", array_map(function($c) { return "`{$c}`"; }, $mysql_columns));
+            $colNames = implode(", ", array_map(function($c) { return "\`{$c}\`"; }, $mysql_columns));
             $placeholders = implode(", ", array_map(function($c) { return ":".$c; }, $mysql_columns));
             
-            $insertQuery = "INSERT INTO `{$mysql_table}` ({$colNames}) VALUES ({$placeholders})";
+            $insertQuery = "INSERT INTO \`{$mysql_table}\` ({$colNames}) VALUES ({$placeholders})";
             $stmtInsert = $db->prepare($insertQuery);
             
             foreach ($data as $row) {
                 $params = [];
                 foreach ($row as $frontend_col => $value) {
-                    // Cari nama kolom MySQL yang sesuai
                     $mysql_col = null;
-                    if (isset($column_map[$mysql_table])) {
-                        if (isset($column_map[$mysql_table][$frontend_col])) {
-                            $mysql_col = $column_map[$mysql_table][$frontend_col];
-                        }
-                    } else {
+                    if (isset($column_map[$mysql_table][$frontend_col])) {
+                        $mysql_col = $column_map[$mysql_table][$frontend_col];
+                    } else if (!isset($column_map[$mysql_table])) {
                         $mysql_col = $frontend_col;
                     }
                     
-                    // Jika kolom ini masuk ke MySQL
                     if ($mysql_col) {
                         if (is_array($value) || is_object($value)) {
                             $params[":".$mysql_col] = json_encode($value);
@@ -136,7 +166,7 @@ try {
     
     $db->commit();
     $db->exec("SET FOREIGN_KEY_CHECKS = 1;");
-    echo json_encode(["status" => "success", "message" => "Data {$frontend_table} berhasil disinkronisasi ke {$mysql_table}."]);
+    echo json_encode(["status" => "success", "message" => "Data {$frontend_table} berhasil disinkronisasi."]);
 } catch (PDOException $e) {
     if ($db->inTransaction()) {
         $db->rollBack();
@@ -144,4 +174,18 @@ try {
     $db->exec("SET FOREIGN_KEY_CHECKS = 1;");
     echo json_encode(["status" => "error", "message" => "Gagal sinkronisasi {$frontend_table}: " . $e->getMessage()]);
 }
-?>
+?>`;
+
+let exporterFile = fs.readFileSync('src/components/PhpExporter.tsx', 'utf8');
+
+// We need to inject this file into the zip generator.
+const targetText = 'apiFolder.file("sync.php", `<?php';
+const injectCode = 'apiFolder.file("save_relational.php", `' + phpCode + '`);\n            ';
+
+if (exporterFile.includes(targetText) && !exporterFile.includes("save_relational.php")) {
+    exporterFile = exporterFile.replace(targetText, injectCode + targetText);
+    fs.writeFileSync('src/components/PhpExporter.tsx', exporterFile);
+    console.log("Injected save_relational.php successfully!");
+} else {
+    console.log("Could not find target or already injected.");
+}
