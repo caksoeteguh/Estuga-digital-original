@@ -953,29 +953,9 @@ export const saveToStorage = async <T>(key: string, value: T): Promise<void> => 
 
       let stringified = JSON.stringify(value);
       let payloadToSync = stringified;
-      // --- AUTO-FETCH-MERGE FOR CONCURRENT ARRAYS ---
-      if (Array.isArray(value) && value.length > 0 && (key === 'submissions' || key === 'results' || key === 'attendance' || key === 'assignments')) {
-          try {
-             const res = await fetch(API_URL + '?t=' + Date.now(), { cache: 'no-store' });
-             if (res.ok) {
-                 const serverData = await res.json();
-                 if (serverData?.status === 'success' && serverData?.data?.[key]) {
-                     const serverArr = typeof serverData.data[key] === 'string' ? JSON.parse(serverData.data[key]) : serverData.data[key];
-                     if (Array.isArray(serverArr)) {
-                         const mergedMap = new Map();
-                         const getId = (item: any) => item.id || (item.examId && item.studentId ? item.examId + '_' + item.studentId : JSON.stringify(item));
-                         serverArr.forEach((item: any) => { const uid = getId(item); if(uid) mergedMap.set(uid, item); });
-                         value.forEach((item: any) => { const uid = getId(item); if(uid) mergedMap.set(uid, item); });
-                         const mergedArr = Array.from(mergedMap.values());
-                         stringified = JSON.stringify(mergedArr);
-                         payloadToSync = stringified;
-                     }
-                 }
-             }
-          } catch(e) {
-             console.warn("Auto-fetch-merge failed", e);
-          }
-      }
+      // Real-time synchronization is now handled entirely by Firebase Firestore.
+      // We no longer fetch and merge from the PHP MySQL API here to avoid overwriting
+      // real-time Firestore updates with stale PHP data.
 
       const current = storage.getItem(`adminguruku_v2_${key}`);
       if (current === stringified) {
@@ -1060,47 +1040,9 @@ export const syncAllToServer = async (): Promise<boolean> => {
 };
 
 export const syncFromServer = async (): Promise<boolean> => {
-  try {
-    const res = await fetch(API_URL + '?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw new Error("API not reachable");
-    
-    const text = await res.text();
-    if (text.trim().startsWith('<?php') || text.trim().startsWith('<')) {
-        // Quietly fallback for dev server
-        throw new Error("PHP_DEV_SERVER");
-    }
-    let result;
-    try {
-        result = JSON.parse(text);
-    } catch (e: any) {
-        throw new Error("Invalid Response from Server: " + text.substring(0, 100));
-    }
-
-    if (result.status !== 'success') throw new Error(result.message || "Unknown API error");
-    let hasData = false;
-    
-        if (result.data) {
-
-
-        for (const [doc_id, doc_data] of Object.entries(result.data)) {
-           if (doc_id === 'login_session' || doc_id === 'is_dark') continue;
-           
-           if (doc_data !== undefined) {
-             const stringified = typeof doc_data === 'string' ? doc_data : JSON.stringify(doc_data);
-             try { localStorage.setItem(`adminguruku_v2_${doc_id}`, stringified); } catch(e) { console.warn("QuotaExceededError sync", e); }
-             hasData = true;
-           }
-        }
-    }
-    
-    initialSyncCompleted = true;
-    return hasData;
-  } catch (e: any) {
-    if (e.message !== "PHP_DEV_SERVER") {
-      console.warn("Failed to sync from PHP API, falling back to local storage:", e);
-    }
-    // If API is down (e.g. running on local dev without PHP), we just rely on localStorage
-    initialSyncCompleted = true; // allow local saves
-    return false;
-  }
+  // Firebase Firestore is now the single source of truth for real-time data.
+  // Polling the PHP API causes data to be overwritten with stale data, 
+  // so we disable the PHP pull here.
+  initialSyncCompleted = true;
+  return false;
 };

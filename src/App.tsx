@@ -135,23 +135,6 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchStudentsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_students.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setStudents(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for students, falling back to local storage', error);
-      }
-    };
-    fetchStudentsFromMySQL();
-  }, []);
-  
   // Fetch from MySQL PHP API if available
   
 
@@ -175,6 +158,11 @@ export default function App() {
     return t;
   });
 
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('teachers', teachers, setTeachers);
+    return () => unsubscribe();
+  }, []);
+
   
 
   const [attendance, setAttendance] = useState<Attendance[]>(() => loadFromStorage<Attendance[]>('attendance', INITIAL_ATTENDANCE));
@@ -183,157 +171,36 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchAttendanceFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_attendance.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setAttendance(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for attendance, falling back to local storage', error);
-      }
-    };
-    fetchAttendanceFromMySQL();
-  }, []);
-
-  useEffect(() => {
-    const fetchTeachersFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_teachers.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setTeachers(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for teachers, falling back to local storage', error);
-      }
-    };
-    fetchTeachersFromMySQL();
-  }, []);
-  
-  
   const [prayerAttendance, setPrayerAttendance] = useState<PrayerAttendance[]>(() => loadFromStorage<PrayerAttendance[]>('prayer_attendance', INITIAL_PRAYER_ATTENDANCE));
   useEffect(() => {
     const unsubscribe = setupGenericSync('prayerAttendance', prayerAttendance, setPrayerAttendance);
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchPrayerAttendanceFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_prayer_attendance.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setPrayerAttendance(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for prayerAttendance, falling back to local storage', error);
-      }
-    };
-    fetchPrayerAttendanceFromMySQL();
-  }, []);
-  
-  
   const [journals, setJournals] = useState<ClassJournal[]>(() => loadFromStorage<ClassJournal[]>('journals', INITIAL_JOURNALS));
   useEffect(() => {
     const unsubscribe = setupGenericSync('journals', journals, setJournals);
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchJournalsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_journals.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setJournals(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for journals, falling back to local storage', error);
-      }
-    };
-    fetchJournalsFromMySQL();
-  }, []);
-  
   const [exams, setExams] = useState<CBTExam[]>(() => loadFromStorage<CBTExam[]>('exams', INITIAL_EXAMS));
   useEffect(() => {
     const unsubscribe = setupGenericSync('exams', exams, setExams);
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchExamsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_exams.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setExams(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for exams, falling back to local storage', error);
-      }
-    };
-    fetchExamsFromMySQL();
-  }, []);
-  
   const [results, setResults] = useState<StudentCBTResult[]>(() => loadFromStorage<StudentCBTResult[]>('results', INITIAL_CBT_RESULTS));
   useEffect(() => {
     const unsubscribe = setupGenericSync('results', results, setResults);
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchResultsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_results.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setResults(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for results, falling back to local storage', error);
-      }
-    };
-    fetchResultsFromMySQL();
-  }, []);
-  
   const [events, setEvents] = useState<AcademicEvent[]>(() => loadFromStorage<AcademicEvent[]>('events', INITIAL_EVENTS));
   useEffect(() => {
     const unsubscribe = setupGenericSync('events', events, setEvents);
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchEventsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_events.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setEvents(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for events, falling back to local storage', error);
-      }
-    };
-    fetchEventsFromMySQL();
-  }, []);
-  
   const [feedbacks, setFeedbacks] = useState<TeacherFeedback[]>(() => loadFromStorage<TeacherFeedback[]>('feedbacks', INITIAL_FEEDBACKS));
   useEffect(() => {
     const unsubscribe = setupGenericSync('feedbacks', feedbacks, setFeedbacks);
@@ -345,24 +212,11 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchMaterialsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_materials.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setMaterials(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for materials, falling back to local storage', error);
-      }
-    };
-    fetchMaterialsFromMySQL();
-  }, []);
-  
   const [virtualMeets, setVirtualMeets] = useState<any[]>(() => loadFromStorage<any[]>('virtual_meets', []));
+  useEffect(() => {
+    const unsubscribe = setupGenericSync('virtual_meets', virtualMeets, setVirtualMeets);
+    return () => unsubscribe();
+  }, []);
   
   const [assignments, setAssignments] = useState<AssignmentTask[]>(() => loadFromStorage<AssignmentTask[]>('assignments', INITIAL_ASSIGNMENTS));
   useEffect(() => {
@@ -370,46 +224,12 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchAssignmentsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_assignments.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setAssignments(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for assignments, falling back to local storage', error);
-      }
-    };
-    fetchAssignmentsFromMySQL();
-  }, []);
-  
   const [submissions, setSubmissions] = useState<AssignmentSubmission[]>(() => loadFromStorage<AssignmentSubmission[]>('submissions', INITIAL_SUBMISSIONS));
   useEffect(() => {
     const unsubscribe = setupGenericSync('submissions', submissions, setSubmissions);
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchSubmissionsFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_submissions.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setSubmissions(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for submissions, falling back to local storage', error);
-      }
-    };
-    fetchSubmissionsFromMySQL();
-  }, []);
-  
   const [grades, setGrades] = useState<StudentGradeRecord[]>(() => {
     const saved = loadFromStorage<StudentGradeRecord[]>('student_grades', []);
     if (saved && saved.length > 0) return saved;
@@ -427,24 +247,6 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchGradesFromMySQL = async () => {
-      try {
-        const response = await fetch(HOSTINGER_BASE + '/api/get_grades.php');
-        if (response.ok) {
-          const result = await response.json();
-          if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-            setGrades(result.data);
-          }
-        }
-      } catch (error) {
-        console.log('API fetch failed for grades, falling back to local storage', error);
-      }
-    };
-    fetchGradesFromMySQL();
-  }, []);
-
-  
   const [elearningSubTab, setElearningSubTab] = useState<'materials' | 'meet' | 'assignments'>('materials');
 
   // Real-time Push Toaster & Sound States
