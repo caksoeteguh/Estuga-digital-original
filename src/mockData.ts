@@ -993,6 +993,19 @@ export const saveToStorage = async <T>(key: string, value: T): Promise<void> => 
                doc_data: payloadToSync
             })
          });
+         
+         // ALSO sync to Relational DB if it's one of the supported tables
+         const relationalTables = ['students', 'teachers', 'attendance', 'prayer_attendance', 'journals', 'exams', 'results', 'events', 'materials', 'assignments', 'submissions', 'student_grades'];
+         if (relationalTables.includes(key)) {
+             await fetch('/api/save_relational.php', {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify({
+                     table: key,
+                     data: value
+                 })
+             });
+         }
       } catch (e) {
          console.warn("Failed to sync to API. Data saved locally.", e);
       }
