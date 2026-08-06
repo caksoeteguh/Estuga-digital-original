@@ -3,28 +3,26 @@ name: Deploy to Hostinger
 on:
   push:
     branches:
-      - main # Ubah ke 'master' jika branch utama Anda adalah master
+      - main
+      - master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '18'
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Project (Vite + React)
+      - name: Build Project
         run: npm run build
-        
-      # Vite secara otomatis akan menyalin semua file di folder /public (termasuk .htaccess dan file PHP) ke dalam folder /dist
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -32,9 +30,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/ # Hanya mengupload hasil build
-          server-dir: ./public_html/ # Sesuaikan jika Anda menggunakan subdomain (misal: ./domains/domainanda.com/public_html/)
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
+          local-dir: ./dist/
+          server-dir: /public_html/
