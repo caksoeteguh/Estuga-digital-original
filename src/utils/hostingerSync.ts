@@ -1,7 +1,7 @@
 export const HOSTINGER_BASE = window.location.hostname === 'localhost' || window.location.hostname.includes('run.app') ? 'https://kelas6.estugadigital.online' : '';
 
 export const syncToHostinger = async (key: string, data: any) => {
-  if (!HOSTINGER_BASE) return false;
+  
   try {
     const response = await fetch(`${HOSTINGER_BASE}/api.php?action=save&key=${key}`, {
       method: 'POST',

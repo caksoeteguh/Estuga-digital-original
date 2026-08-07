@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Student, Teacher } from '../types';
 import * as XLSX from 'xlsx';
 import { syncAllToServer } from '../mockData';
-import { 
+import { Database,  
   Users, 
   UserPlus, 
   Download, 
@@ -21,7 +21,7 @@ import {
   Check,
   X,
   Printer
-} from 'lucide-react';
+ } from 'lucide-react';
 import StudentIdCard from './StudentIdCard';
 import StaffIdCard from './StaffIdCard';
 import StudentBarcode from './StudentBarcode';

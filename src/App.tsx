@@ -435,11 +435,15 @@ export default function App() {
         };
 
         const success = await runFullHostingerBackup(allStates);
+        // Selalu catat waktu percobaan sync hari ini, sukses maupun gagal
+        // agar tidak terjadi spam notifikasi berulang setiap menit.
+        localStorage.setItem('last_hostinger_sync', todayStr);
+
         if (success) {
-          localStorage.setItem('last_hostinger_sync', todayStr);
           addNotification('Backup otomatis ke Hostinger berhasil dilakukan!', 'success');
         } else {
-          addNotification('Sebagian backup otomatis ke Hostinger gagal. Akan dicoba lagi nanti.', 'error');
+          console.warn('Backup otomatis ke Hostinger gagal. Pastikan endpoint api.php sudah ada di server.');
+          // addNotification('Sebagian backup otomatis ke Hostinger gagal, namun akan dicoba lagi besok.', 'error'); // Bisa di-uncomment jika butuh notifikasi, saat ini kita silent saja agar tidak mengganggu
         }
       }
     };
