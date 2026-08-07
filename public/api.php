@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // KONFIGURASI DATABASE MYSQL HOSTINGER
 // ==========================================
 $host = 'localhost';
-$db   = 'NAMA_DATABASE_ANDA'; // Ganti dengan nama database di Hostinger
-$user = 'USER_DATABASE_ANDA'; // Ganti dengan user database di Hostinger
-$pass = 'PASSWORD_DATABASE_ANDA'; // Ganti dengan password database
+$db   = 'u263814864_kelas6'; // Ganti dengan nama database di Hostinger
+$user = 'u263814864_user_kelas6'; // Ganti dengan user database di Hostinger
+$pass = 'ilham@ERNA092420'; // Ganti dengan password database
 
 $mysqli = new mysqli($host, $user, $pass, $db);
 
