@@ -408,7 +408,7 @@ export default function App() {
     const checkAndSync = async () => {
       // Get current time in WIB (Jakarta)
       const now = new Date();
-      const options = { timeZone: 'Asia/Jakarta', hour12: false, hour: 'numeric', minute: 'numeric', year: 'numeric', month: 'numeric', day: 'numeric' };
+      const options: Intl.DateTimeFormatOptions = { timeZone: 'Asia/Jakarta', hour12: false, hour: 'numeric', minute: 'numeric', year: 'numeric', month: 'numeric', day: 'numeric' };
       const parts = new Intl.DateTimeFormat('id-ID', options).formatToParts(now);
       
       let hour = 0, minute = 0, year = 0, month = 0, day = 0;
@@ -441,10 +441,10 @@ export default function App() {
         localStorage.setItem('last_hostinger_sync', todayStr);
 
         if (success) {
-          addNotification('Backup otomatis ke Hostinger berhasil dilakukan!', 'success');
+          addNotification('Backup otomatis ke Hostinger berhasil dilakukan!', 'system');
         } else {
           console.warn('Backup otomatis ke Hostinger gagal. Pastikan endpoint api.php sudah ada di server.');
-          // addNotification('Sebagian backup otomatis ke Hostinger gagal, namun akan dicoba lagi besok.', 'error'); // Bisa di-uncomment jika butuh notifikasi, saat ini kita silent saja agar tidak mengganggu
+          // addNotification('Sebagian backup otomatis ke Hostinger gagal, namun akan dicoba lagi besok.', 'system'); // Bisa di-uncomment jika butuh notifikasi, saat ini kita silent saja agar tidak mengganggu
         }
       }
     };
@@ -452,7 +452,7 @@ export default function App() {
     
     const handleManualBackup = async () => {
       console.log('Running manual Hostinger backup...');
-      addNotification('Memulai backup manual ke Hostinger...', 'info');
+      addNotification('Memulai backup manual ke Hostinger...', 'system');
       
       const allStates = {
         students, teachers, attendance, prayer_attendance: prayerAttendance,
@@ -463,9 +463,9 @@ export default function App() {
 
       const success = await runFullHostingerBackup(allStates);
       if (success) {
-        addNotification('Backup manual ke Hostinger berhasil dilakukan!', 'success');
+        addNotification('Backup manual ke Hostinger berhasil dilakukan!', 'system');
       } else {
-        addNotification('Sebagian backup manual ke Hostinger gagal. Cek koneksi Anda.', 'error');
+        addNotification('Sebagian backup manual ke Hostinger gagal. Cek koneksi Anda.', 'system');
       }
     };
 

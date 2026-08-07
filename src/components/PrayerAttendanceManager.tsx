@@ -1,9 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { Student, PrayerAttendance } from '../types';
-import { Calendar, CheckCircle, XCircle, Search, Filter } from 'lucide-react';
+import { Calendar, CheckCircle, XCircle, Search, Filter, Download } from 'lucide-react';
 import SholatDhuhurWidget from './SholatDhuhurWidget';
+import * as XLSX from 'xlsx';
 
 interface PrayerAttendanceManagerProps {
+
   students: Student[];
   prayerAttendance: PrayerAttendance[];
   onAddPrayerAttendance: (att: PrayerAttendance) => void;
@@ -88,11 +90,60 @@ export default function PrayerAttendanceManager({
     return prayerAttendance.find(a => a.studentId === studentId && a.date === selectedDate && a.type === prayerType);
   };
 
+  const handleExportExcel = () => {
+    const dataToExport = filteredStudents.map((student, index) => {
+      const att = getAttendanceForStudent(student.id);
+      return {
+        'No': index + 1,
+        'NIS': student.id,
+        'Nama Siswa': student.name,
+        'Kelas': student.className,
+        'Tanggal': selectedDate,
+        'Sholat': prayerType === 'sholat_dhuhur' ? 'Dhuhur' : 'Jumat',
+        'Status': att?.status === 'hadir' ? 'Hadir' : att?.status === 'tidak_hadir' ? 'Tidak Hadir' : 'Belum Diisi',
+        'Keterangan': att?.reason || '-'
+      };
+    });
+
+    if (dataToExport.length === 0) {
+      alert("Tidak ada data untuk diekspor pada filter ini.");
+      return;
+    }
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Rekap Sholat");
+    
+    // Auto-size columns
+    const wscols = [
+      {wch: 5},
+      {wch: 15},
+      {wch: 35},
+      {wch: 15},
+      {wch: 15},
+      {wch: 15},
+      {wch: 15},
+      {wch: 25},
+    ];
+    ws['!cols'] = wscols;
+
+    XLSX.writeFile(wb, `Rekap_Sholat_${prayerType}_${selectedDate}.xlsx`);
+  };
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Jurnal Sholat Berjamaah</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Pantau dan kelola kehadiran sholat jamaah siswa kelas 3-6.</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Jurnal Sholat Berjamaah</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Pantau dan kelola kehadiran sholat jamaah siswa kelas 3-6.</p>
+        </div>
+        <button
+          onClick={handleExportExcel}
+          className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-semibold transition-colors"
+        >
+          <Download className="w-4 h-4" />
+          Ekspor Excel
+        </button>
       </div>
 
       <SholatDhuhurWidget prayerAttendance={prayerAttendance} students={students} />

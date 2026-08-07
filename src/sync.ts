@@ -9,7 +9,8 @@ export const setupAggregatedSync = <T extends { id?: string }>(
   const docRef = doc(db, 'app_state', key);
   
   const unsubscribe = onSnapshot(docRef, (snapshot) => {
-    if (window.FIREBASE_QUOTA_EXCEEDED) return;
+    if ((window as any).FIREBASE_QUOTA_EXCEEDED) return;
+    if (snapshot.metadata.fromCache) return; // Mencegah data lama dari cache menimpa data lokal baru
     if (snapshot.exists()) {
       const data = snapshot.data();
       if (data && data.items) {
@@ -21,10 +22,14 @@ export const setupAggregatedSync = <T extends { id?: string }>(
       }
     }
   }, (error) => {
-    console.error("Firestore sync error for", key, error);
     if (error.message && error.message.includes("Quota exceeded")) {
-       window.FIREBASE_QUOTA_EXCEEDED = true;
-       alert("🚨 Firebase Quota Exceeded! Aplikasi akan beralih ke Mode Lokal Sementara. Data yang Anda ubah hari ini mungkin tidak tersinkronisasi ke pengguna lain sampai besok. Jangan hapus cache browser Anda.");
+       if (!(window as any).FIREBASE_QUOTA_EXCEEDED) {
+           (window as any).FIREBASE_QUOTA_EXCEEDED = true;
+           alert("🚨 Kuota Server Tersinkronisasi (Firebase) telah habis untuk hari ini. Aplikasi otomatis beralih ke Mode Lokal (Offline). Data Anda aman di perangkat ini, namun tidak akan tersinkronisasi ke perangkat lain hingga kuota di-reset besok.");
+       }
+       console.warn("Firestore sync paused for", key, "due to Quota Exceeded (switching to local).");
+    } else {
+       console.error("Firestore sync error for", key, error);
     }
   });
 
@@ -64,8 +69,12 @@ export const saveAggregatedToFirestore = async <T extends { id?: string }>(key: 
         transaction.set(docRef, { items: mergedItems });
       }
     });
-  } catch (e) {
-    console.error("Transaction failed: ", e);
+  } catch (e: any) {
+    if (e.message && e.message.includes("Quota exceeded")) {
+      console.warn("Transaction skipped due to Quota Exceeded (saved locally instead).");
+    } else {
+      console.error("Transaction failed: ", e);
+    }
   }
 };
 
@@ -76,7 +85,8 @@ export const setupMetadataSync = (
 ) => {
   const metaRef = doc(db, 'app_state', 'metadata');
   const unsubscribe = onSnapshot(metaRef, (snapshot) => {
-    if (window.FIREBASE_QUOTA_EXCEEDED) return;
+    if ((window as any).FIREBASE_QUOTA_EXCEEDED) return;
+    if (snapshot.metadata.fromCache) return; // Mencegah data lama dari cache menimpa data lokal baru
     if (snapshot.exists()) {
       const data = snapshot.data();
       if (data.schoolIdentity) setLocalIdentity(data.schoolIdentity);
@@ -90,9 +100,11 @@ export const setupMetadataSync = (
        }).catch(console.error);
     }
   }, (err) => {
-    console.error(err);
     if (err.message && err.message.includes("Quota exceeded")) {
-       window.FIREBASE_QUOTA_EXCEEDED = true;
+       (window as any).FIREBASE_QUOTA_EXCEEDED = true;
+       console.warn("Firestore metadata sync paused due to Quota Exceeded.");
+    } else {
+       console.error("Firestore metadata sync error:", err);
     }
   });
   return unsubscribe;
@@ -107,7 +119,11 @@ export const updateMetadataInFirestore = async (
       schoolClasses: classes,
       schoolSubjects: subjects
     }, { merge: true });
-  } catch (err) {
-    console.error("Failed to update metadata", err);
+  } catch (err: any) {
+    if (err.message && err.message.includes("Quota exceeded")) {
+       console.warn("Failed to update metadata: Quota Exceeded.");
+    } else {
+       console.error("Failed to update metadata", err);
+    }
   }
 };
