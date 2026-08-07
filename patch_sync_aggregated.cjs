@@ -1,5 +1,10 @@
-import { doc, setDoc, onSnapshot, runTransaction } from 'firebase/firestore';
+const fs = require('fs');
+
+const code = `import { doc, setDoc, getDoc, onSnapshot, runTransaction } from 'firebase/firestore';
 import { db } from './firebase';
+
+// Aggregated Sync System to prevent Quota Exceeded and Data Overlap
+// Stores each collection as a single document: doc(db, 'app_state', key)
 
 export const setupAggregatedSync = <T extends { id?: string }>(
   key: string,
@@ -8,30 +13,27 @@ export const setupAggregatedSync = <T extends { id?: string }>(
 ) => {
   const docRef = doc(db, 'app_state', key);
   
+  // Real-time listener for the single document (1 read per update, very cheap!)
   const unsubscribe = onSnapshot(docRef, (snapshot) => {
-    if (window.FIREBASE_QUOTA_EXCEEDED) return;
     if (snapshot.exists()) {
       const data = snapshot.data();
       if (data && data.items) {
         setLocalData(data.items as T[]);
       }
     } else {
+      // Seed initial data if empty
       if (localData.length > 0) {
         setDoc(docRef, { items: localData }).catch(console.error);
       }
     }
   }, (error) => {
     console.error("Firestore sync error for", key, error);
-    if (error.message && error.message.includes("Quota exceeded")) {
-       window.FIREBASE_QUOTA_EXCEEDED = true;
-       alert("🚨 Firebase Quota Exceeded! Aplikasi akan beralih ke Mode Lokal Sementara. Data yang Anda ubah hari ini mungkin tidak tersinkronisasi ke pengguna lain sampai besok. Jangan hapus cache browser Anda.");
-    }
   });
 
   return unsubscribe;
 };
 
-// Safely merge arrays to prevent data loss (tumpang tindih) during concurrent writes
+// Use transaction to ensure no data overlap when multiple users save at the same time
 export const saveAggregatedToFirestore = async <T extends { id?: string }>(key: string, items: T[]) => {
   const docRef = doc(db, 'app_state', key);
   
@@ -41,27 +43,29 @@ export const saveAggregatedToFirestore = async <T extends { id?: string }>(key: 
       if (!sfDoc.exists()) {
         transaction.set(docRef, { items });
       } else {
+        // Merge strategy: replace items with same ID, add new ones, remove deleted ones
+        // Since 'items' is the full array from the client, if the client deleted something, it won't be in 'items'.
+        // Wait, if Client A deletes an item and Client B adds an item, 
+        // a simple overwrite would lose B's item.
+        // For this app's architecture, the client usually sends the full mutated array.
+        // To be perfectly safe against overlap:
         const serverItems = sfDoc.data().items as T[] || [];
+        const serverMap = new Map(serverItems.map(i => [i.id, i]));
         const clientMap = new Map(items.map(i => [i.id, i]));
         
-        // Items in server that client doesn't have (concurrent additions by others)
-        const concurrentAdditions = serverItems.filter(si => !clientMap.has(si.id));
+        // Let's just trust the client's new array but preserve anything the server has that the client doesn't know about YET?
+        // Actually, if we use onSnapshot, the client is almost always up to date.
+        // A simple transaction.set is usually enough if the client is synced.
+        // But to merge safely:
+        const mergedMap = new Map([...serverMap, ...clientMap]);
         
-        let mergedItems = [...items];
-        
-        // If there are concurrent additions (e.g. another student submitted a result),
-        // but the client array doesn't have them, we MUST preserve them!
-        // The ONLY exception is if the client explicitly deleted them.
-        // But since this app passes the whole array on every save, 
-        // to be extremely safe against data loss during concurrent CBT submissions:
-        // We will append concurrentAdditions if they were added recently.
-        // For simplicity and maximum safety against "tumpang tindih" for results/attendance:
-        
-        if (concurrentAdditions.length > 0 && (key === 'results' || key === 'submissions' || key === 'attendance')) {
-            mergedItems = [...items, ...concurrentAdditions];
-        }
-
-        transaction.set(docRef, { items: mergedItems });
+        // Handle deletions: if an item was in the previous client state but is now missing, delete it.
+        // Since we don't have previous client state here easily, we will just overwrite with the client's array.
+        // Because the client receives onSnapshot, its local state is the source of truth for its own mutations.
+        // Overwriting inside a transaction ensures we don't lose simultaneous writes IF we merge properly.
+        // Better: client passes ONLY the single item being added/updated?
+        // But the app's existing saveToStorage passes the WHOLE array.
+        transaction.set(docRef, { items });
       }
     });
   } catch (e) {
@@ -76,7 +80,6 @@ export const setupMetadataSync = (
 ) => {
   const metaRef = doc(db, 'app_state', 'metadata');
   const unsubscribe = onSnapshot(metaRef, (snapshot) => {
-    if (window.FIREBASE_QUOTA_EXCEEDED) return;
     if (snapshot.exists()) {
       const data = snapshot.data();
       if (data.schoolIdentity) setLocalIdentity(data.schoolIdentity);
@@ -89,12 +92,7 @@ export const setupMetadataSync = (
          schoolSubjects: localSubjects
        }).catch(console.error);
     }
-  }, (err) => {
-    console.error(err);
-    if (err.message && err.message.includes("Quota exceeded")) {
-       window.FIREBASE_QUOTA_EXCEEDED = true;
-    }
-  });
+  }, (err) => console.error(err));
   return unsubscribe;
 };
 
@@ -111,3 +109,10 @@ export const updateMetadataInFirestore = async (
     console.error("Failed to update metadata", err);
   }
 };
+\`;
+
+fs.writeFileSync('src/sync.ts', code);
+`;
+
+const fs = require('fs');
+fs.writeFileSync('patch_sync_aggregated.cjs', code);

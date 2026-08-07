@@ -1,4 +1,6 @@
-import { doc, setDoc, onSnapshot, runTransaction } from 'firebase/firestore';
+const fs = require('fs');
+
+const code = `import { doc, setDoc, onSnapshot, runTransaction } from 'firebase/firestore';
 import { db } from './firebase';
 
 export const setupAggregatedSync = <T extends { id?: string }>(
@@ -9,7 +11,6 @@ export const setupAggregatedSync = <T extends { id?: string }>(
   const docRef = doc(db, 'app_state', key);
   
   const unsubscribe = onSnapshot(docRef, (snapshot) => {
-    if (window.FIREBASE_QUOTA_EXCEEDED) return;
     if (snapshot.exists()) {
       const data = snapshot.data();
       if (data && data.items) {
@@ -22,10 +23,6 @@ export const setupAggregatedSync = <T extends { id?: string }>(
     }
   }, (error) => {
     console.error("Firestore sync error for", key, error);
-    if (error.message && error.message.includes("Quota exceeded")) {
-       window.FIREBASE_QUOTA_EXCEEDED = true;
-       alert("🚨 Firebase Quota Exceeded! Aplikasi akan beralih ke Mode Lokal Sementara. Data yang Anda ubah hari ini mungkin tidak tersinkronisasi ke pengguna lain sampai besok. Jangan hapus cache browser Anda.");
-    }
   });
 
   return unsubscribe;
@@ -76,7 +73,6 @@ export const setupMetadataSync = (
 ) => {
   const metaRef = doc(db, 'app_state', 'metadata');
   const unsubscribe = onSnapshot(metaRef, (snapshot) => {
-    if (window.FIREBASE_QUOTA_EXCEEDED) return;
     if (snapshot.exists()) {
       const data = snapshot.data();
       if (data.schoolIdentity) setLocalIdentity(data.schoolIdentity);
@@ -89,12 +85,7 @@ export const setupMetadataSync = (
          schoolSubjects: localSubjects
        }).catch(console.error);
     }
-  }, (err) => {
-    console.error(err);
-    if (err.message && err.message.includes("Quota exceeded")) {
-       window.FIREBASE_QUOTA_EXCEEDED = true;
-    }
-  });
+  }, (err) => console.error(err));
   return unsubscribe;
 };
 
@@ -111,3 +102,6 @@ export const updateMetadataInFirestore = async (
     console.error("Failed to update metadata", err);
   }
 };
+`;
+
+fs.writeFileSync('src/sync.ts', code);

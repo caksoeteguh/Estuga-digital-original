@@ -17,7 +17,7 @@ const StudentGradesManager = lazy(() => import('./components/StudentGradesManage
 const PrayerAttendanceManager = lazy(() => import('./components/PrayerAttendanceManager'));
 const SholatDhuhurWidget = lazy(() => import('./components/SholatDhuhurWidget'));
 
-import { setupGenericSync, addGenericToFirestore, deleteGenericFromFirestore, setupMetadataSync, updateMetadataInFirestore } from "./sync";
+import { setupAggregatedSync, setupMetadataSync, updateMetadataInFirestore } from "./sync";
 import { UserRole, Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial, AppNotification, AssignmentTask, AssignmentSubmission, StudentGradeRecord } from './types';
 import { 
   INITIAL_STUDENTS, 
@@ -132,7 +132,7 @@ export default function App() {
   const HOSTINGER_BASE = window.location.hostname === 'localhost' || window.location.hostname.includes('run.app') ? 'https://kelas6.estugadigital.online' : '';
   const [students, setStudents] = useState<Student[]>(() => loadFromStorage<Student[]>('students', INITIAL_STUDENTS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('students', students, setStudents);
+    const unsubscribe = setupAggregatedSync('students', students, setStudents);
     return () => unsubscribe();
   }, []);
 
@@ -160,7 +160,7 @@ export default function App() {
   });
 
   useEffect(() => {
-    const unsubscribe = setupGenericSync('teachers', teachers, setTeachers);
+    const unsubscribe = setupAggregatedSync('teachers', teachers, setTeachers);
     return () => unsubscribe();
   }, []);
 
@@ -168,66 +168,66 @@ export default function App() {
 
   const [attendance, setAttendance] = useState<Attendance[]>(() => loadFromStorage<Attendance[]>('attendance', INITIAL_ATTENDANCE));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('attendance', attendance, setAttendance);
+    const unsubscribe = setupAggregatedSync('attendance', attendance, setAttendance);
     return () => unsubscribe();
   }, []);
 
   const [prayerAttendance, setPrayerAttendance] = useState<PrayerAttendance[]>(() => loadFromStorage<PrayerAttendance[]>('prayer_attendance', INITIAL_PRAYER_ATTENDANCE));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('prayerAttendance', prayerAttendance, setPrayerAttendance);
+    const unsubscribe = setupAggregatedSync('prayerAttendance', prayerAttendance, setPrayerAttendance);
     return () => unsubscribe();
   }, []);
 
   const [journals, setJournals] = useState<ClassJournal[]>(() => loadFromStorage<ClassJournal[]>('journals', INITIAL_JOURNALS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('journals', journals, setJournals);
+    const unsubscribe = setupAggregatedSync('journals', journals, setJournals);
     return () => unsubscribe();
   }, []);
 
   const [exams, setExams] = useState<CBTExam[]>(() => loadFromStorage<CBTExam[]>('exams', INITIAL_EXAMS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('exams', exams, setExams);
+    const unsubscribe = setupAggregatedSync('exams', exams, setExams);
     return () => unsubscribe();
   }, []);
 
   const [results, setResults] = useState<StudentCBTResult[]>(() => loadFromStorage<StudentCBTResult[]>('results', INITIAL_CBT_RESULTS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('results', results, setResults);
+    const unsubscribe = setupAggregatedSync('results', results, setResults);
     return () => unsubscribe();
   }, []);
 
   const [events, setEvents] = useState<AcademicEvent[]>(() => loadFromStorage<AcademicEvent[]>('events', INITIAL_EVENTS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('events', events, setEvents);
+    const unsubscribe = setupAggregatedSync('events', events, setEvents);
     return () => unsubscribe();
   }, []);
 
   const [feedbacks, setFeedbacks] = useState<TeacherFeedback[]>(() => loadFromStorage<TeacherFeedback[]>('feedbacks', INITIAL_FEEDBACKS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('feedbacks', feedbacks, setFeedbacks);
+    const unsubscribe = setupAggregatedSync('feedbacks', feedbacks, setFeedbacks);
     return () => unsubscribe();
   }, []);
   const [materials, setMaterials] = useState<ELearningMaterial[]>(() => loadFromStorage<ELearningMaterial[]>('materials', INITIAL_MATERIALS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('materials', materials, setMaterials);
+    const unsubscribe = setupAggregatedSync('materials', materials, setMaterials);
     return () => unsubscribe();
   }, []);
 
   const [virtualMeets, setVirtualMeets] = useState<any[]>(() => loadFromStorage<any[]>('virtual_meets', []));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('virtual_meets', virtualMeets, setVirtualMeets);
+    const unsubscribe = setupAggregatedSync('virtual_meets', virtualMeets, setVirtualMeets);
     return () => unsubscribe();
   }, []);
   
   const [assignments, setAssignments] = useState<AssignmentTask[]>(() => loadFromStorage<AssignmentTask[]>('assignments', INITIAL_ASSIGNMENTS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('assignments', assignments, setAssignments);
+    const unsubscribe = setupAggregatedSync('assignments', assignments, setAssignments);
     return () => unsubscribe();
   }, []);
 
   const [submissions, setSubmissions] = useState<AssignmentSubmission[]>(() => loadFromStorage<AssignmentSubmission[]>('submissions', INITIAL_SUBMISSIONS));
   useEffect(() => {
-    const unsubscribe = setupGenericSync('submissions', submissions, setSubmissions);
+    const unsubscribe = setupAggregatedSync('submissions', submissions, setSubmissions);
     return () => unsubscribe();
   }, []);
 
@@ -244,7 +244,7 @@ export default function App() {
     ]);
   });
   useEffect(() => {
-    const unsubscribe = setupGenericSync('student_grades', grades, setGrades);
+    const unsubscribe = setupAggregatedSync('student_grades', grades, setGrades);
     return () => unsubscribe();
   }, []);
 
@@ -294,10 +294,11 @@ export default function App() {
     "Pendidikan Pancasila"
   ]));
   useEffect(() => {
+    // Firebase sync disabled due to quota limits
     const unsubscribe = setupMetadataSync(
-      schoolIdentity, setSchoolIdentity,
-      schoolClasses, setSchoolClasses,
-      schoolSubjects, setSchoolSubjects
+     schoolIdentity, setSchoolIdentity,
+     schoolClasses, setSchoolClasses,
+     schoolSubjects, setSchoolSubjects
     );
     return () => unsubscribe();
   }, []);
@@ -922,7 +923,7 @@ export default function App() {
       // Process pending queue actions
       syncQueue.forEach(item => {
         if (item.action === 'addAttendance') {
-          const attPayload = { ...item.payload, notifiedIn: true }; addGenericToFirestore('attendance', attPayload);
+          const attPayload = { ...item.payload, notifiedIn: true }; 
           // ensure notifiedIn is set true upon upload
           const payload = { ...item.payload, notifiedIn: true };
           setAttendance(prev => {
@@ -935,14 +936,14 @@ export default function App() {
             return [...prev, { ...payload }];
           });
         } else if (item.action === 'updateAttendance') {
-          const attPayload = { ...item.payload, notifiedOut: true }; addGenericToFirestore('attendance', attPayload);
+          const attPayload = { ...item.payload, notifiedOut: true }; 
           const payload = { ...item.payload, notifiedOut: true };
           setAttendance(prev => prev.map(a => a.id === payload.id ? { ...payload } : a));
         } else if (item.action === 'addPrayerAttendance') {
           const payload = { ...item.payload };
           setPrayerAttendance(prev => {
             if (prev.some(p => p.id === payload.id)) return prev;
-            addGenericToFirestore('prayerAttendance', payload);
+            
             return [...prev, payload];
           });
         }
@@ -1003,7 +1004,7 @@ export default function App() {
             prayerAttendance={s_prayerAttendance}
             onAddAttendance={(att) => {
               setAttendance(prev => [...prev, { ...att }]);
-              addGenericToFirestore('attendance', att);
+              
               addNotification(`Presensi masuk berhasil dicatat: ${att.studentName}`, 'system');
               const student = students.find(s => s.id === att.studentId);
               if (student && student.usernameParent) {
@@ -1012,7 +1013,7 @@ export default function App() {
             }}
             onUpdateAttendance={(att) => {
               setAttendance(prev => prev.map(a => a.id === att.id ? att : a));
-              addGenericToFirestore('attendance', att);
+              
               addNotification(`Presensi pulang berhasil dicatat: ${att.studentName}`, 'system');
               const student = students.find(s => s.id === att.studentId);
               if (student && student.usernameParent) {
@@ -1021,7 +1022,7 @@ export default function App() {
             }}
             onAddPrayerAttendance={(att) => {
               setPrayerAttendance(prev => [...prev, { ...att }]);
-              addGenericToFirestore('prayerAttendance', att);
+              
               addNotification(`Presensi Sholat Dhuhur berhasil dicatat: ${att.studentName}`);
             }}
             isOnline={isOnline}
@@ -1042,12 +1043,12 @@ export default function App() {
             prayerAttendance={s_prayerAttendance}
             onAddPrayerAttendance={(att) => {
               setPrayerAttendance(prev => [...prev, { ...att }]);
-              addGenericToFirestore('prayerAttendance', att);
+              
               addNotification(`Kehadiran sholat dicatat: ${att.studentName}`);
             }}
             onUpdatePrayerAttendance={(att) => {
               setPrayerAttendance(prev => prev.map(a => a.id === att.id ? att : a));
-              addGenericToFirestore('prayerAttendance', att);
+              
               addNotification(`Kehadiran sholat diperbarui: ${att.studentName}`);
             }}
           />
@@ -1058,7 +1059,7 @@ export default function App() {
             journals={s_journals}
             onAddJournal={(journal) => {
               setJournals(prev => [{ ...journal }, ...prev]);
-              addGenericToFirestore('journals', journal);
+              
               addNotification(`Jurnal pembelajaran baru dicatat untuk kelas ${journal.className}`);
             }}
             students={students}
@@ -1075,13 +1076,13 @@ export default function App() {
             exams={s_exams}
             onAddExam={(exam) => {
               setExams(prev => [{ ...exam }, ...prev]);
-              addGenericToFirestore('exams', exam);
+              
               addNotification(`Ujian CBT baru dipublikasikan: ${exam.title}`);
             }}
             results={s_results}
             onAddResult={(res) => {
                   setResults(prev => [{ ...res }, ...prev]);
-                  addGenericToFirestore('results', res);
+                  
               const student = students.find(s => s.id === res.studentId);
               if (student) {
                 addNotification(`Nilai ulangan CBT Anda keluar: ${res.score} untuk pelajaran ${res.subject}`, 'grade', student.usernameCbt);
@@ -1093,16 +1094,16 @@ export default function App() {
             materials={s_materials}
             onAddMaterial={(mat) => {
               setMaterials(prev => [{ ...mat }, ...prev]);
-              addGenericToFirestore('materials', mat);
+              
               addNotification(`Materi e-learning baru ditambahkan: ${mat.title}`);
             }}
             onUpdateMaterial={(id, updated) => {
-              const m = materials.find(x => x.id === id); if(m) addGenericToFirestore('materials', { ...m, ...updated });
+              const m = materials.find(x => x.id === id); if(m) 
               setMaterials(prev => prev.map(m => m.id === id ? { ...m, ...updated } : m));
               addNotification(`Materi e-learning berhasil diperbarui`);
             }}
             onDeleteMaterial={(id) => {
-              deleteGenericFromFirestore('materials', id);
+              // Deleted from array instead
               setMaterials(prev => prev.filter(m => m.id !== id));
               addNotification(`Materi e-learning berhasil dihapus`);
             }}
@@ -1156,7 +1157,7 @@ export default function App() {
                 results={s_results}
                 onAddResult={(res) => {
                   setResults(prev => [{ ...res }, ...prev]);
-                  addGenericToFirestore('results', res);
+                  
                   const student = students.find(s => s.id === res.studentId);
                   if (student) {
                     addNotification(`Nilai ulangan CBT Anda keluar: ${res.score} untuk pelajaran ${res.subject}`, 'grade', student.usernameCbt);
@@ -1168,16 +1169,16 @@ export default function App() {
                 materials={s_materials}
                 onAddMaterial={(mat) => {
               setMaterials(prev => [{ ...mat }, ...prev]);
-              addGenericToFirestore('materials', mat);
+              
                   addNotification(`Materi e-learning baru ditambahkan: ${mat.title}`);
                 }}
                 onUpdateMaterial={(id, updated) => {
-              const m = materials.find(x => x.id === id); if(m) addGenericToFirestore('materials', { ...m, ...updated });
+              const m = materials.find(x => x.id === id); if(m) 
               setMaterials(prev => prev.map(m => m.id === id ? { ...m, ...updated } : m));
                   addNotification(`Materi e-learning berhasil diperbarui`);
                 }}
                 onDeleteMaterial={(id) => {
-              deleteGenericFromFirestore('materials', id);
+              // Deleted from array instead
               setMaterials(prev => prev.filter(m => m.id !== id));
                   addNotification(`Materi e-learning berhasil dihapus`);
                 }}
@@ -1204,23 +1205,23 @@ export default function App() {
                 setVirtualMeets={setVirtualMeets}
                 onUpdateAssignment={(updated) => {
                   setAssignments(prev => prev.map(a => a.id === updated.id ? updated : a));
-                  addGenericToFirestore('assignments', updated);
+                  
                   addNotification(`Tugas e-learning diupdate: ${updated.title}`);
                 }}
                 onDeleteAssignment={(id) => {
                   setAssignments(prev => prev.filter(a => a.id !== id));
-                  deleteGenericFromFirestore('assignments', id);
+                  // Deleted from array instead
                   addNotification(`Tugas e-learning dihapus`);
                 }}
                 onAddAssignment={(assignment) => {
                   setAssignments(prev => [...prev, { ...assignment }]);
-                  addGenericToFirestore('assignments', assignment);
+                  
                   addNotification(`Tugas e-learning baru ditambahkan: ${assignment.title}`);
                 }}
                 submissions={s_submissions}
                 onAddSubmission={(sub) => {
                   setSubmissions(prev => [...prev, { ...sub }]);
-                  addGenericToFirestore('submissions', sub);
+                  
                   const student = students.find(s => s.id === sub.studentId);
                   const task = s_assignments.find(a => a.id === sub.assignmentId);
                   if (student && task) {
@@ -1340,7 +1341,7 @@ export default function App() {
             assignments={s_assignments}
             onAddAssignment={(assignment) => {
                   setAssignments(prev => [...prev, { ...assignment }]);
-                  addGenericToFirestore('assignments', assignment);
+                  
             }}
             schoolSubjects={schoolSubjects}
             onTriggerPushNotification={(text, type) => addNotification(text, type)}

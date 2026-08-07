@@ -1,4 +1,4 @@
-import { syncArrayToFirestore } from './utils/diffSync';
+import { saveAggregatedToFirestore } from './sync';
 import { Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial } from './types';
 
 // Mock Data Arrays
@@ -981,7 +981,7 @@ export const saveToStorage = async <T>(key: string, value: T): Promise<void> => 
       };
       
       if (collectionsMap[key] && Array.isArray(value)) {
-        syncArrayToFirestore(collectionsMap[key], value);
+        saveAggregatedToFirestore(collectionsMap[key], value as any[]);
       }
 
       
