@@ -64,3 +64,45 @@ export const setupPrayerAttendanceSync = (
 ) => setupGenericSync('prayerAttendance', localPrayerAttendance, setLocalPrayerAttendance);
 
 export const addPrayerAttendanceToFirestore = async (att: PrayerAttendance) => addGenericToFirestore('prayerAttendance', att);
+
+export const setupMetadataSync = (
+  localIdentity: any, setLocalIdentity: (data: any) => void,
+  localClasses: string[], setLocalClasses: (data: string[]) => void,
+  localSubjects: string[], setLocalSubjects: (data: string[]) => void
+) => {
+  
+  const metaRef = doc(db, 'settings', 'metadata');
+  let isInitialized = false;
+  const unsubscribe = onSnapshot(metaRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+      if (data.schoolIdentity) setLocalIdentity(data.schoolIdentity);
+      if (data.schoolClasses) setLocalClasses(data.schoolClasses);
+      if (data.schoolSubjects) setLocalSubjects(data.schoolSubjects);
+    } else if (!isInitialized) {
+       // Seed the database with local defaults if it doesn't exist
+       setDoc(metaRef, {
+         schoolIdentity: localIdentity,
+         schoolClasses: localClasses,
+         schoolSubjects: localSubjects
+       }).catch(console.error);
+    }
+    isInitialized = true;
+  });
+  return unsubscribe;
+};
+
+export const updateMetadataInFirestore = async (
+  identity: any, classes: string[], subjects: string[]
+) => {
+  try {
+    const { doc, setDoc } = await import('firebase/firestore');
+    await setDoc(doc(db, 'settings', 'metadata'), {
+      schoolIdentity: identity,
+      schoolClasses: classes,
+      schoolSubjects: subjects
+    }, { merge: true });
+  } catch (err) {
+    console.error("Failed to update metadata", err);
+  }
+};

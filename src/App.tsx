@@ -1,3 +1,4 @@
+import { runFullHostingerBackup } from './utils/hostingerSync';
 import AttendanceRecap from "./components/AttendanceRecap";
 
 import React, { useState, useEffect, lazy, Suspense } from 'react';
@@ -16,7 +17,7 @@ const StudentGradesManager = lazy(() => import('./components/StudentGradesManage
 const PrayerAttendanceManager = lazy(() => import('./components/PrayerAttendanceManager'));
 const SholatDhuhurWidget = lazy(() => import('./components/SholatDhuhurWidget'));
 
-import { setupGenericSync, addGenericToFirestore, deleteGenericFromFirestore } from "./sync";
+import { setupGenericSync, addGenericToFirestore, deleteGenericFromFirestore, setupMetadataSync, updateMetadataInFirestore } from "./sync";
 import { UserRole, Student, Teacher, Attendance, PrayerAttendance, ClassJournal, CBTExam, StudentCBTResult, AcademicEvent, TeacherFeedback, ELearningMaterial, AppNotification, AssignmentTask, AssignmentSubmission, StudentGradeRecord } from './types';
 import { 
   INITIAL_STUDENTS, 
@@ -128,7 +129,7 @@ export default function App() {
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
 
   // Academic Database States
-  const HOSTINGER_BASE = window.location.hostname === 'localhost' || window.location.hostname.includes('run.app') ? 'https://estugadigital.online' : '';
+  const HOSTINGER_BASE = window.location.hostname === 'localhost' || window.location.hostname.includes('run.app') ? 'https://kelas6.estugadigital.online' : '';
   const [students, setStudents] = useState<Student[]>(() => loadFromStorage<Student[]>('students', INITIAL_STUDENTS));
   useEffect(() => {
     const unsubscribe = setupGenericSync('students', students, setStudents);
@@ -292,6 +293,18 @@ export default function App() {
     "Bahasa Inggris",
     "Pendidikan Pancasila"
   ]));
+  useEffect(() => {
+    const unsubscribe = setupMetadataSync(
+      schoolIdentity, setSchoolIdentity,
+      schoolClasses, setSchoolClasses,
+      schoolSubjects, setSchoolSubjects
+    );
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    updateMetadataInFirestore(schoolIdentity, schoolClasses, schoolSubjects);
+  }, [schoolIdentity, schoolClasses, schoolSubjects]);
 
   // In-app interactive notifications center synced via Firebase Realtime
   const [notifications, setNotifications] = useState<AppNotification[]>(() => loadFromStorage<AppNotification[]>('app_notifications', []));
@@ -386,7 +399,83 @@ export default function App() {
   ]);
 
   // Sync to localStorage whenever states change
-  useEffect(() => { saveToStorage('is_dark', isDark); }, [isDark]);
+
+  // Hostinger Auto-Sync Logic (Every Day at 01:00 WIB)
+  useEffect(() => {
+    if (session?.role !== 'adminutama' && session?.role !== 'admin') return;
+
+    const checkAndSync = async () => {
+      // Get current time in WIB (Jakarta)
+      const now = new Date();
+      const options = { timeZone: 'Asia/Jakarta', hour12: false, hour: 'numeric', minute: 'numeric', year: 'numeric', month: 'numeric', day: 'numeric' };
+      const parts = new Intl.DateTimeFormat('id-ID', options).formatToParts(now);
+      
+      let hour = 0, minute = 0, year = 0, month = 0, day = 0;
+      parts.forEach(p => {
+        if (p.type === 'hour') hour = parseInt(p.value);
+        if (p.type === 'minute') minute = parseInt(p.value);
+        if (p.type === 'year') year = parseInt(p.value);
+        if (p.type === 'month') month = parseInt(p.value);
+        if (p.type === 'day') day = parseInt(p.value);
+      });
+
+      const todayStr = `${year}-${month}-${day}`;
+      const lastSync = localStorage.getItem('last_hostinger_sync');
+
+      // If it's past 01:00 AM and hasn't synced today
+      if (hour >= 1 && lastSync !== todayStr) {
+        console.log('Running scheduled Hostinger backup...');
+        addNotification('Memulai backup otomatis ke Hostinger (Jadwal 01:00 WIB)...');
+        
+        const allStates = {
+          students, teachers, attendance, prayer_attendance: prayerAttendance,
+          journals, exams, results, events, feedbacks, materials, virtual_meets: virtualMeets,
+          assignments, submissions, student_grades: grades,
+          school_identity: schoolIdentity, school_classes: schoolClasses, school_subjects: schoolSubjects
+        };
+
+        const success = await runFullHostingerBackup(allStates);
+        if (success) {
+          localStorage.setItem('last_hostinger_sync', todayStr);
+          addNotification('Backup otomatis ke Hostinger berhasil dilakukan!', 'success');
+        } else {
+          addNotification('Sebagian backup otomatis ke Hostinger gagal. Akan dicoba lagi nanti.', 'error');
+        }
+      }
+    };
+
+    
+    const handleManualBackup = async () => {
+      console.log('Running manual Hostinger backup...');
+      addNotification('Memulai backup manual ke Hostinger...', 'info');
+      
+      const allStates = {
+        students, teachers, attendance, prayer_attendance: prayerAttendance,
+        journals, exams, results, events, feedbacks, materials, virtual_meets: virtualMeets,
+        assignments, submissions, student_grades: grades,
+        school_identity: schoolIdentity, school_classes: schoolClasses, school_subjects: schoolSubjects
+      };
+
+      const success = await runFullHostingerBackup(allStates);
+      if (success) {
+        addNotification('Backup manual ke Hostinger berhasil dilakukan!', 'success');
+      } else {
+        addNotification('Sebagian backup manual ke Hostinger gagal. Cek koneksi Anda.', 'error');
+      }
+    };
+
+    window.addEventListener('trigger-hostinger-backup', handleManualBackup);
+
+    const interval = setInterval(checkAndSync, 60000); // Check every minute
+    checkAndSync(); // Initial check
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('trigger-hostinger-backup', handleManualBackup);
+    };
+  }, [session, students, teachers, attendance, prayerAttendance, journals, exams, results, events, feedbacks, materials, virtualMeets, assignments, submissions, grades, schoolIdentity, schoolClasses, schoolSubjects]);
+
+    useEffect(() => { saveToStorage('is_dark', isDark); }, [isDark]);
   useEffect(() => {
     saveToStorage('login_session', session);
     if (session) {

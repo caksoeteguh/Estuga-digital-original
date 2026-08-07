@@ -2281,6 +2281,34 @@ export default function DataImporter({
             </div>
           </div>
           
+          
+          
+          
+          
+          
+          
+          
+          {/* --- NEW SECTION: DATABASE BACKUP --- */}
+          <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-xl dark:bg-indigo-950/20 dark:border-indigo-900/50 mb-6">
+            <h3 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 flex items-center gap-1.5 mb-2">
+              <Database size={16} className="text-indigo-600 dark:text-indigo-400" />
+              Backup Manual ke Database Server
+            </h3>
+            <p className="text-xs text-indigo-700/80 dark:text-indigo-400/80 mb-3">
+              Data aplikasi secara otomatis dibackup setiap pukul 01:00 WIB dinihari ke server Hostinger (kelas6.estugadigital.online). Anda juga dapat memaksa backup seketika ke database server menggunakan tombol di bawah ini.
+            </p>
+            <button
+              onClick={() => {
+                if (confirm('Apakah Anda yakin ingin melakukan backup seluruh data ke database server Hostinger sekarang?')) {
+                  window.dispatchEvent(new CustomEvent('trigger-hostinger-backup'));
+                }
+              }}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs"
+            >
+              Backup Sekarang
+            </button>
+          </div>
+          
           {/* --- NEW SECTION: DOWNLOAD EXCEL TEMPLATES --- */}
           <div className="border-t dark:border-[#3e405b]/40 pt-5 space-y-4">
             <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1.5">

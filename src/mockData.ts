@@ -932,8 +932,8 @@ export const loadFromStorage = <T>(key: string, defaultValue: T): T => {
   }
 };
 
-const HOSTINGER_BASE = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname.includes('run.app')) ? 'https://estugadigital.online' : '';
-const API_URL = 'https://estugadigital.online/api/sync.php';
+const HOSTINGER_BASE = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname.includes('run.app')) ? 'https://kelas6.estugadigital.online' : '';
+const API_URL = 'https://kelas6.estugadigital.online/api/sync.php';
 
 export const saveToStorage = async <T>(key: string, value: T): Promise<void> => {
   if (typeof window !== 'undefined') {
